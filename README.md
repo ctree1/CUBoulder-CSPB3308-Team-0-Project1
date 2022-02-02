@@ -9,7 +9,7 @@ Julia Scott can you take a stab at this?
 Multiple parents in the group, keeping tabs on baby trends is important but tedious to keep up with. The hospital gives you a sheet of paper, spreadsheets are better but not easy to manage when your hands are full. Can't there be an easier way?...
 
 ## Risks To Project Completion
-1. Working with minimal UI real estate (watch design)
+1. Working with minimal UI real estate (e.g a watch design)
 2. Limited UI experience
 3. Multiple team members working on different sections of the code/project
 
