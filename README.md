@@ -3,7 +3,7 @@
 Connor Tree, Julia Scott, Michael Lamelza, Steven Putt  
 
 ## Vision statement
-Julia Scott can you take a stab at this? 
+To create a web-based infant tracking application which allows parents to easily and quickly log daily events such as sleep patterns and eating, enabling them to provide better care by tracking those patterns over time.
 
 ## Motivation
 Multiple parents in the group, keeping tabs on baby trends is important but tedious to keep up with. The hospital gives you a sheet of paper, spreadsheets are better but not easy to manage when your hands are full. Can't there be an easier way?...
