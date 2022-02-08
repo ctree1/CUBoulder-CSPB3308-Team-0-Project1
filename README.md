@@ -6,7 +6,7 @@ Connor Tree, Julia Scott, Michael Lamelza, Steven Putt
 To create a web-based infant tracking application which allows parents to easily and quickly log daily events such as sleeping and eating, enabling them to provide better care by tracking those patterns over time.
 
 ## Motivation
-Multiple parents in the group, keeping tabs on baby trends is important but tedious to keep up with. The hospital gives you a sheet of paper, spreadsheets are better but not easy to manage when your hands are full. Can't there be an easier way?...
+There are multiple parents in this group and we know that keeping tabs on a baby's trends is important. However, this tracking can be tedious to keep up with. When your baby is born, the hospital gives you a sheet of paper to track feeding, bathroom, and weights. Converting this paper sheet to an online spreadsheet is better but not easy to manage when your hands are full or simply exhausted as most new parents are. We'd like to create an easier way to track these critical baby stats.
 
 ## Risks To Project Completion
 1. Working with minimal UI real estate (e.g a watch design)
