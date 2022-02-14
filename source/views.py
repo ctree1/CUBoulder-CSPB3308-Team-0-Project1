@@ -9,6 +9,7 @@ import random
 from xml.etree.ElementTree import tostring
 from flask import render_template, request
 from . import app
+from ct_test import *
 
 # Team - This is acting like a simple DB so the methods below can work with data.
 # In the future, these will go away and the methods will interact with the DB.
@@ -72,6 +73,7 @@ def bathroom():
     if request.method == 'POST':
         result = request.data
         bathroom_event = json.loads(result)
+        json_to_sql(bathroom_event)             #test function ct
 
         # Team - "bathroom_event" will need to be stored to DB instead of this "bathroom_data" global variable.
         # "bathroom_event" will also need to be taken apart and stored in the appropriate cell of the DB row.
