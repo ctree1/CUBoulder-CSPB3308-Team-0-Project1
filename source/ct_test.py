@@ -6,5 +6,5 @@ def json_to_sql(value):
     c = conn.cursor()
     #bathroomEventID, babyID, bathroomType, bathroomDateTime, bathroomComment = value
     #c.execute("INSERT INTO bathroom VALUES(?, ?, ?, ?, ?);", (bathroomEventID, babyID, bathroomType, bathroomDateTime, bathroomComment))
-    conn.close()
     print(value)
+    conn.close()

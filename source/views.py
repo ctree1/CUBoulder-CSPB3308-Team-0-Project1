@@ -9,7 +9,8 @@ import random
 from xml.etree.ElementTree import tostring
 from flask import render_template, request
 from . import app
-from ct_test import *
+from source.ct_test import *
+
 
 # Team - This is acting like a simple DB so the methods below can work with data.
 # In the future, these will go away and the methods will interact with the DB.
