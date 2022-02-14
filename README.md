@@ -30,11 +30,12 @@ Azure DevOps (ADO)
 3. Git Clone repository to that folder
 4. Open Visual Studio Code and select that project folder. Verify files load
 5. Open terminal ( Ctrl + Shift + ` ) and create a virtual environment for Python --> "python -m venv .venv"
-6. Press Ctrl + Shift + P, and enter "Python: Select Iterpreter" - Select the new ".venv" virtual environment
-7. Open terminal again ( Ctrl + Shift + ` ) and make sure the new ".venv" shows up in your prompt
-8. Note: I included a "requirements.txt" document that lists the needed Python packages. Only Flask is listed at the moment.
-9. Open terminal and install the Python packages from the "requirements.txt" doc --> "pip install -r requirements.txt"
-10. Try it out. Select the "runserver.py" file, then press the play button in the upper right corner of the screen. Terminal will show server launch
-11. Open a browser and navigate to http://localhost:5555/
-12. Did it work?
-13. Let Michael know if you have issues
+6. Install Python Extension - (Ctrl + Shift + p) Extensions: Install Extentions --> Python
+7. Press Ctrl + Shift + P, and enter "Python: Select Iterpreter" - Select the new ".venv" virtual environment
+8. Open terminal again ( Ctrl + Shift + ` ) and make sure the new ".venv" shows up in your prompt
+9. Note: I included a "requirements.txt" document that lists the needed Python packages. Only Flask is listed at the moment.
+10. Open terminal and install the Python packages from the "requirements.txt" doc --> "pip install -r requirements.txt"
+11. Try it out. Select the "runserver.py" file, then press the play button in the upper right corner of the screen. Terminal will show server launch
+12. Open a browser and navigate to http://localhost:5555/
+13. Did it work?
+14. Let Michael know if you have issues
