@@ -2,9 +2,9 @@
 CREATE TABLE bathroom (
 bathroomEventID INTEGER PRIMARY KEY AUTOINCREMENT,
 babyID INTEGER NOT NULL,
-BathroomType TEXT NOT NULL,
-BathroomTime TEXT NOT NULL,
-BathroomComment TEXT,
+bathroomType TEXT NOT NULL,
+bathroomTime TEXT NOT NULL,
+bathroomComment TEXT,
 FOREIGN KEY (babyID)
     REFERENCES babies (babyID)
 );
