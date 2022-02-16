@@ -1,2 +1,2 @@
 -- SQLite
-INSERT INTO babies (birthDate, firstName, lastName) VALUES ("2022-01-01", "John", "Test");
+INSERT INTO bathroom (babyID, bathroomType, bathroomDateTime, bathroomComment) VALUES (2, "Solid", "2022-02-02 22:22", "It's Everywhere!!!");
