@@ -1,0 +1,10 @@
+-- SQLite
+CREATE TABLE sleep (
+sleepEventID INTEGER PRIMARY KEY AUTOINCREMENT,
+babyID INTEGER NOT NULL,
+sleepType TEXT NOT NULL,
+sleepTime TEXT NOT NULL,
+sleepComment TEXT,
+FOREIGN KEY (babyID)
+    REFERENCES babies (babyID)
+);
