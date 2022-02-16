@@ -3,7 +3,7 @@ CREATE TABLE sleep (
 sleepEventID INTEGER PRIMARY KEY AUTOINCREMENT,
 babyID INTEGER NOT NULL,
 sleepType TEXT NOT NULL,
-sleepTime TEXT NOT NULL,
+sleepDateTime TEXT NOT NULL, -- YYYY-MM-DD HH:MM
 sleepComment TEXT,
 FOREIGN KEY (babyID)
     REFERENCES babies (babyID)
