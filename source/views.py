@@ -74,7 +74,7 @@ def bathroom():
     if request.method == 'POST':
         result = request.data
         bathroom_event = json.loads(result)
-        json_to_sql(bathroom_event)             #test function ct
+        json_to_sql(bathroom_event['bathroomEvent'])             #insert into database
 
         # Team - "bathroom_event" will need to be stored to DB instead of this "bathroom_data" global variable.
         # "bathroom_event" will also need to be taken apart and stored in the appropriate cell of the DB row.
