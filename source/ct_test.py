@@ -11,6 +11,7 @@ def json_to_sql(value):
     bathroomComment = value['comment']
     bathroomDateTime = value['time']
 
-    c.execute("INSERT INTO bathroom VALUES(?, ?, ?, ?);", (babyID, bathroomType, bathroomDateTime, bathroomComment))
+    c.execute("INSERT INTO bathroom (babyID, bathroomType, bathroomDateTime, bathroomComment) VALUES(?, ?, ?, ?);", (babyID, bathroomType, bathroomDateTime, bathroomComment))
     conn.close()
     os.chdir("..")
+
