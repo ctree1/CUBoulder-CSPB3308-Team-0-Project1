@@ -7,9 +7,9 @@ def json_to_sql(value):
     conn = sqlite3.connect("baby.db")
     c = conn.cursor()
     babyID = value['babyId']
-    bathroomType = value['bathroomType']
+    bathroomType = value['type']
     bathroomComment = value['comment']
-    bathroomDateTime = value['time']
+    bathroomDateTime = value['dateTime']
 
     c.execute("INSERT INTO bathroom (babyID, bathroomType, bathroomDateTime, bathroomComment) VALUES(?, ?, ?, ?);", (babyID, bathroomType, bathroomDateTime, bathroomComment))
     conn.close()

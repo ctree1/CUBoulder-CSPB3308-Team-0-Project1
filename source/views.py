@@ -7,7 +7,7 @@ from datetime import datetime
 import json
 import random
 from xml.etree.ElementTree import tostring
-from flask import render_template, request
+from flask import jsonify, render_template, request
 from . import app
 from source.ct_test import *
 
@@ -70,29 +70,16 @@ def sleep():
 @app.route('/bathroom',methods = ['POST', 'GET'])
 def bathroom():
     """Renders the bathroom page."""
-    
     if request.method == 'POST':
         result = request.data
         bathroom_event = json.loads(result)
         json_to_sql(bathroom_event['bathroomEvent'])             #insert into database
-
-        # Team - "bathroom_event" will need to be stored to DB instead of this "bathroom_data" global variable.
-        # "bathroom_event" will also need to be taken apart and stored in the appropriate cell of the DB row.
-        bathroom_events_sim_db[int(random.randrange(1,1000))] = bathroom_event
-
-        return render_template(
-            "bathroom.html",
-            babies = all_babies_sim_db,
-            #bathroomEvent = bathroom_event
-        )
+        return  jsonify(""), 200
     else:
         now = datetime.now().time().strftime('%I:%M %p')
-        #bathroom_event = default_bathroom_event
-        #bathroom_event["time"] = now
         return render_template(
             'bathroom.html',
             babies = all_babies_sim_db,
-            #bathroomEvent = bathroom_event
         )
 
 @app.route('/measures')

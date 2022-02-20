@@ -39,14 +39,14 @@
     <h2 class="text-light bg-secondary">Comments area</h2>
     <div class="form-group">
         <label for="comment">Comment:</label>
-        <textarea class="form-control" rows="5" id="comment" onChange="updateComment(this.value)"></textarea>
+        <textarea class="form-control" rows="5" id="textComment" onChange="updateComment(this.value)"></textarea>
     </div>
 </div>
 </div>
 
 <div class="container mt-3">
-    <button type="button" id="btnDone" class="btn btn-success" onClick='addBathroomEvent()' disabled>Done</button>
-    <button type="button" id="btnOneMore" class="btn btn-primary" onClick='addBathroomEvent()' disabled>One More</button>
+    <button type="button" id="btnDone" class="btn btn-success" onClick='addBathroomEvent(true)' disabled>Done</button>
+    <button type="button" id="btnOneMore" class="btn btn-primary" onClick='addBathroomEvent(false)' disabled>One More</button>
 </div>
 
 {% endblock %}

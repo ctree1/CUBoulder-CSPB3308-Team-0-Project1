@@ -22,10 +22,15 @@ var btnDoneElem = document.getElementById('btnBoth');
 var btnOneMoreElem = document.getElementById('btnBoth');
 var btnDoneElem = document.getElementById('btnDone');
 var btnOneMoreElem = document.getElementById('btnOneMore');
-var today = new Date();
-var dateTime = toISOLocal(today);
-timeElem.value = dateTime;
-bathroomEvent.dateTime = dateTime;
+var textCommentElem = document.getElementById('textComment');
+initialize();
+function initialize() {
+    var today = new Date();
+    var dateTime = toISOLocal(today);
+    updateTime(dateTime);
+    updateBathroomType(BathroomTypeEnum.none);
+    updateComment("");
+}
 function updateSubmitBtns() {
     if (bathroomEvent.babyId && bathroomEvent.babyId != 0 && bathroomEvent.type != BathroomTypeEnum.none) {
         btnDoneElem.disabled = false;
@@ -66,13 +71,15 @@ function updateBathroomType(type) {
     }
     updateSubmitBtns();
 }
-function updateTime(time) {
-    bathroomEvent.dateTime = time;
+function updateTime(dateTime) {
+    bathroomEvent.dateTime = dateTime;
+    timeElem.value = dateTime;
 }
 function updateComment(comment) {
     bathroomEvent.comment = comment;
+    textCommentElem.value = comment;
 }
-function addBathroomEvent() {
+function addBathroomEvent(goHome) {
     var xhr = new XMLHttpRequest();
     var url = "/bathroom";
     xhr.open("POST", url, true);
@@ -80,7 +87,13 @@ function addBathroomEvent() {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             var result = this.responseText;
-            window.location.reload();
+            if (goHome) {
+                window.open("/home", '_self');
+                //window.location.replace('https://www.example.com/');
+            }
+            else {
+                initialize();
+            }
         }
     };
     var data = JSON.stringify({ "bathroomEvent": bathroomEvent });

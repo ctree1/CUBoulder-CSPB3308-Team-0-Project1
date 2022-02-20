@@ -21,10 +21,16 @@ var btnDoneElem = <HTMLInputElement>document.getElementById('btnBoth');
 var btnOneMoreElem = <HTMLInputElement>document.getElementById('btnBoth');
 var btnDoneElem = <HTMLInputElement>document.getElementById('btnDone');
 var btnOneMoreElem = <HTMLInputElement>document.getElementById('btnOneMore');
-var today: Date = new Date();
-var dateTime = toISOLocal(today);
-timeElem.value = dateTime;
-bathroomEvent.dateTime = dateTime;
+var textCommentElem = <HTMLInputElement>document.getElementById('textComment');
+initialize()
+
+function initialize() {
+    var today: Date = new Date();
+    var dateTime = toISOLocal(today);
+    updateTime(dateTime);
+    updateBathroomType(BathroomTypeEnum.none);
+    updateComment("");
+}
 
 function updateSubmitBtns() {
     if (bathroomEvent.babyId && bathroomEvent.babyId != 0 && bathroomEvent.type != BathroomTypeEnum.none) {
@@ -69,15 +75,17 @@ function updateBathroomType(type: BathroomTypeEnum) {
     updateSubmitBtns();
 }
 
-function updateTime(time: string) {
-    bathroomEvent.dateTime = time;
+function updateTime(dateTime: string) {
+    bathroomEvent.dateTime = dateTime;
+    timeElem.value = dateTime;
 }
 
 function updateComment(comment: string) {
     bathroomEvent.comment = comment;
+    textCommentElem.value = comment;
 }
 
-function addBathroomEvent() {
+function addBathroomEvent(goHome: boolean) {
     let xhr = new XMLHttpRequest();
     let url = "/bathroom";
     xhr.open("POST", url, true);
@@ -85,7 +93,12 @@ function addBathroomEvent() {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             var result = this.responseText;
-            window.location.reload();
+            if (goHome) {
+                window.open("/home",'_self');
+                //window.location.replace('https://www.example.com/');
+            } else {
+                initialize();
+            }
         }
     };
     var data = JSON.stringify({ "bathroomEvent": bathroomEvent });
@@ -93,13 +106,12 @@ function addBathroomEvent() {
 } 
 
 function toISOLocal(d: Date) {
-var z  = n =>  ('0' + n).slice(-2);
-var zz = n => ('00' + n).slice(-3);
-
-return d.getFullYear() + '-'
-        + z(d.getMonth()+1) + '-' +
+    var z = n => ('0' + n).slice(-2);
+    var zz = n => ('00' + n).slice(-3);
+    return d.getFullYear() + '-'
+        + z(d.getMonth() + 1) + '-' +
         z(d.getDate()) + 'T' +
-        z(d.getHours()) + ':'  + 
+        z(d.getHours()) + ':' +
         z(d.getMinutes()) + ':' +
-        z(d.getSeconds()); 
+        z(d.getSeconds());
 }
