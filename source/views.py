@@ -83,16 +83,16 @@ def bathroom():
         return render_template(
             "bathroom.html",
             babies = all_babies_sim_db,
-            bathroomEvent = bathroom_event
+            #bathroomEvent = bathroom_event
         )
     else:
         now = datetime.now().time().strftime('%I:%M %p')
-        bathroom_event = default_bathroom_event
-        bathroom_event["time"] = now
+        #bathroom_event = default_bathroom_event
+        #bathroom_event["time"] = now
         return render_template(
             'bathroom.html',
             babies = all_babies_sim_db,
-            bathroomEvent = bathroom_event
+            #bathroomEvent = bathroom_event
         )
 
 @app.route('/measures')
