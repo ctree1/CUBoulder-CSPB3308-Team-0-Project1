@@ -1,0 +1,5 @@
+-- SQLite
+CREATE TABLE sleepType (
+sleepTypeID INTEGER PRIMARY KEY AUTOINCREMENT,
+sleepTypeName TEXT NOT NULL
+);
