@@ -1,6 +1,7 @@
 import sqlite3
 import os
 
+
 def json_to_sql(value):
     os.chdir("sqlite3") #If someone can figure out the file path to baby.db, ../sqlite3/baby.db does not work
 
@@ -12,6 +13,6 @@ def json_to_sql(value):
     bathroomDateTime = value['dateTime']
 
     c.execute("INSERT INTO bathroom (babyID, bathroomType, bathroomDateTime, bathroomComment) VALUES(?, ?, ?, ?);", (babyID, bathroomType, bathroomDateTime, bathroomComment))
+    conn.commit()
     conn.close()
     os.chdir("..")
-

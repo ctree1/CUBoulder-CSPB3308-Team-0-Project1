@@ -14,7 +14,7 @@ from source.ct_test import *
 
 # Team - This is acting like a simple DB so the methods below can work with data.
 # In the future, these will go away and the methods will interact with the DB.
-all_babies_sim_db = [(12546, "Steve Jr."), (37556, "Giovanna"), (54778, "Bob")]
+all_babies_sim_db = [(1, "Jane"), (37556, "Giovanna"), (54778, "Bob")]
 bathroom_events_sim_db = {}
 
 # Team - Items below to be maintained as global vars, if needed.
@@ -73,6 +73,7 @@ def bathroom():
     if request.method == 'POST':
         result = request.data
         bathroom_event = json.loads(result)
+        print(bathroom_event['bathroomEvent'])
         json_to_sql(bathroom_event['bathroomEvent'])             #insert into database
         return  jsonify(""), 200
     else:
