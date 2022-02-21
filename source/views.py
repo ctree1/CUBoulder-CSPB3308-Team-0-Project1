@@ -79,7 +79,8 @@ def bathroom():
         now = datetime.now().time().strftime('%I:%M %p')
         return render_template(
             'bathroom.html',
-            babies = all_babies_sim_db,
+            babies = get_babies()
+,
         )
 
 @app.route('/measures')

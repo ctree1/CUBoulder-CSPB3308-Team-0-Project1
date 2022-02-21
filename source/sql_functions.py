@@ -19,4 +19,24 @@ def bathroom_sql_ins(value):
     conn.close()
     os.chdir("..")
 
+def get_babies():
+    os.chdir("sqlite3") #change working directory to that of database
+
+    conn = sqlite3.connect("baby.db")       #connect to database
+    cur = conn.cursor()   
+
+    #execute sql insert statement
+    cur.execute("SELECT * FROM babies")
+    rows = cur.fetchall()
+    
+    baby_lst = []
+    for row in rows:
+        print(row)
+        tuple = (row[0], row[3])
+        baby_lst.append(tuple)
+
+    conn.commit()
+    conn.close()
+    os.chdir("..")
+    return baby_lst
 
