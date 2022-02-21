@@ -111,3 +111,29 @@ def about():
         year=datetime.now().year,
         message='About data from backend here..'
     )
+
+@app.route('/display')
+def display():
+    os.chdir("sqlite3") #If someone can figure out the file path to baby.db, ../sqlite3/baby.db does not work
+
+    conn = sqlite3.connect("baby.db")
+    cur = conn.cursor()
+    
+    cur = conn.cursor()
+    cur.execute("SELECT babies.firstName || ' ' || babies.lastName as 'Baby', bathroom.bathroomDateTime as 'Time', bathroomType.bathroomTypeName as 'Type' FROM bathroom LEFT JOIN babies ON bathroom.babyID = babies.babyID LEFT JOIN bathroomType ON bathroom.bathroomType = bathroomType.bathroomTypeID ORDER BY bathroomDateTime")
+
+    rows = cur.fetchall()
+    strlst = []
+    for row in rows:
+        str = ''
+        for item in row:
+            str = str+' '+item
+        strlst.append(str)
+    str = ''
+    for row in strlst:
+        str = str + ' ' + row
+
+    conn.close()
+    os.chdir("..")
+    return str
+
