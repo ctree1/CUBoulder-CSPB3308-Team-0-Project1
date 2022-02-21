@@ -11,6 +11,7 @@ def bathroom_sql_ins(value):
     bathroomType = value['type']
     bathroomComment = value['comment']
     bathroomDateTime = value['dateTime']
+    bathroomDateTime = bathroomDateTime.replace("T", " ")
 
     #execute sql insert statement
     cur.execute("INSERT INTO bathroom (babyID, bathroomType, bathroomDateTime, bathroomComment) VALUES(?, ?, ?, ?);", (babyID, bathroomType, bathroomDateTime, bathroomComment))

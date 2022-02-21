@@ -9,7 +9,7 @@ import random
 from xml.etree.ElementTree import tostring
 from flask import jsonify, render_template, request
 from . import app
-from source.ct_test import *
+from source.sql_functions import *
 
 
 # Team - This is acting like a simple DB so the methods below can work with data.
@@ -73,8 +73,7 @@ def bathroom():
     if request.method == 'POST':
         result = request.data
         bathroom_event = json.loads(result)
-        print(bathroom_event['bathroomEvent'])
-        json_to_sql(bathroom_event['bathroomEvent'])             #insert into database
+        bathroom_sql_ins(bathroom_event['bathroomEvent'])             #insert into database
         return  jsonify(""), 200
     else:
         now = datetime.now().time().strftime('%I:%M %p')
