@@ -2,7 +2,18 @@
 ## Team members
 Connor Tree, Julia Scott, Michael Lamelza, Steven Putt
 
-## Automated Test Cases:
+## Automated Tests
+Explain how to run automated tests
+List of automated tests:
+- Baby creation - successful
+- Baby creation - unsuccessful
+- Baby selection - does it select correct baby
+- Bathroom Event successful log
+- Bathroom Event unsuccessful log
+- Did it add the Bathroom event to the correct baby?
+- tba
+
+## User Acceptance Test Cases
 
 ### Setting Up the Infant Tracker
 Easy set up instructions for running local server infant tracker
