@@ -2,7 +2,6 @@
 Routes and views for the flask application.
 """
 
-from asyncio.windows_events import NULL
 from datetime import datetime
 import json
 import random
@@ -23,7 +22,7 @@ bathroom_events_sim_db = {}
 default_bathroom_event = {
     "babyId": all_babies_sim_db[0][0],
     "bathroomType": "", # need to create enum
-    "time": NULL,
+    "time": None,
     "comment" : "A comment about the event"
 }
 
