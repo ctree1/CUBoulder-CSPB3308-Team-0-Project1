@@ -2,7 +2,7 @@
 ## Team members
 Connor Tree, Julia Scott, Michael Lamelza, Steven Putt
 
-## Automated Tests
+## Automated Tests - draft
 Explain how to run automated tests
 List of automated tests:
 - Baby creation - successful
@@ -11,7 +11,7 @@ List of automated tests:
 - Bathroom Event successful log
 - Bathroom Event unsuccessful log
 - Did it add the Bathroom event to the correct baby?
-- tba
+- tbd
 
 ## User Acceptance Test Cases
 
