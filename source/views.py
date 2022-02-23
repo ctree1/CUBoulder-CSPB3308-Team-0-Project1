@@ -46,26 +46,6 @@ def setup():
         message='Setup data from backend here..'
     )
 
-@app.route('/eat')
-def eat():
-    """Renders the eat page."""
-    return render_template(
-        'eat.html',
-        title='Eat',
-        year=datetime.now().year,
-        message='Eat data from backend here..'
-    )
-
-@app.route('/sleep')
-def sleep():
-    """Renders the sleep page."""
-    return render_template(
-        'sleep.html',
-        title='Sleep',
-        year=datetime.now().year,
-        message='Sleep data from backend here..'
-    )
-
 @app.route('/bathroom',methods = ['POST', 'GET'])
 def bathroom():
     """Renders the bathroom page."""
@@ -79,8 +59,27 @@ def bathroom():
         return render_template(
             'bathroom.html',
             babies = get_babies()
-,
         )
+
+@app.route('/sleep')
+def sleep():
+    """Renders the sleep page."""
+    return render_template(
+        'sleep.html',
+        title='Sleep',
+        year=datetime.now().year,
+        message='Sleep data from backend here..'
+    )
+
+@app.route('/eat')
+def eat():
+    """Renders the eat page."""
+    return render_template(
+        'eat.html',
+        title='Eat',
+        year=datetime.now().year,
+        message='Eat data from backend here..'
+    )
 
 @app.route('/measures')
 def measures():
