@@ -51,7 +51,7 @@ def bathroom():
     """Renders the bathroom page."""
     if request.method == 'POST':
         result = request.data
-        bathroom_event = json.loads(result)
+        bathroom_event = json.loads(result) # creates python dictionary
         bathroom_sql_ins(bathroom_event['bathroomEvent'])             #insert into database
         return  jsonify(""), 200
     else:

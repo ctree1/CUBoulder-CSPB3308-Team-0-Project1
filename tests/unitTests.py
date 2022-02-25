@@ -13,13 +13,17 @@ class TestSQLins(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        #cls.db_connect = sqlite3.connect("test.db")
+        cls.db_connect = sqlite3.connect("test.db")
+        cls.db_cursor = cls.db_connect.cursor()
+        # variable to keep track of number of entries made to db
+        cls.num_entries = 0
         return
 
     @classmethod
     def tearDownClass(cls):
         # reset db to original
-        #cls.db_connect.close()
+        # delete added rows
+        cls.db_connect.close()
         return
 
     '''
