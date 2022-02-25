@@ -62,7 +62,6 @@ if __name__ == '__main__':
 # Create Baby test
 # Did it write baby to db?
 
-# Main: Run Test Cases
 
     '''
         def bathroom_sql_ins(value):

@@ -3,7 +3,7 @@ import os
 
 
 # value should be json dict: {babyID: int, type: int, comment: string, dateTime: valid dateTime string} 
-def bathroom_sql_ins(value, db_path = "../sqlite3/baby.db"):
+def bathroom_sql_ins(value, db_path = "./sqlite3/baby.db"):
     #os.chdir("sqlite3") #change working directory to that of database
 
     conn = sqlite3.connect(db_path)       #connect to database
