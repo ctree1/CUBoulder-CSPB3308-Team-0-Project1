@@ -39,16 +39,14 @@ class TestSQLins(unittest.TestCase):
                     'dateTime': dateTime, 
                     'comment': comment
                     }
-
-        j_event = json.dumps(bad_event)
-        return j_event
+        return bad_event
 
 
     def test_bathroom_sql_ins(self):
         bad_event_json = self.make_bad_bath_event()
         sql_functions.bathroom_sql_ins(bad_event_json, "test.db")
         # test to see what database holds using queries
-
+        
         return
 
 

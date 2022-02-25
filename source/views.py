@@ -113,9 +113,7 @@ def about():
 
 @app.route('/display')
 def display():
-    os.chdir("sqlite3") #If someone can figure out the file path to baby.db, ../sqlite3/baby.db does not work
-
-    conn = sqlite3.connect("baby.db")
+    conn = sqlite3.connect("./sqlite3/baby.db")
     cur = conn.cursor()
     
     cur = conn.cursor()
@@ -133,6 +131,5 @@ def display():
         str = str + ' ' + row
 
     conn.close()
-    os.chdir("..")
     return str
 

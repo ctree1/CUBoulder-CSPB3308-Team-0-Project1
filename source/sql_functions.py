@@ -1,11 +1,11 @@
 import sqlite3
 
 
-# value should be json dict: {babyID: int, type: int, comment: string, dateTime: valid dateTime string} 
+# value should be python dict: {babyID: int, type: int, comment: string, dateTime: valid dateTime string} 
 def bathroom_sql_ins(value, db_path = "./sqlite3/baby.db"):
     conn = sqlite3.connect(db_path)       #connect to database
     cur = conn.cursor()   
-    babyID = value['babyId']        #split tuple into individual variables
+    babyID = value['babyId']        #split dictionary into individual variables
     bathroomType = value['type']
     bathroomComment = value['comment']
     bathroomDateTime = value['dateTime']
