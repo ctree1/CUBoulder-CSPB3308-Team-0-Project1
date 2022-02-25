@@ -2,10 +2,11 @@ import sqlite3
 import os
 
 
-def bathroom_sql_ins(value):
-    os.chdir("sqlite3") #change working directory to that of database
+# value should be json dict: {babyID: int, type: int, comment: string, dateTime: valid dateTime string} 
+def bathroom_sql_ins(value, db_path = "../sqlite3/baby.db"):
+    #os.chdir("sqlite3") #change working directory to that of database
 
-    conn = sqlite3.connect("baby.db")       #connect to database
+    conn = sqlite3.connect(db_path)       #connect to database
     cur = conn.cursor()   
     babyID = value['babyId']        #split tuple into individual variables
     bathroomType = value['type']
@@ -17,7 +18,7 @@ def bathroom_sql_ins(value):
     cur.execute("INSERT INTO bathroom (babyID, bathroomType, bathroomDateTime, bathroomComment) VALUES(?, ?, ?, ?);", (babyID, bathroomType, bathroomDateTime, bathroomComment))
     conn.commit()
     conn.close()
-    os.chdir("..")
+    #os.chdir("..")
 
 def get_babies():
     os.chdir("sqlite3") #change working directory to that of database

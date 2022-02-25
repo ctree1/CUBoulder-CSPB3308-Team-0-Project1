@@ -1,3 +1,4 @@
+#!/bin/python
 import urllib
 from urllib.request import urlopen
 from flask import Flask
