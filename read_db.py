@@ -1,5 +1,5 @@
 import sqlite3
-import os
+
 
 def read_db(db_path = "./sqlite3/baby.db", query = "SELECT * FROM bathroom"):
     conn = sqlite3.connect(db_path)
@@ -15,5 +15,8 @@ def read_db(db_path = "./sqlite3/baby.db", query = "SELECT * FROM bathroom"):
 
     conn.close()
     return rows # return rows if you want them
+
+# one of many queries which could be inserted into read_db()
+query = '''SELECT * FROM babies'''
 
 read_db()

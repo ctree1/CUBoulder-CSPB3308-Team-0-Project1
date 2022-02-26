@@ -2,11 +2,8 @@
 
 import sqlite3
 import unittest
-import json
 
-import source
 from source import sql_functions
-
 
 
 class TestSQLins(unittest.TestCase):
@@ -27,25 +24,57 @@ class TestSQLins(unittest.TestCase):
         return
 
     '''
-        babyID = value['babyId']        #split tuple into individual variables
+         babyID = value['babyId']        #split tuple into individual variables
         bathroomType = value['type']
         bathroomComment = value['comment']
         bathroomDateTime = value['dateTime']
         bathroomDateTime = bathroomDateTime.replace("T", " ")
     '''
-    def make_bad_bath_event(self, babyID = 'Xena', type = 5000, dateTime = 'never', comment = 400) :
-        bad_event = {'babyID': babyID, 
-                    'type': type, 
-                    'dateTime': dateTime, 
-                    'comment': comment
-                    }
-        return bad_event
+
+    def make_baby(self, babyID = "131313", first_name = "Mathias", last_name = "Bee", ):
+        # make a baby and return
+        return babyID
+
+    # Bathroom events can be specified as good or bad and also can be custom
+    # This constructs a simple python dictionary for sending to bathroom_sql_ins()
+    def make_bath_event(self, event_type = "Good", babyID = "34980", type = 1, dateTime = "", comment = "Very little") :
+        if event_type == "Bad" :
+            babyID = 'Willy Wonka'
+            type = -9999
+            dateTime = 'never'
+            comment = 400
+        elif event_type == "Good" :
+            babyID = "34980"
+            type = 1
+            dateTime = '2022-02-21 13:54:24'
+            comment = "Very little"
+
+        event = {'babyID': babyID, 
+                'type': type, 
+                'dateTime': dateTime, 
+                'comment': comment
+                }
+        return event
+
+    # tests add_baby() function in sql_functions.py
+    def test_add_baby(self, baby_dict) :
+        return None
 
 
     def test_bathroom_sql_ins(self):
-        bad_event_json = self.make_bad_bath_event()
-        sql_functions.bathroom_sql_ins(bad_event_json, "./tests/test.db")
+        # Good data insert test
+        good_event_dict = self.make_bath_event(event_type = "Good")
+        sql_functions.bathroom_sql_ins(good_event_dict)
+        # check database
+        # ASSERT return yields exact entry
+
+        # Bad data insert test
+        bad_event_dict = self.make_bath_event(event_type = "Bad")
+        sql_functions.bathroom_sql_ins(bad_event_dict, "./tests/test.db")
+        # check database
+        # ASSERT return yields no entry
         # test to see what database holds using queries
+
         
         return
 

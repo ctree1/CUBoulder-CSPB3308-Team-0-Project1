@@ -34,3 +34,11 @@ def get_babies(db_path = "./sqlite3/baby.db"):
     conn.close()
     return baby_lst
 
+    # function inserts new baby into database
+    # SELECT * FROM babies shows babies table as (1, u'Baby', u'2022-02-02', u'Jane', u'Test2')
+    def add_baby(baby_dict):
+        baby = baby_dict
+        # take baby dictionary apart and add to database
+        query = ""
+        # insert into database
+        return baby # optional return
