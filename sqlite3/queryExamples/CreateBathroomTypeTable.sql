@@ -1,0 +1,5 @@
+-- SQLite
+CREATE TABLE bathroomType (
+bathroomTypeID INTEGER PRIMARY KEY AUTOINCREMENT,
+bathroomTypeName TEXT NOT NULL
+);
