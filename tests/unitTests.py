@@ -13,7 +13,7 @@ class TestSQLins(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.db_connect = sqlite3.connect("test.db")
+        cls.db_connect = sqlite3.connect("./tests/test.db")
         cls.db_cursor = cls.db_connect.cursor()
         # variable to keep track of number of entries made to db
         cls.num_entries = 0
@@ -44,7 +44,7 @@ class TestSQLins(unittest.TestCase):
 
     def test_bathroom_sql_ins(self):
         bad_event_json = self.make_bad_bath_event()
-        sql_functions.bathroom_sql_ins(bad_event_json, "test.db")
+        sql_functions.bathroom_sql_ins(bad_event_json, "./tests/test.db")
         # test to see what database holds using queries
         
         return

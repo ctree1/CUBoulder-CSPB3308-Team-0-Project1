@@ -112,11 +112,10 @@ def about():
     )
 
 @app.route('/display')
-def display():
-    conn = sqlite3.connect("./sqlite3/baby.db")
+def display(db_path = "./sqlite3/baby.db"):
+    conn = sqlite3.connect(db_path)
     cur = conn.cursor()
     
-    cur = conn.cursor()
     cur.execute("SELECT babies.firstName || ' ' || babies.lastName as 'Baby', bathroom.bathroomDateTime as 'Time', bathroomType.bathroomTypeName as 'Type' FROM bathroom LEFT JOIN babies ON bathroom.babyID = babies.babyID LEFT JOIN bathroomType ON bathroom.bathroomType = bathroomType.bathroomTypeID ORDER BY bathroomDateTime")
 
     rows = cur.fetchall()
