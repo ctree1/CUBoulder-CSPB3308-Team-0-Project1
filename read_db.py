@@ -1,18 +1,19 @@
 import sqlite3
 import os
 
-os.chdir("sqlite3") #If someone can figure out the file path to baby.db, ../sqlite3/baby.db does not work
+def read_db(db_path = "./sqlite3/baby.db", query = "SELECT * FROM bathroom"):
+    conn = sqlite3.connect(db_path)
+    cur = conn.cursor()
+    
+    cur = conn.cursor()
+    cur.execute(query)
 
-conn = sqlite3.connect("baby.db")
-cur = conn.cursor()
-   
-cur = conn.cursor()
-cur.execute("SELECT * FROM bathroom")
+    rows = cur.fetchall()
 
-rows = cur.fetchall()
+    for row in rows:
+        print(row)
 
-for row in rows:
-    print(row)
+    conn.close()
+    return rows # return rows if you want them
 
-conn.close()
-os.chdir("..")
+read_db()

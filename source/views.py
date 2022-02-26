@@ -51,7 +51,7 @@ def bathroom():
     """Renders the bathroom page."""
     if request.method == 'POST':
         result = request.data
-        bathroom_event = json.loads(result)
+        bathroom_event = json.loads(result) # creates python dictionary
         bathroom_sql_ins(bathroom_event['bathroomEvent'])             #insert into database
         return  jsonify(""), 200
     else:
@@ -112,13 +112,10 @@ def about():
     )
 
 @app.route('/display')
-def display():
-    os.chdir("sqlite3") #If someone can figure out the file path to baby.db, ../sqlite3/baby.db does not work
-
-    conn = sqlite3.connect("baby.db")
+def display(db_path = "./sqlite3/baby.db"):
+    conn = sqlite3.connect(db_path)
     cur = conn.cursor()
     
-    cur = conn.cursor()
     cur.execute("SELECT babies.firstName || ' ' || babies.lastName as 'Baby', bathroom.bathroomDateTime as 'Time', bathroomType.bathroomTypeName as 'Type' FROM bathroom LEFT JOIN babies ON bathroom.babyID = babies.babyID LEFT JOIN bathroomType ON bathroom.bathroomType = bathroomType.bathroomTypeID ORDER BY bathroomDateTime")
 
     rows = cur.fetchall()
@@ -133,6 +130,5 @@ def display():
         str = str + ' ' + row
 
     conn.close()
-    os.chdir("..")
     return str
 
