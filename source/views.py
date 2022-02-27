@@ -48,6 +48,7 @@ def setup():
             # update DB with preferences
         elif 'baby' in baby_and_prefs.keys():
             baby = baby_and_prefs['baby']
+            add_baby(baby)
             print("Baby: " + str(baby))
             # update DB with preferences
         return  jsonify(""), 200

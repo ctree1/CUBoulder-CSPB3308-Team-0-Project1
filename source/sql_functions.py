@@ -34,7 +34,7 @@ def get_babies_old(db_path = "./sqlite3/baby.db"):
     conn.close()
     return baby_lst
 
-#function returns list of tuples from baby.db [(babyID, eventType, birthdate, firstName, lastName)]
+#returns list of tuples from baby.db [(babyID, eventType, birthdate, firstName, lastName)]
 def get_babies(db_path = "./sqlite3/baby.db"):
     conn = sqlite3.connect(db_path)       #connect to database
     cur = conn.cursor()   
@@ -45,11 +45,15 @@ def get_babies(db_path = "./sqlite3/baby.db"):
     conn.close()
     return baby_lst
 
-    # function inserts new baby into database
-    # SELECT * FROM babies shows babies table as (1, u'Baby', u'2022-02-02', u'Jane', u'Test2')
-    def add_baby(baby_dict):
-        baby = baby_dict
-        # take baby dictionary apart and add to database
-        query = ""
-        # insert into database
-        return baby # optional return
+# function inserts new baby into database
+# SELECT * FROM babies shows babies table as (1, u'Baby', u'2022-02-02', u'Jane', u'Test2')
+def add_baby(baby_dict, db_path = "./sqlite3/baby.db"):
+    conn = sqlite3.connect(db_path)       #connect to database
+    cur = conn.cursor()
+    
+    initials=baby_dict['firstName'][0] + baby_dict['lastName'][0]
+    cur.execute("INSERT INTO babies (birthDate, firstName, lastName, abbreviatedName, birthWeight, birthHeight) VALUES (?, ?, ?, ?, ?, ?);",(baby_dict['birthDate'], baby_dict['firstName'], baby_dict['lastName'], initials, baby_dict['birthWeight'], baby_dict['birthHeight']))
+    
+    conn.commit()
+    conn.close()
+    #return baby_dict # optional return
