@@ -9,6 +9,6 @@ birthDate TEXT NOT NULL, -- YYYY-MM-DD
 firstName TEXT NOT NULL,
 lastName TEXT NOT NULL,
 abbreviatedName TEXT,
-birthWeight INT,
-birthHeight INT
+birthWeight INTEGER , --grams
+birthHeight INTEGER --cm
 );
