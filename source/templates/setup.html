@@ -4,8 +4,44 @@
 
 <div class="jumbotron">
     <h1>Infant Tracker</h1>
-    <p class="lead">Setup Page</p>
-    <p>{{ message }}</p>
 </div>
 
+<div class="container mt-3">
+    <h2 class="text-light bg-secondary">Add Baby area</h2>
+    <div class="form-group">
+        <label for="inputFirstName">First Name:</label>
+        <input type="text" class="form-control" id="inputFirstName" onChange="updateFirstName(this.value)">
+    </div>
+    <div class="form-group">
+        <label for="inputLastName">Last Name:</label>
+        <input type="text" class="form-control" id="inputLastName" onChange="updateLastName(this.value)">
+    </div>
+    <div class="form-group">
+        <label for="inputBirthDate">Select a Birth Date:</label>
+        <input type="date" class="form-control" id="inputBirthDate" onChange="updateDate(this.value)" />
+    </div>
+</div>
+
+<div class="container mt-3">
+    <h2 class="text-light bg-secondary">Liquid Units area</h2>
+    <button type="button" id="btnLiquidOz" class="btn btn-secondary" onclick="updateLiquidUnits(1)">Ounces</button>
+    <button type="button" id="btnLiquidMl" class="btn btn-secondary" onclick="updateLiquidUnits(2)">Milliliters</button>
+</div>
+
+<div class="container mt-3">
+    <h2 class="text-light bg-secondary">Weight Units area</h2>
+    <button type="button" id="btnWeightLb" class="btn btn-secondary" onclick="updateWeightUnits(1)">Pounds</button>
+    <button type="button" id="btnWeightKg" class="btn btn-secondary" onclick="updateWeightUnits(2)">Kilograms</button>
+</div>
+
+<div class="container mt-3">
+    <button type="button" id="btnDone" class="btn btn-success" onClick='addBaby(true)' disabled>Done</button>
+    <button type="button" id="btnOneMore" class="btn btn-primary" onClick='addBaby(false)' disabled>One More</button>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/scripts/infanttracker-common.js"></script>
+<script src="/static/scripts/infanttracker-setup.js"></script>
 {% endblock %}

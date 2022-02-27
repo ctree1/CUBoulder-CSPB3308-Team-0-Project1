@@ -1,19 +1,5 @@
-enum BathroomTypeEnum {
-    none = 0,
-    liquid = 1,
-    solid = 2,
-    both = 3
-}
-
-class BathroomEvent {
-    babyId: number = null;
-    type: BathroomTypeEnum = 0;
-    dateTime: string;
-    comment: string = ""
-}
-
 var bathroomEvent = new BathroomEvent();
-var timeElem = <HTMLInputElement>document.getElementById('inputTime');
+var inputDateTimeElem = <HTMLInputElement>document.getElementById('inputDateTime');
 var btnLiquidElem = <HTMLInputElement>document.getElementById('btnLiquid');
 var btnSolidElem = <HTMLInputElement>document.getElementById('btnSolid');
 var btnBothElem = <HTMLInputElement>document.getElementById('btnBoth');
@@ -22,12 +8,12 @@ var btnOneMoreElem = <HTMLInputElement>document.getElementById('btnBoth');
 var btnDoneElem = <HTMLInputElement>document.getElementById('btnDone');
 var btnOneMoreElem = <HTMLInputElement>document.getElementById('btnOneMore');
 var textCommentElem = <HTMLInputElement>document.getElementById('textComment');
-initialize()
+initializeBathroom()
 
-function initialize() {
+function initializeBathroom() {
     var today: Date = new Date();
     var dateTime = toISOLocal(today);
-    updateTime(dateTime);
+    updateDateTime(dateTime);
     updateBathroomType(BathroomTypeEnum.none);
     updateComment("");
 }
@@ -75,9 +61,9 @@ function updateBathroomType(type: BathroomTypeEnum) {
     updateSubmitBtns();
 }
 
-function updateTime(dateTime: string) {
+function updateDateTime(dateTime: string) {
     bathroomEvent.dateTime = dateTime;
-    timeElem.value = dateTime;
+    inputDateTimeElem.value = dateTime;
 }
 
 function updateComment(comment: string) {
@@ -86,32 +72,7 @@ function updateComment(comment: string) {
 }
 
 function addBathroomEvent(goHome: boolean) {
-    let xhr = new XMLHttpRequest();
-    let url = "/bathroom";
-    xhr.open("POST", url, true);
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            var result = this.responseText;
-            if (goHome) {
-                window.open("/home",'_self');
-                //window.location.replace('https://www.example.com/');
-            } else {
-                initialize();
-            }
-        }
-    };
-    var data = JSON.stringify({ "bathroomEvent": bathroomEvent });
-    xhr.send(data);
+    var data = { "bathroomEvent": bathroomEvent }
+    postDataToServer("/bathroom", data, goHome);
 } 
 
-function toISOLocal(d: Date) {
-    var z = n => ('0' + n).slice(-2);
-    var zz = n => ('00' + n).slice(-3);
-    return d.getFullYear() + '-'
-        + z(d.getMonth() + 1) + '-' +
-        z(d.getDate()) + 'T' +
-        z(d.getHours()) + ':' +
-        z(d.getMinutes()) + ':' +
-        z(d.getSeconds());
-}

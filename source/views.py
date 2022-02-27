@@ -36,15 +36,19 @@ def home():
         year=datetime.now().year,
     )
 
-@app.route('/setup')
+@app.route('/setup',methods = ['POST', 'GET'])
 def setup():
     """Renders the setup page."""
-    return render_template(
-        'setup.html',
-        title='Setup',
-        year=datetime.now().year,
-        message='Setup data from backend here..'
-    )
+    if request.method == 'POST':
+        result = request.data
+        bathroom_event = json.loads(result) # creates python dictionary
+        bathroom_sql_ins(bathroom_event['bathroomEvent'])             #insert into database
+        return  jsonify(""), 200
+    else:
+        return render_template(
+            'setup.html',
+            babies = get_babies()
+        )
 
 @app.route('/bathroom',methods = ['POST', 'GET'])
 def bathroom():
@@ -55,7 +59,6 @@ def bathroom():
         bathroom_sql_ins(bathroom_event['bathroomEvent'])             #insert into database
         return  jsonify(""), 200
     else:
-        now = datetime.now().time().strftime('%I:%M %p')
         return render_template(
             'bathroom.html',
             babies = get_babies()
