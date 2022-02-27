@@ -15,12 +15,13 @@ def bathroom_sql_ins(value, db_path = "./sqlite3/baby.db"):
     cur.execute("INSERT INTO bathroom (babyID, bathroomType, bathroomDateTime, bathroomComment) VALUES(?, ?, ?, ?);", (babyID, bathroomType, bathroomDateTime, bathroomComment))
     conn.commit()
     conn.close()
+    # return error/success code
 
 def get_babies_old(db_path = "./sqlite3/baby.db"):
     conn = sqlite3.connect(db_path)       #connect to database
     cur = conn.cursor()   
 
-    #execute sql insert statement
+    # query database for all babies stored in db
     cur.execute("SELECT * FROM babies")
     rows = cur.fetchall()
     
@@ -39,7 +40,7 @@ def get_babies(db_path = "./sqlite3/baby.db"):
     conn = sqlite3.connect(db_path)       #connect to database
     cur = conn.cursor()   
 
-    #execute sql insert statement
+    # query database for all babies stored in db
     cur.execute("SELECT * FROM babies")
     baby_lst = cur.fetchall()
     conn.close()
@@ -56,4 +57,4 @@ def add_baby(baby_dict, db_path = "./sqlite3/baby.db"):
     
     conn.commit()
     conn.close()
-    #return baby_dict # optional return
+    #return error/success code

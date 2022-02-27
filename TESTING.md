@@ -18,6 +18,8 @@ Easy set up instructions for running local server infant tracker. Use README.md 
 ### Test 1 - draft
 The user wants to use our infant tracker to add a baby to be tracked. They first navigate to the Setup page by clicking on "Setup" from the black menu bar of the infant tracker.  The url should now be http://localhost:5555/setup
 
+Two text fields
+Birthdate calendar selector like on bathroom page but without the time
 
 _______
 _______
@@ -35,4 +37,4 @@ At the bottom they have the option of recording their log to the database by eit
 put what happens next
 
 ### Test 3 - draft
-ask about third test - what we want
+The user wants to use the infant tracker to log their baby waking up or falling asleep.
