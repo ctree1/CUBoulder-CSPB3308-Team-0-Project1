@@ -1,2 +1,2 @@
 -- SQLite
-INSERT INTO babies (birthDate, firstName, lastName) VALUES ("2022-02-02", "Jane", "Test2");
+INSERT INTO babies (birthDate, firstName, lastName, abbreviatedName, birthWeight, birthHeight) VALUES ("2022-02-26", "Lil", "Bae", "LB", 45, 85);
