@@ -17,10 +17,17 @@ var WeightUnitsEnum;
     WeightUnitsEnum[WeightUnitsEnum["pounds"] = 1] = "pounds";
     WeightUnitsEnum[WeightUnitsEnum["kilograms"] = 2] = "kilograms";
 })(WeightUnitsEnum || (WeightUnitsEnum = {}));
+var HeightUnitsEnum;
+(function (HeightUnitsEnum) {
+    HeightUnitsEnum[HeightUnitsEnum["none"] = 0] = "none";
+    HeightUnitsEnum[HeightUnitsEnum["inches"] = 1] = "inches";
+    HeightUnitsEnum[HeightUnitsEnum["centimeters"] = 2] = "centimeters";
+})(HeightUnitsEnum || (HeightUnitsEnum = {}));
 var Preferences = /** @class */ (function () {
     function Preferences() {
         this.liquidUnits = 0;
         this.weightUnits = 0;
+        this.heightUnits = 0;
     }
     return Preferences;
 }());
@@ -30,6 +37,7 @@ var Baby = /** @class */ (function () {
         this.lastName = "";
         this.birthWeight = "";
         this.birthHeight = "";
+        this.abbreviation = "";
     }
     return Baby;
 }());

@@ -17,9 +17,16 @@ enum WeightUnitsEnum {
     kilograms = 2
 }
 
+enum HeightUnitsEnum {
+    none = 0,
+    inches = 1,
+    centimeters = 2
+}
+
 class Preferences {
     liquidUnits: LiquidUnitsEnum = 0;
     weightUnits: WeightUnitsEnum = 0;
+    heightUnits: HeightUnitsEnum = 0;
 }
 
 class Baby {
@@ -28,6 +35,7 @@ class Baby {
     lastName: string = "";
     birthWeight: string = "";
     birthHeight: string = "";
+    abbreviation: string = "";
 }
 
 class BathroomEvent {

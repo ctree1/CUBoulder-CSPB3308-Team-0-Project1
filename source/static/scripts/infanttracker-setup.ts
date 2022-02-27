@@ -3,24 +3,25 @@ var preferences  = new Preferences();
 var dateElem = <HTMLInputElement>document.getElementById('inputBirthDate');
 var inputFirstNameElem = <HTMLInputElement>document.getElementById('inputFirstName');
 var inputLastNameElem = <HTMLInputElement>document.getElementById('inputLastName');
+var inputAbbrevElem = <HTMLInputElement>document.getElementById('inputAbbrev');
 var inputBirthWeightElem = <HTMLInputElement>document.getElementById('inputBirthWeight');
 var inputBirthHeightElem = <HTMLInputElement>document.getElementById('inputBirthHeight');
 var btnLiquidOzElem = <HTMLInputElement>document.getElementById('btnLiquidOz');
 var btnLiquidMlElem = <HTMLInputElement>document.getElementById('btnLiquidMl');
 var btnWeightLbElem = <HTMLInputElement>document.getElementById('btnWeightLb');
 var btnWeightKgElem = <HTMLInputElement>document.getElementById('btnWeightKg');
+var btnHeightInElem = <HTMLInputElement>document.getElementById('btnHeightIn');
+var btnHeightCmElem = <HTMLInputElement>document.getElementById('btnHeightCm');
 var btnOneMoreElem = <HTMLInputElement>document.getElementById('btnOneMore');
 var btnDoneElem = <HTMLInputElement>document.getElementById('btnDone');
 var btnSaveElem = <HTMLInputElement>document.getElementById('btnSave');
 setupInitialize()
 
 function setupInitialize() {
-    // var today: Date = new Date();
-    // var dateTime = toISOLocal(today);
-    //setupUpdateDate(dateTime);
     setupUpdateDate("");
     setupUpdateFirstName("");
     setupUpdateLastName("");
+    setupUpdateAbbrev("");
     setupUpdateBirthWeight("");
     setupUpdateBirthHeight("");
 }
@@ -81,8 +82,26 @@ function setupUpdateWeightUnits(units: WeightUnitsEnum) {
     setupUpdateSaveBtn();
 }
 
+function setupUpdateHeightUnits(units: HeightUnitsEnum) {
+    preferences.heightUnits = units;
+    switch (units){
+        case HeightUnitsEnum.inches:
+            btnHeightInElem.className = "btn btn-primary"
+            btnHeightCmElem.className = "btn btn-secondary"
+            break;
+        case HeightUnitsEnum.centimeters:
+            btnHeightInElem.className = "btn btn-secondary"
+            btnHeightCmElem.className = "btn btn-primary"
+            break;
+        default:
+            btnHeightInElem.className = "btn btn-secondary"
+            btnHeightCmElem.className = "btn btn-secondary"
+            break;
+    }
+    setupUpdateSaveBtn();
+}
+
 function setupUpdateDate(date: string) {
-    // Remove the time
     baby.birthDate = date;
     dateElem.value = date;
     setupUpdateSubmitBtns();
@@ -97,6 +116,12 @@ function setupUpdateFirstName(name: string) {
 function setupUpdateLastName(name: string) {
     baby.lastName = name;
     inputLastNameElem.value = name;
+    setupUpdateSubmitBtns();
+}
+
+function setupUpdateAbbrev(abbrev: string) {
+    baby.abbreviation = abbrev;
+    inputAbbrevElem.value = abbrev;
     setupUpdateSubmitBtns();
 }
 

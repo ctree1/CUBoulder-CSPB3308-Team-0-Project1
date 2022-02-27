@@ -3,23 +3,24 @@ var preferences = new Preferences();
 var dateElem = document.getElementById('inputBirthDate');
 var inputFirstNameElem = document.getElementById('inputFirstName');
 var inputLastNameElem = document.getElementById('inputLastName');
+var inputAbbrevElem = document.getElementById('inputAbbrev');
 var inputBirthWeightElem = document.getElementById('inputBirthWeight');
 var inputBirthHeightElem = document.getElementById('inputBirthHeight');
 var btnLiquidOzElem = document.getElementById('btnLiquidOz');
 var btnLiquidMlElem = document.getElementById('btnLiquidMl');
 var btnWeightLbElem = document.getElementById('btnWeightLb');
 var btnWeightKgElem = document.getElementById('btnWeightKg');
+var btnHeightInElem = document.getElementById('btnHeightIn');
+var btnHeightCmElem = document.getElementById('btnHeightCm');
 var btnOneMoreElem = document.getElementById('btnOneMore');
 var btnDoneElem = document.getElementById('btnDone');
 var btnSaveElem = document.getElementById('btnSave');
 setupInitialize();
 function setupInitialize() {
-    // var today: Date = new Date();
-    // var dateTime = toISOLocal(today);
-    //setupUpdateDate(dateTime);
     setupUpdateDate("");
     setupUpdateFirstName("");
     setupUpdateLastName("");
+    setupUpdateAbbrev("");
     setupUpdateBirthWeight("");
     setupUpdateBirthHeight("");
 }
@@ -77,8 +78,25 @@ function setupUpdateWeightUnits(units) {
     }
     setupUpdateSaveBtn();
 }
+function setupUpdateHeightUnits(units) {
+    preferences.heightUnits = units;
+    switch (units) {
+        case HeightUnitsEnum.inches:
+            btnHeightInElem.className = "btn btn-primary";
+            btnHeightCmElem.className = "btn btn-secondary";
+            break;
+        case HeightUnitsEnum.centimeters:
+            btnHeightInElem.className = "btn btn-secondary";
+            btnHeightCmElem.className = "btn btn-primary";
+            break;
+        default:
+            btnHeightInElem.className = "btn btn-secondary";
+            btnHeightCmElem.className = "btn btn-secondary";
+            break;
+    }
+    setupUpdateSaveBtn();
+}
 function setupUpdateDate(date) {
-    // Remove the time
     baby.birthDate = date;
     dateElem.value = date;
     setupUpdateSubmitBtns();
@@ -91,6 +109,11 @@ function setupUpdateFirstName(name) {
 function setupUpdateLastName(name) {
     baby.lastName = name;
     inputLastNameElem.value = name;
+    setupUpdateSubmitBtns();
+}
+function setupUpdateAbbrev(abbrev) {
+    baby.abbreviation = abbrev;
+    inputAbbrevElem.value = abbrev;
     setupUpdateSubmitBtns();
 }
 function setupUpdateBirthWeight(weight) {
