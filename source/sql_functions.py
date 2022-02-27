@@ -16,7 +16,7 @@ def bathroom_sql_ins(value, db_path = "./sqlite3/baby.db"):
     conn.commit()
     conn.close()
 
-def get_babies(db_path = "./sqlite3/baby.db"):
+def get_babies_old(db_path = "./sqlite3/baby.db"):
     conn = sqlite3.connect(db_path)       #connect to database
     cur = conn.cursor()   
 
@@ -31,6 +31,17 @@ def get_babies(db_path = "./sqlite3/baby.db"):
         baby_lst.append(tuple)
 
     conn.commit()
+    conn.close()
+    return baby_lst
+
+#function returns list of tuples from baby.db [(babyID, eventType, birthdate, firstName, lastName)]
+def get_babies(db_path = "./sqlite3/baby.db"):
+    conn = sqlite3.connect(db_path)       #connect to database
+    cur = conn.cursor()   
+
+    #execute sql insert statement
+    cur.execute("SELECT * FROM babies")
+    baby_lst = cur.fetchall()
     conn.close()
     return baby_lst
 
