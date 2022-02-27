@@ -8,17 +8,17 @@ var btnOneMoreElem = <HTMLInputElement>document.getElementById('btnBoth');
 var btnDoneElem = <HTMLInputElement>document.getElementById('btnDone');
 var btnOneMoreElem = <HTMLInputElement>document.getElementById('btnOneMore');
 var textCommentElem = <HTMLInputElement>document.getElementById('textComment');
-initializeBathroom()
+bathroomInitialize()
 
-function initializeBathroom() {
+function bathroomInitialize() {
     var today: Date = new Date();
     var dateTime = toISOLocal(today);
-    updateDateTime(dateTime);
-    updateBathroomType(BathroomTypeEnum.none);
-    updateComment("");
+    bathroomUpdateDateTime(dateTime);
+    bathroomUpdateBathroomType(BathroomTypeEnum.none);
+    bathroomUpdateComment("");
 }
 
-function updateSubmitBtns() {
+function bathroomUpdateSubmitBtns() {
     if (bathroomEvent.babyId && bathroomEvent.babyId != 0 && bathroomEvent.type != BathroomTypeEnum.none) {
         btnDoneElem.disabled = false;
         btnOneMoreElem.disabled = false;
@@ -28,13 +28,12 @@ function updateSubmitBtns() {
     }
 }
 
-function selectBaby(babyId: number) {
+function bathroomSelectBaby(babyId: number) {
     bathroomEvent.babyId = +babyId;
-    updateSubmitBtns();
+    bathroomUpdateSubmitBtns();
 }
 
-function updateBathroomType(type: BathroomTypeEnum) {
-
+function bathroomUpdateBathroomType(type: BathroomTypeEnum) {
     bathroomEvent.type = bathroomEvent.type == type ? BathroomTypeEnum.none : type;
     switch (bathroomEvent.type){
         case BathroomTypeEnum.liquid:
@@ -58,21 +57,21 @@ function updateBathroomType(type: BathroomTypeEnum) {
             btnBothElem.className = "btn btn-secondary"
             break;
     }
-    updateSubmitBtns();
+    bathroomUpdateSubmitBtns();
 }
 
-function updateDateTime(dateTime: string) {
+function bathroomUpdateDateTime(dateTime: string) {
     bathroomEvent.dateTime = dateTime;
     inputDateTimeElem.value = dateTime;
 }
 
-function updateComment(comment: string) {
+function bathroomUpdateComment(comment: string) {
     bathroomEvent.comment = comment;
     textCommentElem.value = comment;
 }
 
-function addBathroomEvent(goHome: boolean) {
+function bathroomAddBathroomEvent(goHome: boolean) {
     var data = { "bathroomEvent": bathroomEvent }
-    postDataToServer("/bathroom", data, goHome);
+    postDataToServer("/bathroom", data, goHome, bathroomInitialize);
 } 
 

@@ -9,7 +9,7 @@
 <div class="container mt-3">
     <h2 class="text-light bg-secondary">Select baby area</h2>
     <div class="d-flex flex-row d-flex">
-        <select class="form-select me-3" onChange="selectBaby(this.value)">
+        <select class="form-select me-3" onChange="bathroomSelectBaby(this.value)">
             <option value="null" selected>Select</option>
             {% for baby in babies %}
             <option value="{{ baby[0] }}">{{ baby[3] }} {{ baby[4] }}</option>
@@ -20,16 +20,16 @@
 
 <div class="container mt-3">
     <h2 class="text-light bg-secondary">Bathroom Type area</h2>
-    <button type="button" id="btnLiquid" class="btn btn-secondary" onclick="updateBathroomType(1)">Liquid</button>
-    <button type="button" id="btnSolid" class="btn btn-secondary" onclick="updateBathroomType(2)">Solid</button>
-    <button type="button" id="btnBoth" class="btn btn-secondary" onclick="updateBathroomType(3)">Both</button>
+    <button type="button" id="btnLiquid" class="btn btn-secondary" onclick="bathroomUpdateBathroomType(1)">Liquid</button>
+    <button type="button" id="btnSolid" class="btn btn-secondary" onclick="bathroomUpdateBathroomType(2)">Solid</button>
+    <button type="button" id="btnBoth" class="btn btn-secondary" onclick="bathroomUpdateBathroomType(3)">Both</button>
 </div>
 
 <div class="container mt-3">
     <h2 class="text-light bg-secondary">Time area</h2>
     <div class="form-group">
         <label for="inputDateTime">Select a date and time:</label>
-        <input type="datetime-local" id="inputDateTime" onChange="updateDateTime(this.value)" />
+        <input type="datetime-local" id="inputDateTime" onChange="bathroomUpdateDateTime(this.value)" />
     </div>
 </div>
 
@@ -37,14 +37,14 @@
     <h2 class="text-light bg-secondary">Comments area</h2>
     <div class="form-group">
         <label for="comment">Comment:</label>
-        <textarea class="form-control" rows="5" id="textComment" onChange="updateComment(this.value)"></textarea>
+        <textarea class="form-control" rows="5" id="textComment" onChange="bathroomUpdateComment(this.value)"></textarea>
     </div>
 </div>
 </div>
 
 <div class="container mt-3">
-    <button type="button" id="btnDone" class="btn btn-success" onClick='addBathroomEvent(true)' disabled>Done</button>
-    <button type="button" id="btnOneMore" class="btn btn-primary" onClick='addBathroomEvent(false)' disabled>One More</button>
+    <button type="button" id="btnDone" class="btn btn-success" onClick='bathroomAddBathroomEvent(true)' disabled>Done</button>
+    <button type="button" id="btnOneMore" class="btn btn-primary" onClick='bathroomAddBathroomEvent(false)' disabled>One More</button>
 </div>
 
 {% endblock %}

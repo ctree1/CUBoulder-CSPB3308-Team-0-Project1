@@ -7,36 +7,56 @@
 </div>
 
 <div class="container mt-3">
+    <h1>Baby area</h2>
+</div>
+    
+<div class="container mt-3">
     <h2 class="text-light bg-secondary">Add Baby area</h2>
     <div class="form-group">
         <label for="inputFirstName">First Name:</label>
-        <input type="text" class="form-control" id="inputFirstName" onChange="updateFirstName(this.value)">
+        <input type="text" class="form-control" id="inputFirstName" onChange="setupUpdateFirstName(this.value)">
     </div>
     <div class="form-group">
         <label for="inputLastName">Last Name:</label>
-        <input type="text" class="form-control" id="inputLastName" onChange="updateLastName(this.value)">
+        <input type="text" class="form-control" id="inputLastName" onChange="setupUpdateLastName(this.value)">
     </div>
     <div class="form-group">
-        <label for="inputBirthDate">Select a Birth Date:</label>
-        <input type="date" class="form-control" id="inputBirthDate" onChange="updateDate(this.value)" />
+        <label for="inputBirthWeight">Birth Weight:</label>
+        <input type="number" class="form-control" id="inputBirthWeight" onChange="setupUpdateBirthWeight(this.value)">
     </div>
+    <div class="form-group">
+        <label for="inputBirthHeight">Birth Height (inches):</label>
+        <input type="number" class="form-control" id="inputBirthHeight" onChange="setupUpdateBirthHeight(this.value)">
+    </div>
+    <div class="form-group">
+        <label for="inputBirthDate">Birthdate:</label>
+        <input type="date" class="form-control" id="inputBirthDate" onChange="setupUpdateDate(this.value)" />
+    </div>
+</div>
+
+<div class="container mt-3">
+    <button type="button" id="btnDone" class="btn btn-success" onClick='setupAddBaby(true)' disabled>Done</button>
+    <button type="button" id="btnOneMore" class="btn btn-primary" onClick='setupAddBaby(false)' disabled>One More</button>
+</div>
+
+<div class="container mt-3">
+    <h1>Preferences area</h2>
 </div>
 
 <div class="container mt-3">
     <h2 class="text-light bg-secondary">Liquid Units area</h2>
-    <button type="button" id="btnLiquidOz" class="btn btn-secondary" onclick="updateLiquidUnits(1)">Ounces</button>
-    <button type="button" id="btnLiquidMl" class="btn btn-secondary" onclick="updateLiquidUnits(2)">Milliliters</button>
+    <button type="button" id="btnLiquidOz" class="btn btn-secondary" onclick="setupUpdateLiquidUnits(1)">Ounces</button>
+    <button type="button" id="btnLiquidMl" class="btn btn-secondary" onclick="setupUpdateLiquidUnits(2)">Milliliters</button>
 </div>
 
 <div class="container mt-3">
     <h2 class="text-light bg-secondary">Weight Units area</h2>
-    <button type="button" id="btnWeightLb" class="btn btn-secondary" onclick="updateWeightUnits(1)">Pounds</button>
-    <button type="button" id="btnWeightKg" class="btn btn-secondary" onclick="updateWeightUnits(2)">Kilograms</button>
+    <button type="button" id="btnWeightLb" class="btn btn-secondary" onclick="setupUpdateWeightUnits(1)">Pounds</button>
+    <button type="button" id="btnWeightKg" class="btn btn-secondary" onclick="setupUpdateWeightUnits(2)">Kilograms</button>
 </div>
 
 <div class="container mt-3">
-    <button type="button" id="btnDone" class="btn btn-success" onClick='addBaby(true)' disabled>Done</button>
-    <button type="button" id="btnOneMore" class="btn btn-primary" onClick='addBaby(false)' disabled>One More</button>
+    <button type="button" id="btnSave" class="btn btn-success" onClick='setupSavePrefs()' disabled>Save</button>
 </div>
 
 {% endblock %}

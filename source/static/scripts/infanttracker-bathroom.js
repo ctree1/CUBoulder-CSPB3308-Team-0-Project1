@@ -8,15 +8,15 @@ var btnOneMoreElem = document.getElementById('btnBoth');
 var btnDoneElem = document.getElementById('btnDone');
 var btnOneMoreElem = document.getElementById('btnOneMore');
 var textCommentElem = document.getElementById('textComment');
-initializeBathroom();
-function initializeBathroom() {
+bathroomInitialize();
+function bathroomInitialize() {
     var today = new Date();
     var dateTime = toISOLocal(today);
-    updateDateTime(dateTime);
-    updateBathroomType(BathroomTypeEnum.none);
-    updateComment("");
+    bathroomUpdateDateTime(dateTime);
+    bathroomUpdateBathroomType(BathroomTypeEnum.none);
+    bathroomUpdateComment("");
 }
-function updateSubmitBtns() {
+function bathroomUpdateSubmitBtns() {
     if (bathroomEvent.babyId && bathroomEvent.babyId != 0 && bathroomEvent.type != BathroomTypeEnum.none) {
         btnDoneElem.disabled = false;
         btnOneMoreElem.disabled = false;
@@ -26,11 +26,11 @@ function updateSubmitBtns() {
         btnOneMoreElem.disabled = true;
     }
 }
-function selectBaby(babyId) {
+function bathroomSelectBaby(babyId) {
     bathroomEvent.babyId = +babyId;
-    updateSubmitBtns();
+    bathroomUpdateSubmitBtns();
 }
-function updateBathroomType(type) {
+function bathroomUpdateBathroomType(type) {
     bathroomEvent.type = bathroomEvent.type == type ? BathroomTypeEnum.none : type;
     switch (bathroomEvent.type) {
         case BathroomTypeEnum.liquid:
@@ -54,18 +54,18 @@ function updateBathroomType(type) {
             btnBothElem.className = "btn btn-secondary";
             break;
     }
-    updateSubmitBtns();
+    bathroomUpdateSubmitBtns();
 }
-function updateDateTime(dateTime) {
+function bathroomUpdateDateTime(dateTime) {
     bathroomEvent.dateTime = dateTime;
     inputDateTimeElem.value = dateTime;
 }
-function updateComment(comment) {
+function bathroomUpdateComment(comment) {
     bathroomEvent.comment = comment;
     textCommentElem.value = comment;
 }
-function addBathroomEvent(goHome) {
+function bathroomAddBathroomEvent(goHome) {
     var data = { "bathroomEvent": bathroomEvent };
-    postDataToServer("/bathroom", data, goHome);
+    postDataToServer("/bathroom", data, goHome, bathroomInitialize);
 }
 //# sourceMappingURL=infanttracker-bathroom.js.map

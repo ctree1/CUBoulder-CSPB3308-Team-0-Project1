@@ -41,13 +41,20 @@ def setup():
     """Renders the setup page."""
     if request.method == 'POST':
         result = request.data
-        bathroom_event = json.loads(result) # creates python dictionary
-        bathroom_sql_ins(bathroom_event['bathroomEvent'])             #insert into database
+        baby_and_prefs = json.loads(result) # creates python dictionary
+        if 'preferences' in baby_and_prefs.keys():
+            prefs = baby_and_prefs['preferences']
+            print("Preferences: " + str(prefs))
+            # update DB with preferences
+        elif 'baby' in baby_and_prefs.keys():
+            baby = baby_and_prefs['baby']
+            print("Baby: " + str(baby))
+            # update DB with preferences
         return  jsonify(""), 200
     else:
         return render_template(
             'setup.html',
-            babies = get_babies()
+            # Get preferences
         )
 
 @app.route('/bathroom',methods = ['POST', 'GET'])

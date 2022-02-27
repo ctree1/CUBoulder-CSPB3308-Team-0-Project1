@@ -5,20 +5,25 @@ enum BathroomTypeEnum {
     both = 3
 }
 
-enum LiquidUnits {
+enum LiquidUnitsEnum {
     none = 0,
-    oz = 1,
-    ml = 2
+    ounces = 1,
+    milliliters = 2
 }
 
-enum WeightUnits {
+enum WeightUnitsEnum {
     none = 0,
-    oz = 1,
-    ml = 2
+    pounds = 1,
+    kilograms = 2
+}
+
+class Preferences {
+    liquidUnits: LiquidUnitsEnum = 0;
+    weightUnits: WeightUnitsEnum = 0;
 }
 
 class Baby {
-    birthDate: Date = null;
+    birthDate: string;
     firstName: string = "";
     lastName: string = "";
     birthWeight: string = "";
@@ -32,7 +37,7 @@ class BathroomEvent {
     comment: string = ""
 }
 
-function postDataToServer(url: string, data: any, goHome: boolean) {
+function postDataToServer(url: string, data: any, goHome: boolean, callback: Function ) {
     let xhr = new XMLHttpRequest();
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
@@ -42,7 +47,7 @@ function postDataToServer(url: string, data: any, goHome: boolean) {
             if (goHome) {
                 window.open("/home",'_self');
             } else {
-                initialize();
+                callback();
             }
         }
     };

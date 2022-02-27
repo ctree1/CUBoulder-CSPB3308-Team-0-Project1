@@ -1,4 +1,5 @@
 var baby = new Baby();
+var preferences = new Preferences();
 var dateElem = document.getElementById('inputBirthDate');
 var inputFirstNameElem = document.getElementById('inputFirstName');
 var inputLastNameElem = document.getElementById('inputLastName');
@@ -8,78 +9,106 @@ var btnLiquidOzElem = document.getElementById('btnLiquidOz');
 var btnLiquidMlElem = document.getElementById('btnLiquidMl');
 var btnWeightLbElem = document.getElementById('btnWeightLb');
 var btnWeightKgElem = document.getElementById('btnWeightKg');
-initializeSetup();
-function initializeSetup() {
-    var today = new Date();
-    var dateTime = toISOLocal(today);
-    //updateTime(dateTime);
-    updateBathroomType(BathroomTypeEnum.none);
-    updateComment("");
+var btnOneMoreElem = document.getElementById('btnOneMore');
+var btnDoneElem = document.getElementById('btnDone');
+var btnSaveElem = document.getElementById('btnSave');
+setupInitialize();
+function setupInitialize() {
+    // var today: Date = new Date();
+    // var dateTime = toISOLocal(today);
+    //setupUpdateDate(dateTime);
+    setupUpdateDate("");
+    setupUpdateFirstName("");
+    setupUpdateLastName("");
+    setupUpdateBirthWeight("");
+    setupUpdateBirthHeight("");
 }
-// function updateSubmitBtns() {
-//     if (baby.babyId && baby.babyId != 0 && baby.type != BathroomTypeEnum.none) {
-//         btnDoneElem.disabled = false;
-//         btnOneMoreElem.disabled = false;
-//     } else {
-//         btnDoneElem.disabled = true;
-//         btnOneMoreElem.disabled = true;
-//     }
-// }
-// function selectBaby(babyId: number) {
-//     baby.babyId = +babyId;
-//     updateSubmitBtns();
-// }
-// function updateBathroomType(type: BathroomTypeEnum) {
-//     baby.type = baby.type == type ? BathroomTypeEnum.none : type;
-//     switch (baby.type){
-//         case BathroomTypeEnum.liquid:
-//             btnLiquidElem.className = "btn btn-primary"
-//             btnSolidElem.className = "btn btn-secondary"
-//             btnBothElem.className = "btn btn-secondary"
-//             break;
-//         case BathroomTypeEnum.solid:
-//             btnLiquidElem.className = "btn btn-secondary"
-//             btnSolidElem.className = "btn btn-primary"
-//             btnBothElem.className = "btn btn-secondary"
-//             break;
-//         case BathroomTypeEnum.both:
-//             btnLiquidElem.className = "btn btn-secondary"
-//             btnSolidElem.className = "btn btn-secondary"
-//             btnBothElem.className = "btn btn-primary"
-//             break;
-//         default:
-//             btnLiquidElem.className = "btn btn-secondary"
-//             btnSolidElem.className = "btn btn-secondary"
-//             btnBothElem.className = "btn btn-secondary"
-//             break;
-//     }
-//     updateSubmitBtns();
-// }
-// function updateTime(dateTime: string) {
-//     baby.dateTime = dateTime;
-//     dateElem.value = dateTime;
-// }
-// function updateComment(comment: string) {
-//     baby.comment = comment;
-//     textCommentElem.value = comment;
-// }
-// function addBathroomEvent(goHome: boolean) {
-//     let xhr = new XMLHttpRequest();
-//     let url = "/bathroom";
-//     xhr.open("POST", url, true);
-//     xhr.setRequestHeader("Content-Type", "application/json");
-//     xhr.onreadystatechange = function () {
-//         if (xhr.readyState === 4 && xhr.status === 200) {
-//             var result = this.responseText;
-//             if (goHome) {
-//                 window.open("/home",'_self');
-//                 //window.location.replace('https://www.example.com/');
-//             } else {
-//                 initialize();
-//             }
-//         }
-//     };
-//     var data = JSON.stringify({ "bathroomEvent": baby });
-//     xhr.send(data);
-// } 
+function setupUpdateSubmitBtns() {
+    if (baby.birthDate && baby.firstName.length != 0 && baby.lastName.length != 0) {
+        btnDoneElem.disabled = false;
+        btnOneMoreElem.disabled = false;
+    }
+    else {
+        btnDoneElem.disabled = true;
+        btnOneMoreElem.disabled = true;
+    }
+}
+function setupUpdateSaveBtn() {
+    if (preferences.weightUnits != WeightUnitsEnum.none && preferences.liquidUnits != LiquidUnitsEnum.none) {
+        btnSaveElem.disabled = false;
+    }
+    else {
+        btnSaveElem.disabled = true;
+    }
+}
+function setupUpdateLiquidUnits(units) {
+    preferences.liquidUnits = units;
+    switch (units) {
+        case LiquidUnitsEnum.ounces:
+            btnLiquidOzElem.className = "btn btn-primary";
+            btnLiquidMlElem.className = "btn btn-secondary";
+            break;
+        case LiquidUnitsEnum.milliliters:
+            btnLiquidOzElem.className = "btn btn-secondary";
+            btnLiquidMlElem.className = "btn btn-primary";
+            break;
+        default:
+            btnLiquidOzElem.className = "btn btn-secondary";
+            btnLiquidMlElem.className = "btn btn-secondary";
+            break;
+    }
+    setupUpdateSaveBtn();
+}
+function setupUpdateWeightUnits(units) {
+    preferences.weightUnits = units;
+    switch (units) {
+        case WeightUnitsEnum.pounds:
+            btnWeightLbElem.className = "btn btn-primary";
+            btnWeightKgElem.className = "btn btn-secondary";
+            break;
+        case WeightUnitsEnum.kilograms:
+            btnWeightLbElem.className = "btn btn-secondary";
+            btnWeightKgElem.className = "btn btn-primary";
+            break;
+        default:
+            btnWeightLbElem.className = "btn btn-secondary";
+            btnWeightKgElem.className = "btn btn-secondary";
+            break;
+    }
+    setupUpdateSaveBtn();
+}
+function setupUpdateDate(date) {
+    // Remove the time
+    baby.birthDate = date;
+    dateElem.value = date;
+    setupUpdateSubmitBtns();
+}
+function setupUpdateFirstName(name) {
+    baby.firstName = name;
+    inputFirstNameElem.value = name;
+    setupUpdateSubmitBtns();
+}
+function setupUpdateLastName(name) {
+    baby.lastName = name;
+    inputLastNameElem.value = name;
+    setupUpdateSubmitBtns();
+}
+function setupUpdateBirthWeight(weight) {
+    baby.birthWeight = weight;
+    inputBirthWeightElem.value = weight;
+    setupUpdateSubmitBtns();
+}
+function setupUpdateBirthHeight(height) {
+    baby.birthHeight = height;
+    inputBirthHeightElem.value = height;
+    setupUpdateSubmitBtns();
+}
+function setupAddBaby(goHome) {
+    var data = { "baby": baby };
+    postDataToServer("/setup", data, goHome, setupInitialize);
+}
+function setupSavePrefs() {
+    var data = { "preferences": preferences };
+    postDataToServer("/setup", data, false, null);
+}
 //# sourceMappingURL=infanttracker-setup.js.map

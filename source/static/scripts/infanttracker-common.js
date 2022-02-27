@@ -5,21 +5,27 @@ var BathroomTypeEnum;
     BathroomTypeEnum[BathroomTypeEnum["solid"] = 2] = "solid";
     BathroomTypeEnum[BathroomTypeEnum["both"] = 3] = "both";
 })(BathroomTypeEnum || (BathroomTypeEnum = {}));
-var LiquidUnits;
-(function (LiquidUnits) {
-    LiquidUnits[LiquidUnits["none"] = 0] = "none";
-    LiquidUnits[LiquidUnits["oz"] = 1] = "oz";
-    LiquidUnits[LiquidUnits["ml"] = 2] = "ml";
-})(LiquidUnits || (LiquidUnits = {}));
-var WeightUnits;
-(function (WeightUnits) {
-    WeightUnits[WeightUnits["none"] = 0] = "none";
-    WeightUnits[WeightUnits["oz"] = 1] = "oz";
-    WeightUnits[WeightUnits["ml"] = 2] = "ml";
-})(WeightUnits || (WeightUnits = {}));
+var LiquidUnitsEnum;
+(function (LiquidUnitsEnum) {
+    LiquidUnitsEnum[LiquidUnitsEnum["none"] = 0] = "none";
+    LiquidUnitsEnum[LiquidUnitsEnum["ounces"] = 1] = "ounces";
+    LiquidUnitsEnum[LiquidUnitsEnum["milliliters"] = 2] = "milliliters";
+})(LiquidUnitsEnum || (LiquidUnitsEnum = {}));
+var WeightUnitsEnum;
+(function (WeightUnitsEnum) {
+    WeightUnitsEnum[WeightUnitsEnum["none"] = 0] = "none";
+    WeightUnitsEnum[WeightUnitsEnum["pounds"] = 1] = "pounds";
+    WeightUnitsEnum[WeightUnitsEnum["kilograms"] = 2] = "kilograms";
+})(WeightUnitsEnum || (WeightUnitsEnum = {}));
+var Preferences = /** @class */ (function () {
+    function Preferences() {
+        this.liquidUnits = 0;
+        this.weightUnits = 0;
+    }
+    return Preferences;
+}());
 var Baby = /** @class */ (function () {
     function Baby() {
-        this.birthDate = null;
         this.firstName = "";
         this.lastName = "";
         this.birthWeight = "";
@@ -35,7 +41,7 @@ var BathroomEvent = /** @class */ (function () {
     }
     return BathroomEvent;
 }());
-function postDataToServer(url, data, goHome) {
+function postDataToServer(url, data, goHome, callback) {
     var xhr = new XMLHttpRequest();
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
@@ -46,7 +52,7 @@ function postDataToServer(url, data, goHome) {
                 window.open("/home", '_self');
             }
             else {
-                initialize();
+                callback();
             }
         }
     };
