@@ -15,7 +15,7 @@ import source.views
 # Learn more here: https://docs.djangoproject.com/en/2.1/topics/http/urls/
 
 urlpatterns = [
-    path("", source.views.index, name="index"),
+    path("", source.views.home, name="index"),
     # path("db/", hello.views.db, name="db"),
     # path("admin/", admin.site.urls),
 ]
