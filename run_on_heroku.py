@@ -1,4 +1,3 @@
-from os import environ
 from source import app
 
 if __name__ == "__main__":
