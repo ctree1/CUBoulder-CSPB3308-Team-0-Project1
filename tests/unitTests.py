@@ -1,27 +1,42 @@
-#!/bin/python
+# command line executable
 
 import sqlite3
 import unittest
 
-from source import sql_functions
+from source.sql_functions import *  # import error
 
 
 class TestSQLins(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.db_connect = sqlite3.connect("./tests/test.db")
-        cls.db_cursor = cls.db_connect.cursor()
-        # variable to keep track of number of entries made to db
-        cls.num_entries = 0
-        return
+        try: 
+            cls.db_connect = sqlite3.connect("./tests/test.db")
+            cls.db_cursor = cls.db_connect.cursor()
+            # add any initial values needed to table 
+
+            # get list of tables in SQL
+            cls.db_cursor.execute('SELECT name from sqlite_master where type= "table"')
+            # printing all tables list
+            cls.db_tables = cls.db_cursor.fetchall()
+            # use list of tables in teardown to clear all values from tables
+            
+            # temporary hardcoded list of tables
+            #cls.db_tables = ['babies', 'bathroom', 'bathroomType', 'preferences', 'sleep', 'sleepType']
+        except sqlite3.Error as error:
+            print("Failed to initialize test cases.  Database issued this error when fetching tables: ", error)
+
+        
 
     @classmethod
     def tearDownClass(cls):
-        # reset db to original
-        # delete added rows
+        # delete all records in database
+        for table_name in cls.db_tables :
+            query = 'DELETE FROM ' + table_name + ';'
+            cls.db_cursor.execute(query)
+        
+        cls.db_connect.commit()
         cls.db_connect.close()
-        return
 
     '''
          babyID = value['babyId']        #split tuple into individual variables
@@ -31,22 +46,24 @@ class TestSQLins(unittest.TestCase):
         bathroomDateTime = bathroomDateTime.replace("T", " ")
     '''
 
-    def make_baby(self, babyID = "131313", first_name = "Mathias", last_name = "Bee", ):
+    # need to do read_db to see exact form for items
+    def make_baby(self, babyID = "131313", first_name = "Mathias", last_name = "Bee", birthDate = "T'2022-01-21'", eventType = 'Baby', abbreviatedName = 'MB', birthWeight = '8', birthHeight = '22'):
         # make a baby and return
+        # insert baby into db
         return babyID
 
     # Bathroom events can be specified as good or bad and also can be custom
     # This constructs a simple python dictionary for sending to bathroom_sql_ins()
     def make_bath_event(self, event_type = "Good", babyID = "34980", type = 1, dateTime = "", comment = "Very little") :
         if event_type == "Bad" :
-            babyID = 'Willy Wonka'
+            babyID = "Willy Wonka"
             type = -9999
             dateTime = 'never'
             comment = 400
         elif event_type == "Good" :
-            babyID = "34980"
+            babyID = 9000
             type = 1
-            dateTime = '2022-02-21 13:54:24'
+            dateTime = "T'2022-02-21 13:54:24'"
             comment = "Very little"
 
         event = {'babyID': babyID, 
@@ -58,25 +75,26 @@ class TestSQLins(unittest.TestCase):
 
     # tests add_baby() function in sql_functions.py
     def test_add_baby(self, baby_dict) :
-        return None
+        pass
 
 
     def test_bathroom_sql_ins(self):
         # Good data insert test
         good_event_dict = self.make_bath_event(event_type = "Good")
-        sql_functions.bathroom_sql_ins(good_event_dict)
+        exit_code = bathroom_sql_ins(good_event_dict)
+        self.assertEqual(exit_code, 0) # success exit code
         # check database
-        # ASSERT return yields exact entry
+        # assert return yields exact entry
 
         # Bad data insert test
         bad_event_dict = self.make_bath_event(event_type = "Bad")
-        sql_functions.bathroom_sql_ins(bad_event_dict, "./tests/test.db")
+        exit_code = bathroom_sql_ins(bad_event_dict, "./tests/test.db")
         # check database
         # ASSERT return yields no entry
+        # ASSERT exit code is returned as -1
         # test to see what database holds using queries
+        pass
 
-        
-        return
 
 
 # Main: Run Test Cases
