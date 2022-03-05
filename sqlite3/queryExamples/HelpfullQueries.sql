@@ -2,7 +2,8 @@
 --SELECT * FROM babies;
 --SELECT * FROM bathroom ORDER BY bathroomDateTime DESC;
 --SELECT * FROM sleep;
-SELECT * FROM babies;
+--SELECT * FROM babies;
+SELECT * FROM preferences;
 --SELECT * FROM bathroomType;
 --SELECT * FROM sleepType;
 --SELECT * FROM feed;
