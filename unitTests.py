@@ -96,7 +96,7 @@ class TestSQLins(unittest.TestCase):
         conn = sqlite3.connect('./tests/test.db')
         c = conn.cursor()
         baby = sf.Baby(c.execute('SELECT * FROM babies;'))
-        print('baby check', baby.firstName[0])
+        print('baby check', baby.firstName)
         self.assertEqual(baby.firstName[0], 'Jane')
         c.close()
 
