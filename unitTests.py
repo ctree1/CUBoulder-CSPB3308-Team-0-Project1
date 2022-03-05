@@ -2,12 +2,16 @@
 
 import sqlite3
 import unittest
-import source.sql_functions
+import source.sql_functions as sf
 
-# read sql file in stead of hard coding
+# read sql file in stead of hard coding -
 def read_sql(queryName):
-    sql_file = open(queryName)
-    return sql_file.read()
+    with open(queryName)as q:
+        query_text = q.read()
+    return query_text
+
+    #sql_file = open(queryName)
+    #return sql_file.read()
 
 class TestSQLins(unittest.TestCase):
 
@@ -56,26 +60,27 @@ class TestSQLins(unittest.TestCase):
 
 
     # need to do read_db to see exact form for items
-    def make_baby(self, babyID = "131313", first_name = "Mathias", last_name = "Bee", birthDate = "T'2022-01-21'", abbreviatedName = 'MB', birthWeight = '8', birthHeight = '22'):
+    #def make_baby(self, first_name = "Mathias", last_name = "Bee", birthDate = "2022-01-21", abbreviatedName = 'MB', birthWeight = '8', birthHeight = '22'):
+        
         # make a baby and return
         # insert baby into db
-        return babyID
+        # return babyID
 
     # Bathroom events can be specified as good or bad and also can be custom
     # This constructs a simple python dictionary for sending to bathroom_sql_ins()
-    def make_bath_event(self, event_type = "Good", babyID = "34980", type = 1, dateTime = "", comment = "Very little") :
+    def make_bath_event(self, event_type = "Good") :
         if event_type == "Bad" :
-            babyID = "Willy Wonka"
+            babyID = 400
             type = -9999
             dateTime = 'never'
             comment = 400
         elif event_type == "Good" :
-            babyID = 9000
+            babyID = 1
             type = 1
-            dateTime = "T'2022-02-21 13:54:24'"
+            dateTime = "2022-02-21T13:54:24"
             comment = "Very little"
 
-        event = {'babyID': babyID, 
+        event = {'babyID': babyID,
                 'type': type, 
                 'dateTime': dateTime, 
                 'comment': comment
@@ -83,21 +88,30 @@ class TestSQLins(unittest.TestCase):
         return event
 
     # tests add_baby() function in sql_functions.py
-    def test_add_baby(self, baby_dict) :
-        pass
+    def test_add_baby(self, db_path = './tests/test.db'):
+        exit_code = sf.add_baby({'birthDate': '2022-01-01', 'firstName':'Jane', 'lastName':'Baby', 'abbreviatedName':'JB', 'birthWeight':3600 , 'birthHeight':45})
+        self.assertNotEqual(exit_code, -1) #expecting an exit code of -1 for db write issues
+
+        #check db
+        conn = sqlite3.connect('./tests/test.db')
+        c = conn.cursor()
+        baby = sf.Baby(c.execute('SELECT * FROM babies;'))
+        print('baby check', baby.firstName[0])
+        self.assertEqual(baby.firstName[0], 'Jane')
+        c.close()
 
 
     def test_bathroom_sql_ins(self):
         # Good data insert test
         good_event_dict = self.make_bath_event(event_type = "Good")
-        exit_code = sql_functions.bathroom_sql_ins(good_event_dict)
-        self.assertEqual(exit_code, 0) # success exit code
+        exit_code = sf.bathroom_sql_ins(good_event_dict, db_path = './tests/test.db')
+        self.assertNotEqual(exit_code, -1) # success exit code
         # check database
         # assert return yields exact entry
 
         # Bad data insert test
         bad_event_dict = self.make_bath_event(event_type = "Bad")
-        exit_code = sql_functions.bathroom_sql_ins(bad_event_dict, "./tests/test.db")
+        exit_code = sf.bathroom_sql_ins(bad_event_dict, db_path = './tests/test.db')
         # check database
         # ASSERT return yields no entry
         # ASSERT exit code is returned as -1

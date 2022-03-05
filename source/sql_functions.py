@@ -4,12 +4,11 @@ import sqlite3
 # value should be python dict: {babyID: int, type: int, comment: string, dateTime: valid dateTime string} 
 def bathroom_sql_ins(value, db_path = "./sqlite3/baby.db"):
     conn = sqlite3.connect(db_path)       #connect to database
-    cur = conn.cursor()   
-    babyID = value['babyId']        #split dictionary into individual variables
+    cur = conn.cursor()
+    babyID = value['babyID']        #split dictionary into individual variables
     bathroomType = value['type']
     bathroomComment = value['comment']
     bathroomDateTime = value['dateTime']
-    bathroomDateTime = bathroomDateTime.replace("T", " ")
 
     #execute sql insert statement
     cur.execute("INSERT INTO bathroom (babyID, bathroomType, bathroomDateTime, bathroomComment) VALUES(?, ?, ?, ?);", (babyID, bathroomType, bathroomDateTime, bathroomComment))
@@ -58,3 +57,21 @@ def add_baby(baby_dict, db_path = "./sqlite3/baby.db"):
     conn.commit()
     conn.close()
     #return error/success code
+
+class Baby:
+    def __init__(self, rows):
+        self.babyID = []
+        self.birthDate = []
+        self.firstName = []
+        self.lastName = []
+        self.abbreviatedName = []
+        self.birthWeight = []
+        self.birthHeight = []
+        for row in rows:
+            self.babyID.append(row[0])
+            self.birthDate.append(row[1])
+            self.firstName.append(row[2])
+            self.lastName.append(row[3])
+            self.abbreviatedName.append(row[4])
+            self.birthWeight.append(row[5])
+            self.birthHeight.append(row[6])
