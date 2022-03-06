@@ -1,6 +1,8 @@
 # Infant Tracking App
 ## Team members
 Connor Tree, Julia Scott (dropped), Michael Lamelza, Steven Putt
+## Repo
+https://github.com/lamelza/CUBoulder-CSPB3308-Team-0-Project
 
 ## Setting Up the Infant Tracker
 1. Create a folder for our project on your computer
