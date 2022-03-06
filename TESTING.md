@@ -2,6 +2,20 @@
 ## Team members
 Connor Tree, Julia Scott (dropped), Michael Lamelza, Steven Putt
 
+## Setting Up the Infant Tracker
+1. Create a folder for our project on your computer
+2. Open a Git Bash console at that folder location. Verify it's correct at your Git Bash prompt
+3. Git Clone repository to that folder
+4. Open Visual Studio Code and select that project folder. Verify files load
+5. Open terminal ( Ctrl + Shift + ` ) and create a virtual environment for Python --> "python -m venv .venv"
+6. Install Python Extension - (Ctrl + Shift + p) Extensions: Install Extentions --> Python
+7. Press Ctrl + Shift + P, and enter "Python: Select Iterpreter" - Select the new ".venv" virtual environment
+8. Open terminal again ( Ctrl + Shift + ` ) and make sure the new ".venv" shows up in your prompt
+9. Note: I included a "requirements.txt" document that lists the needed Python packages. Only Flask is listed at the moment.
+10. Open terminal and install the Python packages from the "requirements.txt" doc --> "pip install -r requirements.txt"
+11. Try it out. Select the "run_on_dev_server.py" file, then press the play button in the upper right corner of the screen. Terminal will show server launch
+12. Open a browser and navigate to http://localhost:5555/
+
 ## Automated Tests
 ### Add baby
 Copy git repository
@@ -69,10 +83,10 @@ Description
 Pre-conditions
     Testing databases (test.db) setup via sqlite3
 Test steps
-    1. Run unitTests.py
-    2. Advanced - Make changes to or add new query inputs in each test case in the test_feed_sql_ins function to test additional results
+1. Run unitTests.py
+2. Advanced - Make changes to or add new query inputs in each test case in the test_feed_sql_ins function to test additional results
 Expected result
-    1. test_feed_sql_ins tests should all pass with database entries matching mock UI inputs 
+1. test_feed_sql_ins tests should all pass with database entries matching mock UI inputs 
 Actual result
     Tests fail, menu not setup yet
 Status (Pass/Fail)
@@ -124,17 +138,3 @@ Steps 2 - 6 fail, not implemented
  
 Step 1 fail, not implemented - workaround is to use the ribbon
 Steps 2 - 7 fail, not implemented
-
-## Setting Up the Infant Tracker
-1. Create a folder for our project on your computer
-2. Open a Git Bash console at that folder location. Verify it's correct at your Git Bash prompt
-3. Git Clone repository to that folder
-4. Open Visual Studio Code and select that project folder. Verify files load
-5. Open terminal ( Ctrl + Shift + ` ) and create a virtual environment for Python --> "python -m venv .venv"
-6. Install Python Extension - (Ctrl + Shift + p) Extensions: Install Extentions --> Python
-7. Press Ctrl + Shift + P, and enter "Python: Select Iterpreter" - Select the new ".venv" virtual environment
-8. Open terminal again ( Ctrl + Shift + ` ) and make sure the new ".venv" shows up in your prompt
-9. Note: I included a "requirements.txt" document that lists the needed Python packages. Only Flask is listed at the moment.
-10. Open terminal and install the Python packages from the "requirements.txt" doc --> "pip install -r requirements.txt"
-11. Try it out. Select the "run_on_dev_server.py" file, then press the play button in the upper right corner of the screen. Terminal will show server launch
-12. Open a browser and navigate to http://localhost:5555/
