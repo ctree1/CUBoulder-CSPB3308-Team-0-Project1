@@ -51,8 +51,8 @@ def add_baby(baby_dict, db_path = "./sqlite3/baby.db"):
     conn = sqlite3.connect(db_path)       #connect to database
     cur = conn.cursor()
     
-    initials=baby_dict['firstName'][0] + baby_dict['lastName'][0]
-    cur.execute("INSERT INTO babies (birthDate, firstName, lastName, abbreviatedName, birthWeight, birthHeight) VALUES (?, ?, ?, ?, ?, ?);",(baby_dict['birthDate'], baby_dict['firstName'], baby_dict['lastName'], initials, baby_dict['birthWeight'], baby_dict['birthHeight']))
+    #initials=baby_dict['firstName'][0] + baby_dict['lastName'][0]
+    cur.execute("INSERT INTO babies (birthDate, firstName, lastName, abbreviatedName, birthWeight, birthHeight) VALUES (?, ?, ?, ?, ?, ?);",(baby_dict['birthDate'], baby_dict['firstName'], baby_dict['lastName'], baby_dict['abbreviation'], baby_dict['birthWeight'], baby_dict['birthHeight']))
     
     conn.commit()
     conn.close()
@@ -61,6 +61,7 @@ def add_baby(baby_dict, db_path = "./sqlite3/baby.db"):
 class Baby:
     def __init__(self, rows):
         self.babyID = []
+        self.eventType = []
         self.birthDate = []
         self.firstName = []
         self.lastName = []
@@ -69,9 +70,10 @@ class Baby:
         self.birthHeight = []
         for row in rows:
             self.babyID.append(row[0])
-            self.birthDate.append(row[1])
-            self.firstName.append(row[2])
-            self.lastName.append(row[3])
-            self.abbreviatedName.append(row[4])
-            self.birthWeight.append(row[5])
-            self.birthHeight.append(row[6])
+            self.eventType.append(row[1])
+            self.birthDate.append(row[2])
+            self.firstName.append(row[3])
+            self.lastName.append(row[4])
+            self.abbreviatedName.append(row[5])
+            self.birthWeight.append(row[6])
+            self.birthHeight.append(row[7])
