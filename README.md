@@ -35,7 +35,7 @@ Azure DevOps (ADO)
 8. Open terminal again ( Ctrl + Shift + ` ) and make sure the new ".venv" shows up in your prompt
 9. Note: I included a "requirements.txt" document that lists the needed Python packages. Only Flask is listed at the moment.
 10. Open terminal and install the Python packages from the "requirements.txt" doc --> "pip install -r requirements.txt"
-11. Try it out. Select the "runserver.py" file, then press the play button in the upper right corner of the screen. Terminal will show server launch
+11. Try it out. Select the "run_on_dev_server.py" file, then press the play button in the upper right corner of the screen. Terminal will show server launch
 12. Open a browser and navigate to http://localhost:5555/
 13. Did it work?
 14. Let Michael know if you have issues
