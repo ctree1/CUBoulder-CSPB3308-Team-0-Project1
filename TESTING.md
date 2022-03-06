@@ -17,82 +17,82 @@ Connor Tree, Julia Scott (dropped), Michael Lamelza, Steven Putt
 12. Open a browser and navigate to http://localhost:5555/
 
 ## Automated Tests
-### Add baby
+### Add Baby
 Copy git repository
-Description
-    Automates UI inputs to add a bathroom event in the sqlite server
-Pre-conditions
-    Testing databases (test.db) setup via sqlite3
-Test steps
+#### Description
+Automates UI inputs to add a bathroom event in the sqlite server
+#### Pre-conditions
+Testing databases (test.db) setup via sqlite3
+#### Test steps
 1. Run unitTests.py
 2. Advanced - Make changes to or add new query inputs in each test case in the test_add_baby function to test additional results
 Expected result
 1. test_add_baby tests should all pass with database entries matching mock UI inputs 
-Actual result
-    Tests pass a expected
-Status (Pass/Fail)
-    Pass
-Notes
-    Future testing will be needed to test units based on a preference setting for lbs vs oz etc.
-Post-conditions
-    All database entries in test.db are cleared after testing
+#### Actual result
+Tests pass a expected
+#### Status (Pass/Fail)
+Pass
+#### Notes
+Future testing will be needed to test units based on a preference setting for lbs vs oz etc.
+#### Post-conditions
+All database entries in test.db are cleared after testing
 
-### Add bathroom event
+### Add Bathroom event
 Copy git repository
-Description
-    Automates UI inputs to add a bathroom event in the sqlite server
-Pre-conditions
-    Testing databases (test.db) setup via sqlite3
-    bathroomType and babies tables are setup with entries (automated with the test)
-Test steps
+#### Description
+Automates UI inputs to add a bathroom event in the sqlite server
+#### Pre-conditions
+Testing databases (test.db) setup via sqlite3
+bathroomType and babies tables are setup with entries (automated with the test)
+#### Test steps
 1. Run unitTests.py
 2. Advanced - Make changes to or add new query inputs in each test case in the test_bathroom_sql_ins function to test additional results
 Expected result
 1. test_bathroom_sql_ins tests should all pass with database entries matching mock UI inputs
 2. Adding a bathroom event for a baby that does not exist should throw a sqlite error 
-Actual result
-    Tests pass a expected
-Status (Pass/Fail)
-    Pass
-Post-conditions
-    All database entries in test.db are cleared after testing
+#### Actual result
+Tests pass a expected
+#### Status (Pass/Fail)
+Pass
+#### Post-conditions
+All database entries in test.db are cleared after testing
 
 ### Add Sleep event
 Copy git repository
-Description
-    Automates UI inputs to add a bathroom event in the sqlite server
-Pre-conditions
-    Testing databases (test.db) setup via sqlite3
-    sleepType and babies table are setup with entries (automated with the test)
-Test steps
+#### Description
+Automates UI inputs to add a bathroom event in the sqlite server
+#### Pre-conditions
+Testing databases (test.db) setup via sqlite3
+sleepType and babies table are setup with entries (automated with the test)
+#### Test steps
 1. Run unitTests.py
 2. Advanced - Make changes to or add new query inputs in each test case in the test_sleep_sql_ins function to test additional results
 Expected result
 1. test_sleep_sql_ins tests should all pass with database entries matching mock UI inputs 
-Actual result
-    Tests fail, this menu is not setup yet
-Status (Pass/Fail)
-    Fail
-Post-conditions
-    All database entries in test.db are cleared after testing
+#### Actual result
+Tests fail, this menu is not setup yet
+#### Status (Pass/Fail)
+Fail
+#### Post-conditions
+All database entries in test.db are cleared after testing
 
 ### Add Feed event
 Copy git repository
-Description
-    Automates UI inputs to add a feed event in the sqlite server
-Pre-conditions
-    Testing databases (test.db) setup via sqlite3
-Test steps
+#### Description
+Automates UI inputs to add a feed event in the sqlite server
+#### Pre-conditions
+Testing databases (test.db) setup via sqlite3
+#### Test steps
 1. Run unitTests.py
 2. Advanced - Make changes to or add new query inputs in each test case in the test_feed_sql_ins function to test additional results
-Expected result
+#### Expected result
 1. test_feed_sql_ins tests should all pass with database entries matching mock UI inputs 
-Actual result
-    Tests fail, menu not setup yet
-Status (Pass/Fail)
-    Fail
-Post-conditions
-    All database entries in test.db are cleared after testing
+#### Actual result
+Tests fail, menu not setup yet
+#### Status (Pass/Fail)
+Fail
+#### Post-conditions
+All database entries in test.db are cleared after testing
 
 ## User Acceptance Test Cases
 ### Navigate to Setup Page
