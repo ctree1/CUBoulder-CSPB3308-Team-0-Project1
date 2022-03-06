@@ -4,8 +4,51 @@
 
 <div class="jumbotron">
     <h1>Infant Tracker</h1>
-    <p class="lead">Sleep Page</p>
-    <p>{{ message }}</p>
 </div>
 
+<div class="container mt-3">
+    <h2 class="text-light bg-secondary">Select baby area</h2>
+    <div class="d-flex flex-row d-flex">
+        <select class="form-select me-3" onChange="sleepSelectBaby(this.value)">
+            <option value="null" selected>Select</option>
+            {% for baby in babies %}
+            <option value="{{ baby[0] }}">{{ baby[3] }} {{ baby[4] }}</option>
+            {% endfor %}
+        </select>
+    </div>
+</div>
+
+<div class="container mt-3">
+    <h2 class="text-light bg-secondary">Sleep Type area</h2>
+    <button type="button" id="btnAwake" class="btn btn-secondary" onclick="sleepUpdateSleepType(1)">Awake</button>
+    <button type="button" id="btnAsleep" class="btn btn-secondary" onclick="sleepUpdateSleepType(2)">Asleep</button>
+</div>
+
+<div class="container mt-3">
+    <h2 class="text-light bg-secondary">Time area</h2>
+    <div class="form-group">
+        <label for="inputDateTime">Select a date and time:</label>
+        <input type="datetime-local" id="inputDateTime" onChange="sleepUpdateDateTime(this.value)" />
+    </div>
+</div>
+
+<div class="container mt-3">
+    <h2 class="text-light bg-secondary">Comments area</h2>
+    <div class="form-group">
+        <label for="comment">Comment:</label>
+        <textarea class="form-control" rows="5" id="textComment" onChange="sleepUpdateComment(this.value)"></textarea>
+    </div>
+</div>
+</div>
+
+<div class="container mt-3">
+    <button type="button" id="btnDone" class="btn btn-success" onClick='sleepAddSleepEvent(true)' disabled>Done</button>
+    <button type="button" id="btnOneMore" class="btn btn-primary" onClick='sleepAddSleepEvent(false)' disabled>One More</button>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/scripts/infanttracker-common.js"></script>
+<script src="/static/scripts/infanttracker-sleep.js"></script>
 {% endblock %}

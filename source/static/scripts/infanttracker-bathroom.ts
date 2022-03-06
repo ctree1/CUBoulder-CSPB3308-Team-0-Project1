@@ -1,13 +1,11 @@
 var bathroomEvent = new BathroomEvent();
-var inputDateTimeElem = <HTMLInputElement>document.getElementById('inputDateTime');
-var btnLiquidElem = <HTMLInputElement>document.getElementById('btnLiquid');
-var btnSolidElem = <HTMLInputElement>document.getElementById('btnSolid');
-var btnBothElem = <HTMLInputElement>document.getElementById('btnBoth');
-var btnDoneElem = <HTMLInputElement>document.getElementById('btnBoth');
-var btnOneMoreElem = <HTMLInputElement>document.getElementById('btnBoth');
-var btnDoneElem = <HTMLInputElement>document.getElementById('btnDone');
-var btnOneMoreElem = <HTMLInputElement>document.getElementById('btnOneMore');
-var textCommentElem = <HTMLInputElement>document.getElementById('textComment');
+var bathroomInputDateTimeElem = <HTMLInputElement>document.getElementById('inputDateTime');
+var bathroomBtnLiquidElem = <HTMLInputElement>document.getElementById('btnLiquid');
+var bathroomBtnSolidElem = <HTMLInputElement>document.getElementById('btnSolid');
+var bathroomBtnBothElem = <HTMLInputElement>document.getElementById('btnBoth');
+var bathroomBtnDoneElem = <HTMLInputElement>document.getElementById('btnDone');
+var bathroomBtnOneMoreElem = <HTMLInputElement>document.getElementById('btnOneMore');
+var bathroomTextCommentElem = <HTMLInputElement>document.getElementById('textComment');
 bathroomInitialize()
 
 function bathroomInitialize() {
@@ -20,11 +18,11 @@ function bathroomInitialize() {
 
 function bathroomUpdateSubmitBtns() {
     if (bathroomEvent.babyId && bathroomEvent.babyId != 0 && bathroomEvent.type != BathroomTypeEnum.none) {
-        btnDoneElem.disabled = false;
-        btnOneMoreElem.disabled = false;
+        bathroomBtnDoneElem.disabled = false;
+        bathroomBtnOneMoreElem.disabled = false;
     } else {
-        btnDoneElem.disabled = true;
-        btnOneMoreElem.disabled = true;
+        bathroomBtnDoneElem.disabled = true;
+        bathroomBtnOneMoreElem.disabled = true;
     }
 }
 
@@ -37,24 +35,24 @@ function bathroomUpdateBathroomType(type: BathroomTypeEnum) {
     bathroomEvent.type = bathroomEvent.type == type ? BathroomTypeEnum.none : type;
     switch (bathroomEvent.type){
         case BathroomTypeEnum.liquid:
-            btnLiquidElem.className = "btn btn-primary"
-            btnSolidElem.className = "btn btn-secondary"
-            btnBothElem.className = "btn btn-secondary"
+            bathroomBtnLiquidElem.className = "btn btn-primary"
+            bathroomBtnSolidElem.className = "btn btn-secondary"
+            bathroomBtnBothElem.className = "btn btn-secondary"
             break;
         case BathroomTypeEnum.solid:
-            btnLiquidElem.className = "btn btn-secondary"
-            btnSolidElem.className = "btn btn-primary"
-            btnBothElem.className = "btn btn-secondary"
+            bathroomBtnLiquidElem.className = "btn btn-secondary"
+            bathroomBtnSolidElem.className = "btn btn-primary"
+            bathroomBtnBothElem.className = "btn btn-secondary"
             break;
         case BathroomTypeEnum.both:
-            btnLiquidElem.className = "btn btn-secondary"
-            btnSolidElem.className = "btn btn-secondary"
-            btnBothElem.className = "btn btn-primary"
+            bathroomBtnLiquidElem.className = "btn btn-secondary"
+            bathroomBtnSolidElem.className = "btn btn-secondary"
+            bathroomBtnBothElem.className = "btn btn-primary"
             break;
         default:
-            btnLiquidElem.className = "btn btn-secondary"
-            btnSolidElem.className = "btn btn-secondary"
-            btnBothElem.className = "btn btn-secondary"
+            bathroomBtnLiquidElem.className = "btn btn-secondary"
+            bathroomBtnSolidElem.className = "btn btn-secondary"
+            bathroomBtnBothElem.className = "btn btn-secondary"
             break;
     }
     bathroomUpdateSubmitBtns();
@@ -62,12 +60,12 @@ function bathroomUpdateBathroomType(type: BathroomTypeEnum) {
 
 function bathroomUpdateDateTime(dateTime: string) {
     bathroomEvent.dateTime = dateTime;
-    inputDateTimeElem.value = dateTime;
+    bathroomInputDateTimeElem.value = dateTime;
 }
 
 function bathroomUpdateComment(comment: string) {
     bathroomEvent.comment = comment;
-    textCommentElem.value = comment;
+    bathroomTextCommentElem.value = comment;
 }
 
 function bathroomAddBathroomEvent(goHome: boolean) {

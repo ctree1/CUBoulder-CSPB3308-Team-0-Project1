@@ -1,13 +1,11 @@
 var bathroomEvent = new BathroomEvent();
-var inputDateTimeElem = document.getElementById('inputDateTime');
-var btnLiquidElem = document.getElementById('btnLiquid');
-var btnSolidElem = document.getElementById('btnSolid');
-var btnBothElem = document.getElementById('btnBoth');
-var btnDoneElem = document.getElementById('btnBoth');
-var btnOneMoreElem = document.getElementById('btnBoth');
-var btnDoneElem = document.getElementById('btnDone');
-var btnOneMoreElem = document.getElementById('btnOneMore');
-var textCommentElem = document.getElementById('textComment');
+var bathroomInputDateTimeElem = document.getElementById('inputDateTime');
+var bathroomBtnLiquidElem = document.getElementById('btnLiquid');
+var bathroomBtnSolidElem = document.getElementById('btnSolid');
+var bathroomBtnBothElem = document.getElementById('btnBoth');
+var bathroomBtnDoneElem = document.getElementById('btnDone');
+var bathroomBtnOneMoreElem = document.getElementById('btnOneMore');
+var bathroomTextCommentElem = document.getElementById('textComment');
 bathroomInitialize();
 function bathroomInitialize() {
     var today = new Date();
@@ -18,12 +16,12 @@ function bathroomInitialize() {
 }
 function bathroomUpdateSubmitBtns() {
     if (bathroomEvent.babyId && bathroomEvent.babyId != 0 && bathroomEvent.type != BathroomTypeEnum.none) {
-        btnDoneElem.disabled = false;
-        btnOneMoreElem.disabled = false;
+        bathroomBtnDoneElem.disabled = false;
+        bathroomBtnOneMoreElem.disabled = false;
     }
     else {
-        btnDoneElem.disabled = true;
-        btnOneMoreElem.disabled = true;
+        bathroomBtnDoneElem.disabled = true;
+        bathroomBtnOneMoreElem.disabled = true;
     }
 }
 function bathroomSelectBaby(babyId) {
@@ -34,35 +32,35 @@ function bathroomUpdateBathroomType(type) {
     bathroomEvent.type = bathroomEvent.type == type ? BathroomTypeEnum.none : type;
     switch (bathroomEvent.type) {
         case BathroomTypeEnum.liquid:
-            btnLiquidElem.className = "btn btn-primary";
-            btnSolidElem.className = "btn btn-secondary";
-            btnBothElem.className = "btn btn-secondary";
+            bathroomBtnLiquidElem.className = "btn btn-primary";
+            bathroomBtnSolidElem.className = "btn btn-secondary";
+            bathroomBtnBothElem.className = "btn btn-secondary";
             break;
         case BathroomTypeEnum.solid:
-            btnLiquidElem.className = "btn btn-secondary";
-            btnSolidElem.className = "btn btn-primary";
-            btnBothElem.className = "btn btn-secondary";
+            bathroomBtnLiquidElem.className = "btn btn-secondary";
+            bathroomBtnSolidElem.className = "btn btn-primary";
+            bathroomBtnBothElem.className = "btn btn-secondary";
             break;
         case BathroomTypeEnum.both:
-            btnLiquidElem.className = "btn btn-secondary";
-            btnSolidElem.className = "btn btn-secondary";
-            btnBothElem.className = "btn btn-primary";
+            bathroomBtnLiquidElem.className = "btn btn-secondary";
+            bathroomBtnSolidElem.className = "btn btn-secondary";
+            bathroomBtnBothElem.className = "btn btn-primary";
             break;
         default:
-            btnLiquidElem.className = "btn btn-secondary";
-            btnSolidElem.className = "btn btn-secondary";
-            btnBothElem.className = "btn btn-secondary";
+            bathroomBtnLiquidElem.className = "btn btn-secondary";
+            bathroomBtnSolidElem.className = "btn btn-secondary";
+            bathroomBtnBothElem.className = "btn btn-secondary";
             break;
     }
     bathroomUpdateSubmitBtns();
 }
 function bathroomUpdateDateTime(dateTime) {
     bathroomEvent.dateTime = dateTime;
-    inputDateTimeElem.value = dateTime;
+    bathroomInputDateTimeElem.value = dateTime;
 }
 function bathroomUpdateComment(comment) {
     bathroomEvent.comment = comment;
-    textCommentElem.value = comment;
+    bathroomTextCommentElem.value = comment;
 }
 function bathroomAddBathroomEvent(goHome) {
     var data = { "bathroomEvent": bathroomEvent };

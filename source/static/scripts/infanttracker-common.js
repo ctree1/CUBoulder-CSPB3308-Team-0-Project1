@@ -5,6 +5,12 @@ var BathroomTypeEnum;
     BathroomTypeEnum[BathroomTypeEnum["solid"] = 2] = "solid";
     BathroomTypeEnum[BathroomTypeEnum["both"] = 3] = "both";
 })(BathroomTypeEnum || (BathroomTypeEnum = {}));
+var SleepTypeEnum;
+(function (SleepTypeEnum) {
+    SleepTypeEnum[SleepTypeEnum["none"] = 0] = "none";
+    SleepTypeEnum[SleepTypeEnum["awake"] = 1] = "awake";
+    SleepTypeEnum[SleepTypeEnum["asleep"] = 2] = "asleep";
+})(SleepTypeEnum || (SleepTypeEnum = {}));
 var LiquidUnitsEnum;
 (function (LiquidUnitsEnum) {
     LiquidUnitsEnum[LiquidUnitsEnum["none"] = 0] = "none";
@@ -48,6 +54,14 @@ var BathroomEvent = /** @class */ (function () {
         this.comment = "";
     }
     return BathroomEvent;
+}());
+var SleepEvent = /** @class */ (function () {
+    function SleepEvent() {
+        this.babyId = null;
+        this.type = 0;
+        this.comment = "";
+    }
+    return SleepEvent;
 }());
 function postDataToServer(url, data, goHome, callback) {
     var xhr = new XMLHttpRequest();

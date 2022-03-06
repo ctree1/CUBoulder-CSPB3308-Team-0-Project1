@@ -5,6 +5,12 @@ enum BathroomTypeEnum {
     both = 3
 }
 
+enum SleepTypeEnum {
+    none = 0,
+    awake = 1,
+    asleep = 2
+}
+
 enum LiquidUnitsEnum {
     none = 0,
     ounces = 1,
@@ -41,6 +47,13 @@ class Baby {
 class BathroomEvent {
     babyId: number = null;
     type: BathroomTypeEnum = 0;
+    dateTime: string;
+    comment: string = ""
+}
+
+class SleepEvent {
+    babyId: number = null;
+    type: SleepTypeEnum = 0;
     dateTime: string;
     comment: string = ""
 }

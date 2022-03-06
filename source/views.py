@@ -70,17 +70,23 @@ def bathroom():
         return render_template(
             'bathroom.html',
             babies = get_babies()
+            # Get last baby method here...
         )
 
-@app.route('/sleep')
+@app.route('/sleep',methods = ['POST', 'GET'])
 def sleep():
     """Renders the sleep page."""
-    return render_template(
-        'sleep.html',
-        title='Sleep',
-        year=datetime.now().year,
-        message='Sleep data from backend here..'
-    )
+    if request.method == 'POST':
+        result = request.data
+        sleep_event = json.loads(result) # creates python dictionary
+        #sleep_sql_ins(sleep_event['sleepEvent'])             #insert into database
+        return  jsonify(""), 200
+    else:
+        return render_template(
+            'sleep.html',
+            babies = get_babies()
+            # Get last baby method here...
+        )
 
 @app.route('/eat')
 def eat():
