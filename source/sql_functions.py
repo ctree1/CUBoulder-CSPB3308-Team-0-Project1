@@ -62,6 +62,15 @@ def add_baby(baby_dict, db_path = "./sqlite3/baby.db"):
     conn.close()
     #return error/success code
 
+#sleep function, added for testing
+def sleep_sql_ins(value, db_path = "./sqlite3/baby.db"):
+    pass
+
+#feed function, added for testing
+def feed_sql_ins(value, db_path = "./sqlite3/baby.db"):
+    pass
+
+
 class Baby:
     def __init__(self, rows):
         self.babyID = []

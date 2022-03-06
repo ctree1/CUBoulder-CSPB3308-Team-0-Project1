@@ -2,6 +2,8 @@
 
 import sqlite3
 import unittest
+import traceback
+import sys
 import source.sql_functions as sf
 
 # read sql file in stead of hard coding -
@@ -20,6 +22,7 @@ class TestSQLins(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
+        print('--Setup--')
         try: 
             cls.db_connect = sqlite3.connect("./tests/test.db")
             c = cls.db_connect.cursor()
@@ -30,19 +33,21 @@ class TestSQLins(unittest.TestCase):
             c.executescript(read_sql("./sqlite3/queryExamples/CreateSleepTypeTable.sql"))
             c.executescript(read_sql("./sqlite3/queryExamples/CreateSleepTable.sql"))
             c.executescript(read_sql("./sqlite3/queryExamples/CreatePreferencesTable.sql"))
+            c.executescript(read_sql("./sqlite3/queryExamples/CreateFeedTable.sql"))
             c.execute('INSERT INTO bathroomType (bathroomTypeName) VALUES ("Liquid");')
             c.execute('INSERT INTO bathroomType (bathroomTypeName) VALUES ("Solid");')
             c.execute('INSERT INTO bathroomType (bathroomTypeName) VALUES ("Both");')
             c.execute('INSERT INTO sleepType (sleepTypeName) VALUES ("Awake");')
             c.execute('INSERT INTO sleepType (sleepTypeName) VALUES ("Asleep");')
             cls.db_connect.commit()
-            c.close()
+            cls.db_connect.close()
         except sqlite3.Error as error:
             print("Failed to initialize test cases.  Database issued this error when fetching tables: ", error)
-
+        print('--Setup complete--')
 
     @classmethod
     def tearDownClass(cls):
+        print('--Teardown--')
         cls.db_connect = sqlite3.connect("./tests/test.db")
         c = cls.db_connect.cursor()
         # delete all tables in database
@@ -52,11 +57,14 @@ class TestSQLins(unittest.TestCase):
         c.execute('DROP TABLE sleep;')
         c.execute('DROP TABLE sleepType;')
         c.execute('DROP TABLE preferences;')
+        c.execute('DROP TABLE feed;')
         cls.db_connect.commit()
-        c.close()
+        cls.db_connect.close()
+        print('--Teardown complete--')
 
     # tests add_baby() function in sql_functions.py
     def test_add_baby(self, db_path = './tests/test.db'):
+        print('--Add baby tests--')
         sf.add_baby({'birthDate': '2022-01-01', 'firstName':'Jane', 'lastName':'Baby', 'abbreviation':'JB', 'birthWeight':3600 , 'birthHeight':45},db_path)
         sf.add_baby({'birthDate': '2022-02-02', 'firstName':'Jon', 'lastName':'Bae', 'abbreviation':'JB', 'birthWeight':3700 , 'birthHeight':50},db_path)
 
@@ -68,11 +76,11 @@ class TestSQLins(unittest.TestCase):
         self.assertEqual(baby.birthDate[1], '2022-02-02', 'Error - birthDate incorrect')
         self.assertEqual(baby.babyID[1], 2, 'Error - babyID incorrect')
         self.assertEqual(baby.birthDate[0], '2022-01-01', 'Error - birthDate incorrect')
-        c.close()
-
+        conn.close()
+        print('--Add baby tests complete--')
 
     def test_bathroom_sql_ins(self, db_path = './tests/test.db'):
-        #setup bathroom event types table
+        print('--Bathroom tests--')
         conn = sqlite3.connect('./tests/test.db')
         c = conn.cursor()
 
@@ -86,12 +94,23 @@ class TestSQLins(unittest.TestCase):
         self.assertEqual(bathroom.bathroomType[0], 1, 'Error - bathroomType incorrect')
         self.assertEqual(bathroom.bathroomDateTime[1], '2022-01-01T11:01', 'Error - bathroomDateTime incorrect')
         self.assertEqual(bathroom.bathroomComment[2], 'so much', 'Error - bathroomComment incorrect')
-        #self.assertRaises(sqlite3.IntegrityError, sf.bathroom_sql_ins({'babyId': 999, 'type': 3, 'dateTime':'2022-02-02T10:22', 'comment': 'text'}, db_path))
-        #self.assertRaises(sqlite3.IntegrityError, sf.bathroom_sql_ins({'babyId': 1, 'type': 9, 'dateTime':'2022-02-02T03:33', 'comment': 'a comment'}, db_path))
-        c.close()
+        error = ''
+        try:
+            sf.bathroom_sql_ins({'babyId': 999, 'type': 3, 'dateTime':'2022-02-02T10:22', 'comment': 'text'}, db_path)
+        except sqlite3.Error as er:
+            error = ' '.join(er.args)
+        self.assertEqual(error, 'FOREIGN KEY constraint failed', 'Expected FOREIGN KEY constraint error on babyID, got none')
+        error = ''
+        try:
+            sf.bathroom_sql_ins({'babyId': 1, 'type': 9, 'dateTime':'2022-02-02T03:33', 'comment': 'a comment'}, db_path)
+        except sqlite3.Error as er:
+            error = ' '.join(er.args)
+        self.assertEqual(error, 'FOREIGN KEY constraint failed', 'Expected FOREIGN KEY constraint error on BathroomType, got none')
+        conn.close()
+        print('--Bathroom tests complete--')
 
     def test_sleep_sql_ins(self, db_path = './tests/test.db'):
-        #setup bathroom event types table
+        print('--Sleep tests--')
         conn = sqlite3.connect('./tests/test.db')
         c = conn.cursor()
 
@@ -104,39 +123,30 @@ class TestSQLins(unittest.TestCase):
         self.assertEqual(sleep.sleepType[0], 1, 'Error - sleepType incorrect')
         self.assertEqual(sleep.sleepDateTime[1], '2022-01-01T12:11', 'Error - sleepDateTime incorrect')
         self.assertEqual(sleep.sleepComment[2], 'so much', 'Error - sleepComment incorrect')
-        c.close()
+        conn.close()
+        print('--Sleep tests complete--')
 
+    def test_feeding_sql_ins(self, db_path = './tests/test.db'):
+        print('--Feeding tests--')
+        conn = sqlite3.connect('./tests/test.db')
+        c = conn.cursor()
+
+        #add sleep events
+        sf.feed_sql_ins({'babyId': 1, 'leftBreastDur':25, 'rightBreastDur': 20, 'leftPumpQty': None, 'rightPumpQty': None, 'bottleBreastQty': None, 'bottleFormulaQty': None,  'dateTime':'2022-11-01T11:11', 'comment':'hungry!'}, db_path)
+        sf.feed_sql_ins({'babyId': 2, 'leftBreastDur': None, 'rightBreastDur': None, 'leftPumpQty': 100, 'rightPumpQty': 120, 'bottleBreastQty': 120, 'bottleFormulaQty': 40,  'dateTime':'2022-11-01T12:12', 'comment':'good baby'}, db_path)
+        
+        feed = sf.Feed(c.execute('SELECT * FROM feed;'))
+        self.assertEqual(feed.eventType[0], 'Feed', 'Error - eventType incorrect')
+        self.assertEqual(feed.totalBreastDur[0], 45, 'Error - totalBreastDur incorrect')
+        self.assertEqual(feed.totalBreastDur[1], 0, 'Error - totalBreastDur incorrect')
+        self.assertEqual(feed.totalPumpQty[1], 220, 'Error - totalPumpQty incorrect')
+        self.assertEqual(feed.totalBottleQty[1], 160, 'Error - totalBottleQty incorrect')
+        conn.close()
+        print('--Feed tests complete--')
+
+
+print('--Testing complete--')
 
 # Main: Run Test Cases
 if __name__ == '__main__':
     unittest.main()
-
-# Create baby
-# Make name a number, boolean, list of no-no's and cycle through with tests
-# We should look for failure behaviour?  Should either do nothing and not write to DB
-# but more likely should throw an error - what type of error? lookup
-# Can start by checking if it wrote bad values to db and if so fail test
-# Can make sure it writes good values
-
-# Create Baby test
-# Did it write baby to db?
-
-
-    '''
-        def bathroom_sql_ins(value):
-            os.chdir("sqlite3") #change working directory to that of database
-
-            conn = sqlite3.connect("baby.db")       #connect to database
-            cur = conn.cursor()   
-            babyID = value['babyId']        #split tuple into individual variables
-            bathroomType = value['type']
-            bathroomComment = value['comment']
-            bathroomDateTime = value['dateTime']
-            bathroomDateTime = bathroomDateTime.replace("T", " ")
-
-            #execute sql insert statement
-            cur.execute("INSERT INTO bathroom (babyID, bathroomType, bathroomDateTime, bathroomComment) VALUES(?, ?, ?, ?);", (babyID, bathroomType, bathroomDateTime, bathroomComment))
-            conn.commit()
-            conn.close()
-            os.chdir("..")
-    '''
