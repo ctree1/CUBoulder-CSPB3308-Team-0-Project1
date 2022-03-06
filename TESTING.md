@@ -2,7 +2,7 @@
 ## Team members
 Connor Tree, Julia Scott (dropped), Michael Lamelza, Steven Putt
 
-## Automated Tests - draft
+## Automated Tests
 ### Add baby
 Copy git repository
 Description
