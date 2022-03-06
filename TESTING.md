@@ -36,8 +36,7 @@ Pass
 Future testing will be needed to test units based on a preference setting for lbs vs oz etc.
 #### Post-conditions
 All database entries in test.db are cleared after testing
-/n
-/n
+<br><br>
 ### Add Bathroom event
 Copy git repository
 #### Description
@@ -57,7 +56,7 @@ Tests pass a expected
 Pass
 #### Post-conditions
 All database entries in test.db are cleared after testing
-
+<br><br>
 ### Add Sleep event
 Copy git repository
 #### Description
@@ -76,7 +75,7 @@ Tests fail, this menu is not setup yet
 Fail
 #### Post-conditions
 All database entries in test.db are cleared after testing
-
+<br><br>
 ### Add Feed event
 Copy git repository
 #### Description
@@ -94,7 +93,7 @@ Tests fail, menu not setup yet
 Fail
 #### Post-conditions
 All database entries in test.db are cleared after testing
-
+<br><br>
 ## User Acceptance Test Cases
 ### Navigate to Setup Page
 1. From the main menu, select the Setup page
