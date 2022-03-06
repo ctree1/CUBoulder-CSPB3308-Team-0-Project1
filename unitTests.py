@@ -89,14 +89,14 @@ class TestSQLins(unittest.TestCase):
 
     # tests add_baby() function in sql_functions.py
     def test_add_baby(self, db_path = './tests/test.db'):
-        exit_code = sf.add_baby({'birthDate': '2022-01-01', 'firstName':'Jane', 'lastName':'Baby', 'abbreviatedName':'JB', 'birthWeight':3600 , 'birthHeight':45})
+        exit_code = sf.add_baby({'birthDate': '2022-01-01', 'firstName':'Jane', 'lastName':'Baby', 'abbreviation':'JB', 'birthWeight':3600 , 'birthHeight':45},'./tests/test.db')
         self.assertNotEqual(exit_code, -1) #expecting an exit code of -1 for db write issues
 
         #check db
         conn = sqlite3.connect('./tests/test.db')
         c = conn.cursor()
         baby = sf.Baby(c.execute('SELECT * FROM babies;'))
-        print('baby check', baby.firstName)
+        print('baby check', baby.firstName[0])
         self.assertEqual(baby.firstName[0], 'Jane')
         c.close()
 
