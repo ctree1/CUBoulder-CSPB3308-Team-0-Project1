@@ -30,7 +30,12 @@ class TestSQLins(unittest.TestCase):
             c.executescript(read_sql("./sqlite3/queryExamples/CreateSleepTypeTable.sql"))
             c.executescript(read_sql("./sqlite3/queryExamples/CreateSleepTable.sql"))
             c.executescript(read_sql("./sqlite3/queryExamples/CreatePreferencesTable.sql"))
-            #c.commit()
+            c.execute('INSERT INTO bathroomType (bathroomTypeName) VALUES ("Liquid");')
+            c.execute('INSERT INTO bathroomType (bathroomTypeName) VALUES ("Solid");')
+            c.execute('INSERT INTO bathroomType (bathroomTypeName) VALUES ("Both");')
+            c.execute('INSERT INTO sleepType (sleepTypeName) VALUES ("Awake");')
+            c.execute('INSERT INTO sleepType (sleepTypeName) VALUES ("Asleep");')
+            cls.db_connect.commit()
             c.close()
         except sqlite3.Error as error:
             print("Failed to initialize test cases.  Database issued this error when fetching tables: ", error)
@@ -47,77 +52,59 @@ class TestSQLins(unittest.TestCase):
         c.execute('DROP TABLE sleep;')
         c.execute('DROP TABLE sleepType;')
         c.execute('DROP TABLE preferences;')
-        #c.commit()
+        cls.db_connect.commit()
         c.close()
-
-    '''
-         babyID = value['babyId']        #split tuple into individual variables
-        bathroomType = value['type']
-        bathroomComment = value['comment']
-        bathroomDateTime = value['dateTime']
-        bathroomDateTime = bathroomDateTime.replace("T", " ")
-    '''
-
-
-    # need to do read_db to see exact form for items
-    #def make_baby(self, first_name = "Mathias", last_name = "Bee", birthDate = "2022-01-21", abbreviatedName = 'MB', birthWeight = '8', birthHeight = '22'):
-        
-        # make a baby and return
-        # insert baby into db
-        # return babyID
-
-    # Bathroom events can be specified as good or bad and also can be custom
-    # This constructs a simple python dictionary for sending to bathroom_sql_ins()
-    def make_bath_event(self, event_type = "Good") :
-        if event_type == "Bad" :
-            babyID = 400
-            type = -9999
-            dateTime = 'never'
-            comment = 400
-        elif event_type == "Good" :
-            babyID = 1
-            type = 1
-            dateTime = "2022-02-21T13:54:24"
-            comment = "Very little"
-
-        event = {'babyID': babyID,
-                'type': type, 
-                'dateTime': dateTime, 
-                'comment': comment
-                }
-        return event
 
     # tests add_baby() function in sql_functions.py
     def test_add_baby(self, db_path = './tests/test.db'):
-        exit_code = sf.add_baby({'birthDate': '2022-01-01', 'firstName':'Jane', 'lastName':'Baby', 'abbreviation':'JB', 'birthWeight':3600 , 'birthHeight':45},'./tests/test.db')
-        self.assertNotEqual(exit_code, -1) #expecting an exit code of -1 for db write issues
+        sf.add_baby({'birthDate': '2022-01-01', 'firstName':'Jane', 'lastName':'Baby', 'abbreviation':'JB', 'birthWeight':3600 , 'birthHeight':45},db_path)
+        sf.add_baby({'birthDate': '2022-02-02', 'firstName':'Jon', 'lastName':'Bae', 'abbreviation':'JB', 'birthWeight':3700 , 'birthHeight':50},db_path)
 
         #check db
         conn = sqlite3.connect('./tests/test.db')
         c = conn.cursor()
         baby = sf.Baby(c.execute('SELECT * FROM babies;'))
-        print('baby check', baby.firstName[0])
-        self.assertEqual(baby.firstName[0], 'Jane')
+        self.assertEqual(baby.firstName[0], 'Jane', 'Error - firstName incorrect')
+        self.assertEqual(baby.birthDate[1], '2022-02-02', 'Error - birthDate incorrect')
+        self.assertEqual(baby.babyID[1], 2, 'Error - babyID incorrect')
+        self.assertEqual(baby.birthDate[0], '2022-01-01', 'Error - birthDate incorrect')
         c.close()
 
 
-    def test_bathroom_sql_ins(self):
-        # Good data insert test
-        good_event_dict = self.make_bath_event(event_type = "Good")
-        exit_code = sf.bathroom_sql_ins(good_event_dict, db_path = './tests/test.db')
-        self.assertNotEqual(exit_code, -1) # success exit code
-        # check database
-        # assert return yields exact entry
+    def test_bathroom_sql_ins(self, db_path = './tests/test.db'):
+        #setup bathroom event types table
+        conn = sqlite3.connect('./tests/test.db')
+        c = conn.cursor()
 
-        # Bad data insert test
-        bad_event_dict = self.make_bath_event(event_type = "Bad")
-        exit_code = sf.bathroom_sql_ins(bad_event_dict, db_path = './tests/test.db')
-        # check database
-        # ASSERT return yields no entry
-        # ASSERT exit code is returned as -1
-        # test to see what database holds using queries
-        pass
+        #add bathroom events
+        sf.bathroom_sql_ins({'babyId': 1, 'type': 1, 'dateTime':'2022-01-01T01:01', 'comment':'eww'}, db_path)
+        sf.bathroom_sql_ins({'babyId': 2, 'type': 2, 'dateTime':'2022-01-01T11:01', 'comment': None}, db_path)
+        sf.bathroom_sql_ins({'babyId': 2, 'type': 3, 'dateTime':'2022-02-02T02:22', 'comment':'so much'}, db_path)
+        
+        bathroom = sf.Bathroom(c.execute('SELECT * FROM bathroom;'))
+        self.assertEqual(bathroom.eventType[0], 'Bathroom', 'Error - eventType incorrect')
+        self.assertEqual(bathroom.bathroomType[0], 1, 'Error - bathroomType incorrect')
+        self.assertEqual(bathroom.bathroomDateTime[1], '2022-01-01T11:01', 'Error - bathroomDateTime incorrect')
+        self.assertEqual(bathroom.bathroomComment[2], 'so much', 'Error - bathroomComment incorrect')
+        #self.assertRaises(sqlite3.IntegrityError, sf.bathroom_sql_ins({'babyId': 999, 'type': 3, 'dateTime':'2022-02-02T10:22', 'comment': 'text'}, db_path))
+        #self.assertRaises(sqlite3.IntegrityError, sf.bathroom_sql_ins({'babyId': 1, 'type': 9, 'dateTime':'2022-02-02T03:33', 'comment': 'a comment'}, db_path))
+        c.close()
 
+    def test_sleep_sql_ins(self, db_path = './tests/test.db'):
+        #setup bathroom event types table
+        conn = sqlite3.connect('./tests/test.db')
+        c = conn.cursor()
+
+        #add sleep events
+        sf.sleep_sql_ins({'babyId': 1, 'type': 1, 'dateTime':'2022-01-01T11:11', 'comment':'crying'}, db_path)
+        sf.sleep_sql_ins({'babyId': 2, 'type': 2, 'dateTime':'2022-01-01T12:11', 'comment': 'more crying'}, db_path)
+        
+        sleep = sf.Sleep(c.execute('SELECT * FROM sleep;'))
+        self.assertEqual(sleep.eventType[0], 'Sleep', 'Error - eventType incorrect')
+        self.assertEqual(sleep.sleepType[0], 1, 'Error - sleepType incorrect')
+        self.assertEqual(sleep.sleepDateTime[1], '2022-01-01T12:11', 'Error - sleepDateTime incorrect')
+        self.assertEqual(sleep.sleepComment[2], 'so much', 'Error - sleepComment incorrect')
+        c.close()
 
 
 # Main: Run Test Cases

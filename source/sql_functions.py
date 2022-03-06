@@ -5,12 +5,13 @@ import sqlite3
 def bathroom_sql_ins(value, db_path = "./sqlite3/baby.db"):
     conn = sqlite3.connect(db_path)       #connect to database
     cur = conn.cursor()
-    babyID = value['babyID']        #split dictionary into individual variables
+    babyID = value['babyId']        #split dictionary into individual variables
     bathroomType = value['type']
     bathroomComment = value['comment']
     bathroomDateTime = value['dateTime']
 
     #execute sql insert statement
+    cur.execute("PRAGMA foreign_keys = ON")
     cur.execute("INSERT INTO bathroom (babyID, bathroomType, bathroomDateTime, bathroomComment) VALUES(?, ?, ?, ?);", (babyID, bathroomType, bathroomDateTime, bathroomComment))
     conn.commit()
     conn.close()
@@ -21,6 +22,7 @@ def get_babies_old(db_path = "./sqlite3/baby.db"):
     cur = conn.cursor()   
 
     # query database for all babies stored in db
+    cur.execute("PRAGMA foreign_keys = ON")
     cur.execute("SELECT * FROM babies")
     rows = cur.fetchall()
     
@@ -40,6 +42,7 @@ def get_babies(db_path = "./sqlite3/baby.db"):
     cur = conn.cursor()   
 
     # query database for all babies stored in db
+    cur.execute("PRAGMA foreign_keys = ON")
     cur.execute("SELECT * FROM babies")
     baby_lst = cur.fetchall()
     conn.close()
@@ -52,6 +55,7 @@ def add_baby(baby_dict, db_path = "./sqlite3/baby.db"):
     cur = conn.cursor()
     
     #initials=baby_dict['firstName'][0] + baby_dict['lastName'][0]
+    cur.execute("PRAGMA foreign_keys = ON") # enforce foreign key constraints
     cur.execute("INSERT INTO babies (birthDate, firstName, lastName, abbreviatedName, birthWeight, birthHeight) VALUES (?, ?, ?, ?, ?, ?);",(baby_dict['birthDate'], baby_dict['firstName'], baby_dict['lastName'], baby_dict['abbreviation'], baby_dict['birthWeight'], baby_dict['birthHeight']))
     
     conn.commit()
@@ -77,3 +81,67 @@ class Baby:
             self.abbreviatedName.append(row[5])
             self.birthWeight.append(row[6])
             self.birthHeight.append(row[7])
+
+class Bathroom:
+    def __init__(self, rows):
+        self.bathroomEventID = []
+        self.eventType = []
+        self.babyID = []
+        self.bathroomType = []
+        self.bathroomDateTime = []
+        self.bathroomComment = []
+        for row in rows:
+            self.bathroomEventID.append(row[0])
+            self.eventType.append(row[1])
+            self.babyID.append(row[2])
+            self.bathroomType.append(row[3])
+            self.bathroomDateTime.append(row[4])
+            self.bathroomComment.append(row[5])
+        
+class Sleep:
+    def __init__(self, rows):
+        self.sleepEventID = []
+        self.eventType = []
+        self.babyID = []
+        self.sleepType = []
+        self.sleepDateTime = []
+        self.sleepComment = []
+        for row in rows:
+            self.sleepEventID.append(row[0])
+            self.eventType.append(row[1])
+            self.babyID.append(row[2])
+            self.sleepType.append(row[3])
+            self.sleepDateTime.append(row[4])
+            self.sleepComment.append(row[5])
+    
+class Feed:
+    def __init__(self, rows):
+        feedEventID = []
+        eventType = []
+        babyID = []
+        leftBreastDur = []
+        rigthBreastDur = []
+        totalBreastDur = []
+        leftPumpQty = []
+        rightPumpQty = []
+        totalPumpQty = []
+        bottleBreastQty = []
+        bottleFormulaQty = []
+        totalBottleQty = []
+        feedDateTime = []
+        feedComment = []
+        for row in rows:
+            feedEventID.append(row[0])
+            eventType.append(row[1])
+            babyID.append(row[2])
+            leftBreastDur.append(row[3])
+            rigthBreastDur.append(row[4])
+            totalBreastDur.append(row[5])
+            leftPumpQty.append(row[6])
+            rightPumpQty.append(row[7])
+            totalPumpQty.append(row[8])
+            bottleBreastQty.append(row[9])
+            bottleFormulaQty.append(row[10])
+            totalBottleQty.append(row[11])
+            feedDateTime.append(row[12])
+            feedComment.append(row[13])
