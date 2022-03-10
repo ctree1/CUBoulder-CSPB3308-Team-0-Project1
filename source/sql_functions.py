@@ -48,6 +48,33 @@ def get_babies(db_path = "./sqlite3/baby.db"):
     conn.close()
     return baby_lst
 
+#apparently you can't have a variable for select statements so we'll have to build a separate function
+#for each table to get their assocaited last baby.  
+#returns an int of the last babyID e.g 1
+def get_last_baby_bathroom(db_path = "./sqlite3/baby.db"):
+    conn = sqlite3.connect(db_path)       #connect to database
+    cur = conn.cursor()   
+
+    # query database for last babies stored in bathroom
+    cur.execute("PRAGMA foreign_keys = ON")
+    cur.execute("SELECT babyID FROM bathroom ORDER BY bathroomDateTime DESC LIMIT 1;")
+    baby_lst = cur.fetchone()
+    babyid = baby_lst[0] #take first tuple
+    conn.close()
+    return babyid
+
+def get_last_baby_sleep(db_path = "./sqlite3/baby.db"):
+    conn = sqlite3.connect(db_path)       #connect to database
+    cur = conn.cursor()   
+
+    # query database for last babies stored in sleep
+    cur.execute("PRAGMA foreign_keys = ON")
+    cur.execute("SELECT babyID FROM sleep ORDER BY sleepDateTime DESC LIMIT 1;")
+    baby_lst = cur.fetchone()
+    babyid = baby_lst[0] #take first tuple
+    conn.close()
+    return babyid
+    
 # function inserts new baby into database
 # SELECT * FROM babies shows babies table as (1, u'Baby', u'2022-02-02', u'Jane', u'Test2')
 def add_baby(baby_dict, db_path = "./sqlite3/baby.db"):
