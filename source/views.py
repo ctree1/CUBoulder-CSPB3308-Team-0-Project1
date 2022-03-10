@@ -69,8 +69,8 @@ def bathroom():
     else:
         return render_template(
             'bathroom.html',
-            babies = get_babies()
-            # Get last baby method here...
+            #babies = get_babies()
+            #baby = get_last_baby_bathroom # Get last baby method here...
         )
 
 @app.route('/sleep',methods = ['POST', 'GET'])
@@ -85,7 +85,7 @@ def sleep():
         return render_template(
             'sleep.html',
             babies = get_babies()
-            # Get last baby method here...
+            #baby = get_last_baby_sleep # Get last baby method here...
         )
 
 @app.route('/eat')
