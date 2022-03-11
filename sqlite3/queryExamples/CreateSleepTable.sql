@@ -1,4 +1,6 @@
 -- SQLite
+DROP TABLE IF EXISTS sleep;
+
 CREATE TABLE sleep (
 sleepEventID INTEGER PRIMARY KEY AUTOINCREMENT,
 eventType TEXT DEFAULT "Sleep" NOT NULL,
@@ -8,6 +10,6 @@ sleepDateTime TEXT NOT NULL, -- YYYY-MM-DD HH:MM
 sleepComment TEXT,
 FOREIGN KEY (babyID)
     REFERENCES babies (babyID),
-FOREIGN KEY (eventType)
+FOREIGN KEY (sleepType)
     REFERENCES sleepType (sleepTypeID)
 );
