@@ -28,6 +28,7 @@ def bathroom_recent_events(db_path = "./sqlite3/baby.db"):
         bathroom.bathroomComment as 'Comment' FROM bathroom\
         LEFT JOIN babies ON bathroom.babyID = babies.babyID\
         LEFT JOIN bathroomType ON bathroom.bathroomType = bathroomType.bathroomTypeID\
+        WHERE bathroom.babyID = " + str(get_last_baby_bathroom()) + "\
         ORDER BY bathroomDateTime DESC\
         LIMIT 3;")
     rows = cur.fetchall()
@@ -118,9 +119,49 @@ def add_baby(baby_dict, db_path = "./sqlite3/baby.db"):
 def sleep_sql_ins(value, db_path = "./sqlite3/baby.db"):
     pass
 
+def sleep_recent_events(db_path = "./sqlite3/baby.db"):
+    conn = sqlite3.connect(db_path)       #connect to database
+    cur = conn.cursor()
+    cur.execute("SELECT\
+        sleep.sleepEventID,\
+        babies.firstName || ' ' || babies.lastName as 'Baby',\
+        sleep.sleepDateTime as 'Time',\
+        sleepType.sleepTypeName as 'Type',\
+        sleep.sleepComment as 'Comment',\
+        round(24 * (JULIANDAY(sleep.sleepDateTime) - LAG(JULIANDAY(sleep.sleepDateTime)) OVER (ORDER BY sleep.sleepDateTime)),1) AS 'Previous Duration, hrs'\
+        FROM sleep\
+        LEFT JOIN babies ON sleep.babyID = babies.babyID\
+        LEFT JOIN sleepType ON sleep.sleepType = sleepType.sleepTypeID\
+        WHERE sleep.babyID = " + str(get_last_baby_sleep()) + "\
+        ORDER BY sleep.sleepDateTime DESC\
+        LIMIT 3;")
+    rows = cur.fetchall()
+    
+    sleep_recent_lst = []
+    for row in rows:
+        print(row)
+        tuple = (row[0], row[1], row[2], row[3])
+        sleep_recent_lst.append(tuple)
+
+    conn.commit()
+    conn.close()
+    return sleep_recent_lst
+
 #feed function, added for testing
 def feed_sql_ins(value, db_path = "./sqlite3/baby.db"):
     pass
+
+def delete_rows(table, eventID, db_path = "./sqlite3/baby.db"):
+    conn = sqlite3.connect(db_path)       #connect to database
+    cur = conn.cursor()
+    
+    #initials=baby_dict['firstName'][0] + baby_dict['lastName'][0]
+    cur.execute("DELETE FROM " + str(table) + "\
+        WHERE " + str(table) + "EventID = " + str(eventID) + ";")
+        #Example DELETE FROM sleep WHERE sleepEventID = 10;
+        #This should be interchangeable between all menus assuming I keep this naming convention
+    conn.commit()
+    conn.close()
 
 
 class Baby:
@@ -207,4 +248,5 @@ class Feed:
             feedDateTime.append(row[12])
             feedComment.append(row[13])
 
-#bathroom_recent_events()
+#sleep_recent_events()
+delete_rows("sleep", 11)

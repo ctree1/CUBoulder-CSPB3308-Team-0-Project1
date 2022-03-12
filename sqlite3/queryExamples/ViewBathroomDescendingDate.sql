@@ -8,5 +8,6 @@ bathroomType.bathroomTypeName as "Type",
 bathroom.bathroomComment as "Comment" FROM bathroom
 LEFT JOIN babies ON bathroom.babyID = babies.babyID
 LEFT JOIN bathroomType ON bathroom.bathroomType = bathroomType.bathroomTypeID
+WHERE bathroom.babyID = 1 -- replace with recent baby
 ORDER BY bathroomDateTime DESC
 LIMIT 3

@@ -9,4 +9,4 @@ bottleBreastQty,
 bottleFormulaQty,
 feedDateTime, -- YYYY-MM-DD HH:MM
 feedComment)
-VALUES (2, 23, 15, null, null, null, null, "2022-02-23 12:02", "Hungry baby");
+VALUES (2, 23, 15, null, null, null, null, "2022-02-23T12:02", "Hungry baby");

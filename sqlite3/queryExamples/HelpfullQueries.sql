@@ -1,9 +1,9 @@
 -- SQLite
 --SELECT * FROM babies;
 --SELECT * FROM bathroom ORDER BY bathroomDateTime DESC;
---SELECT * FROM sleep;
+SELECT * FROM sleep;
 --SELECT * FROM babies;
-SELECT * FROM preferences;
+--SELECT * FROM preferences;
 --SELECT * FROM bathroomType;
 --SELECT * FROM sleepType;
 --SELECT * FROM feed;
@@ -19,3 +19,5 @@ ORDER BY bathroomDateTime DESC
 LIMIT 1*/
 --SELECT babyID FROM bathroom ORDER BY babyID DESC LIMIT 1;
 --UPDATE bathroom SET bathroomDateTime = REPLACE(bathroomDateTime, " ", "T");
+--UPDATE sleep SET sleepType = 1 WHERE sleepEventID = 1;
+--UPDATE sleep SET sleepDateTime = REPLACE(sleepDateTime, " ", "T");
