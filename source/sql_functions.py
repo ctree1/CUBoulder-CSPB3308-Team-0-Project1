@@ -17,6 +17,30 @@ def bathroom_sql_ins(value, db_path = "./sqlite3/baby.db"):
     conn.close()
     # return error/success code
 
+def bathroom_recent_events(db_path = "./sqlite3/baby.db"):
+    conn = sqlite3.connect(db_path)       #connect to database
+    cur = conn.cursor()
+    cur.execute("SELECT\
+        babies.firstName || ' ' || babies.lastName as 'Baby',\
+        bathroom.bathroomDateTime as 'Time',\
+        bathroomType.bathroomTypeName as 'Type',\
+        bathroom.bathroomComment as 'Comment' FROM bathroom\
+        LEFT JOIN babies ON bathroom.babyID = babies.babyID\
+        LEFT JOIN bathroomType ON bathroom.bathroomType = bathroomType.bathroomTypeID\
+        ORDER BY bathroomDateTime DESC\
+        LIMIT 3;")
+    rows = cur.fetchall()
+    
+    bathroom_recent_lst = []
+    for row in rows:
+        print(row)
+        tuple = (row[0], row[1], row[2], row[3])
+        bathroom_recent_lst.append(tuple)
+
+    conn.commit()
+    conn.close()
+    return bathroom_recent_lst
+
 def get_babies_old(db_path = "./sqlite3/baby.db"):
     conn = sqlite3.connect(db_path)       #connect to database
     cur = conn.cursor()   
@@ -181,3 +205,5 @@ class Feed:
             totalBottleQty.append(row[11])
             feedDateTime.append(row[12])
             feedComment.append(row[13])
+
+bathroom_recent_events()
