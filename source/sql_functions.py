@@ -159,7 +159,7 @@ def delete_rows(table, eventID, db_path = "./sqlite3/baby.db"):
     cur.execute("DELETE FROM " + str(table) + "\
         WHERE " + str(table) + "EventID = " + str(eventID) + ";")
         #Example DELETE FROM sleep WHERE sleepEventID = 10;
-        #This should be interchangeable between all menus assuming I keep this naming convention
+        #This should be interchangeable between all menus assuming the naming convention works
     conn.commit()
     conn.close()
 
@@ -249,4 +249,4 @@ class Feed:
             feedComment.append(row[13])
 
 #sleep_recent_events()
-delete_rows("sleep", 11)
+#delete_rows("sleep", 11)
