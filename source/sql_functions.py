@@ -21,6 +21,7 @@ def bathroom_recent_events(db_path = "./sqlite3/baby.db"):
     conn = sqlite3.connect(db_path)       #connect to database
     cur = conn.cursor()
     cur.execute("SELECT\
+        bathroom.bathroomEventID,\
         babies.firstName || ' ' || babies.lastName as 'Baby',\
         bathroom.bathroomDateTime as 'Time',\
         bathroomType.bathroomTypeName as 'Type',\
@@ -206,4 +207,4 @@ class Feed:
             feedDateTime.append(row[12])
             feedComment.append(row[13])
 
-bathroom_recent_events()
+#bathroom_recent_events()

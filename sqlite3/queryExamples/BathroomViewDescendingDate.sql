@@ -1,6 +1,7 @@
 -- SQLite
 -- Combines the baby name (From babies) with bathroom time (from bathroom) and BathroomTypeName (From bathroomType)
 SELECT 
+bathroom.bathroomEventID,
 babies.firstName || " " || babies.lastName as "Baby",
 bathroom.bathroomDateTime as "Time",
 bathroomType.bathroomTypeName as "Type",
