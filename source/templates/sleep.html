@@ -9,10 +9,10 @@
 <div class="container mt-3">
     <h2 class="text-light bg-secondary">Select baby area</h2>
     <div class="d-flex flex-row d-flex">
-        <select class="form-select me-3" onChange="sleepSelectBaby(this.value)">
+        <select class="form-select me-3" id="selectBaby" onChange="sleepSelectBaby(this.value)">
             <option value="null" selected>Select</option>
             {% for baby in babies %}
-            <option value="{{ baby[0] }}">{{ baby[3] }} {{ baby[4] }}</option>
+                <option value="{{ baby[0] }}">{{ baby[3] }} {{ baby[4] }}</option>
             {% endfor %}
         </select>
     </div>
@@ -46,9 +46,38 @@
     <button type="button" id="btnOneMore" class="btn btn-primary" onClick='sleepAddSleepEvent(false)' disabled>One More</button>
 </div>
 
+<div class="container mt-3">
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">DateTime</th>
+            <th scope="col">Name</th>
+            <th scope="col">Sleep Type</th>
+            <th scope="col">Comment</th>
+            <th scope="col">Delete</th>
+            <th scope="col">Save</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% set currEvent = 0 %}
+            {% for event in recentEvents %}
+                {% set currEvent = event %}
+                <tr>
+                    <td><input type="datetime-local" value="{{ event[2] }}"/></td>
+                    <td>{{ event[1] }}</td>
+                    <td>{{ event[3] }}</td>
+                    <td><textarea class="form-control" rows="1">{{ event[4] }}</textarea></td>
+                    <td><button type="button" class="btn btn-danger" onClick="sleepDeleteSleepEvent({{ event[0]|safe }})">Delete</button></td>
+                    <td><button type="button" class="btn btn-success" disabled onClick="sleepSaveSleepEvent({{ event|safe }})">Save</button></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+</div>
+
 {% endblock %}
 
 {% block scripts %}
 <script src="/static/scripts/infanttracker-common.js"></script>
-<script src="/static/scripts/infanttracker-sleep.js"></script>
+<script src="/static/scripts/infanttracker-sleep.js" onload="sleepSelectBaby({{ lastBaby }})"></script>
 {% endblock %}

@@ -1,10 +1,11 @@
 var sleepEvent = new SleepEvent();
 var sleepInputDateTimeElem = <HTMLInputElement>document.getElementById('inputDateTime');
-var sleepBtnAwakeElem = <HTMLInputElement>document.getElementById('btnAwake');
-var sleepBtnAsleepElem = <HTMLInputElement>document.getElementById('btnAsleep');
-var sleepBtnDoneElem = <HTMLInputElement>document.getElementById('btnDone');
-var sleepBtnOneMoreElem = <HTMLInputElement>document.getElementById('btnOneMore');
+var sleepBtnAwakeElem = <HTMLButtonElement>document.getElementById('btnAwake');
+var sleepBtnAsleepElem = <HTMLButtonElement>document.getElementById('btnAsleep');
+var sleepBtnDoneElem = <HTMLButtonElement>document.getElementById('btnDone');
+var sleepBtnOneMoreElem = <HTMLButtonElement>document.getElementById('btnOneMore');
 var sleepTextCommentElem = <HTMLInputElement>document.getElementById('textComment');
+var sleepSelectBabyElem = <HTMLSelectElement>document.getElementById('selectBaby');
 sleepInitialize()
 
 function sleepInitialize() {
@@ -27,6 +28,7 @@ function sleepUpdateSubmitBtns() {
 
 function sleepSelectBaby(babyId: number) {
     sleepEvent.babyId = +babyId;
+    sleepSelectBabyElem.selectedIndex = babyId;
     sleepUpdateSubmitBtns();
 }
 
@@ -62,5 +64,25 @@ function sleepUpdateComment(comment: string) {
 function sleepAddSleepEvent(goHome: boolean) {
     var data = { "sleepEvent": sleepEvent }
     postDataToServer("/sleep", data, goHome, sleepInitialize);
+    window.location.reload();
+}
+
+function sleepDeleteSleepEvent(eventId: number) {
+    var event = new SleepEvent();
+    event.eventId = eventId;
+    event.deleteFlag = true;
+    var data = { "sleepEvent": event }
+    postDataToServer("/sleep", data, false, sleepInitialize);
+    window.location.reload();
 } 
 
+function sleepSaveSleepEvent(recentEvent: any[]) {
+    var event = new SleepEvent();
+    event.eventId = recentEvent[0];
+    event.dateTime = recentEvent[2];
+    event.type = recentEvent[3];
+    event.comment = recentEvent[4];
+    var data = { "sleepEvent": event }
+    postDataToServer("/sleep", data, false, sleepInitialize);
+    window.location.reload();
+} 

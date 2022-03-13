@@ -6,6 +6,7 @@ var bathroomBtnBothElem = document.getElementById('btnBoth');
 var bathroomBtnDoneElem = document.getElementById('btnDone');
 var bathroomBtnOneMoreElem = document.getElementById('btnOneMore');
 var bathroomTextCommentElem = document.getElementById('textComment');
+var bathroomSelectBabyElem = document.getElementById('selectBaby');
 bathroomInitialize();
 function bathroomInitialize() {
     var today = new Date();
@@ -26,6 +27,7 @@ function bathroomUpdateSubmitBtns() {
 }
 function bathroomSelectBaby(babyId) {
     bathroomEvent.babyId = +babyId;
+    bathroomSelectBabyElem.selectedIndex = babyId;
     bathroomUpdateSubmitBtns();
 }
 function bathroomUpdateBathroomType(type) {
@@ -65,5 +67,24 @@ function bathroomUpdateComment(comment) {
 function bathroomAddBathroomEvent(goHome) {
     var data = { "bathroomEvent": bathroomEvent };
     postDataToServer("/bathroom", data, goHome, bathroomInitialize);
+    window.location.reload();
+}
+function bathroomDeleteBathroomEvent(eventId) {
+    var event = new BathroomEvent();
+    event.eventId = eventId;
+    event.deleteFlag = true;
+    var data = { "bathroomEvent": event };
+    postDataToServer("/bathroom", data, false, bathroomInitialize);
+    window.location.reload();
+}
+function bathroomSaveBathroomEvent(recentEvent) {
+    var event = new BathroomEvent();
+    event.eventId = recentEvent[0];
+    event.dateTime = recentEvent[2];
+    event.type = recentEvent[3];
+    event.comment = recentEvent[4];
+    var data = { "bathroomEvent": event };
+    postDataToServer("/bathroom", data, false, bathroomInitialize);
+    window.location.reload();
 }
 //# sourceMappingURL=infanttracker-bathroom.js.map

@@ -5,6 +5,7 @@ var sleepBtnAsleepElem = document.getElementById('btnAsleep');
 var sleepBtnDoneElem = document.getElementById('btnDone');
 var sleepBtnOneMoreElem = document.getElementById('btnOneMore');
 var sleepTextCommentElem = document.getElementById('textComment');
+var sleepSelectBabyElem = document.getElementById('selectBaby');
 sleepInitialize();
 function sleepInitialize() {
     var today = new Date();
@@ -25,6 +26,7 @@ function sleepUpdateSubmitBtns() {
 }
 function sleepSelectBaby(babyId) {
     sleepEvent.babyId = +babyId;
+    sleepSelectBabyElem.selectedIndex = babyId;
     sleepUpdateSubmitBtns();
 }
 function sleepUpdateSleepType(type) {
@@ -56,5 +58,24 @@ function sleepUpdateComment(comment) {
 function sleepAddSleepEvent(goHome) {
     var data = { "sleepEvent": sleepEvent };
     postDataToServer("/sleep", data, goHome, sleepInitialize);
+    window.location.reload();
+}
+function sleepDeleteSleepEvent(eventId) {
+    var event = new SleepEvent();
+    event.eventId = eventId;
+    event.deleteFlag = true;
+    var data = { "sleepEvent": event };
+    postDataToServer("/sleep", data, false, sleepInitialize);
+    window.location.reload();
+}
+function sleepSaveSleepEvent(recentEvent) {
+    var event = new SleepEvent();
+    event.eventId = recentEvent[0];
+    event.dateTime = recentEvent[2];
+    event.type = recentEvent[3];
+    event.comment = recentEvent[4];
+    var data = { "sleepEvent": event };
+    postDataToServer("/sleep", data, false, sleepInitialize);
+    window.location.reload();
 }
 //# sourceMappingURL=infanttracker-sleep.js.map

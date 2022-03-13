@@ -36,8 +36,8 @@ def bathroom_recent_events(db_path = "./sqlite3/baby.db"):
     bathroom_recent_lst = []
     for row in rows:
         print(row)
-        tuple = (row[0], row[1], row[2], row[3], row[4])
-        bathroom_recent_lst.append(tuple)
+        row_array = [row[0], row[1], row[2], row[3], row[4]]
+        bathroom_recent_lst.append(row_array)
 
     conn.commit()
     conn.close()
@@ -140,8 +140,8 @@ def sleep_recent_events(db_path = "./sqlite3/baby.db"):
     sleep_recent_lst = []
     for row in rows:
         print(row)
-        tuple = (row[0], row[1], row[2], row[3], row[4], row[5])
-        sleep_recent_lst.append(tuple)
+        row_array = (row[0], row[1], row[2], row[3], row[4], row[5])
+        sleep_recent_lst.append(row_array)
 
     conn.commit()
     conn.close()

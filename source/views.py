@@ -64,13 +64,17 @@ def bathroom():
     if request.method == 'POST':
         result = request.data
         bathroom_event = json.loads(result) # creates python dictionary
-        bathroom_sql_ins(bathroom_event['bathroomEvent'])             #insert into database
+        if bathroom_event['bathroomEvent']['deleteFlag'] == True:
+            delete_rows('bathroom', bathroom_event['bathroomEvent']['eventId'])
+        else:
+            bathroom_sql_ins(bathroom_event['bathroomEvent'])             #insert into database
         return  jsonify(""), 200
     else:
         return render_template(
             'bathroom.html',
-            #babies = get_babies()
-            #baby = get_last_baby_bathroom # Get last baby method here...
+            babies = get_babies(),
+            lastBaby = get_last_baby_bathroom(),
+            recentEvents = bathroom_recent_events()
         )
 
 @app.route('/sleep',methods = ['POST', 'GET'])
@@ -79,13 +83,17 @@ def sleep():
     if request.method == 'POST':
         result = request.data
         sleep_event = json.loads(result) # creates python dictionary
-        #sleep_sql_ins(sleep_event['sleepEvent'])             #insert into database
+        if sleep_event['sleepEvent']['deleteFlag'] == True:
+            delete_rows('sleep', sleep_event['sleepEvent']['eventId'])
+        else:
+            sleep_sql_ins(sleep_event['sleepEvent'])             #insert into database
         return  jsonify(""), 200
     else:
         return render_template(
             'sleep.html',
-            babies = get_babies()
-            #baby = get_last_baby_sleep # Get last baby method here...
+            babies = get_babies(),
+            lastBaby = get_last_baby_sleep(),
+            recentEvents = sleep_recent_events()
         )
 
 @app.route('/eat')

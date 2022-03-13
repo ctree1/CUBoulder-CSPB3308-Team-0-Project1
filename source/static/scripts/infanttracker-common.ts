@@ -45,17 +45,21 @@ class Baby {
 }
 
 class BathroomEvent {
+    eventId: number = null;
     babyId: number = null;
     type: BathroomTypeEnum = 0;
     dateTime: string;
     comment: string = ""
+    deleteFlag: boolean = false;
 }
 
 class SleepEvent {
+    eventId: number = null;
     babyId: number = null;
     type: SleepTypeEnum = 0;
     dateTime: string;
     comment: string = ""
+    deleteFlag: boolean = false;
 }
 
 function postDataToServer(url: string, data: any, goHome: boolean, callback: Function ) {

@@ -49,17 +49,21 @@ var Baby = /** @class */ (function () {
 }());
 var BathroomEvent = /** @class */ (function () {
     function BathroomEvent() {
+        this.eventId = null;
         this.babyId = null;
         this.type = 0;
         this.comment = "";
+        this.deleteFlag = false;
     }
     return BathroomEvent;
 }());
 var SleepEvent = /** @class */ (function () {
     function SleepEvent() {
+        this.eventId = null;
         this.babyId = null;
         this.type = 0;
         this.comment = "";
+        this.deleteFlag = false;
     }
     return SleepEvent;
 }());

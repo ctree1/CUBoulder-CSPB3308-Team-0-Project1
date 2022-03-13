@@ -1,11 +1,12 @@
 var bathroomEvent = new BathroomEvent();
 var bathroomInputDateTimeElem = <HTMLInputElement>document.getElementById('inputDateTime');
-var bathroomBtnLiquidElem = <HTMLInputElement>document.getElementById('btnLiquid');
-var bathroomBtnSolidElem = <HTMLInputElement>document.getElementById('btnSolid');
-var bathroomBtnBothElem = <HTMLInputElement>document.getElementById('btnBoth');
-var bathroomBtnDoneElem = <HTMLInputElement>document.getElementById('btnDone');
-var bathroomBtnOneMoreElem = <HTMLInputElement>document.getElementById('btnOneMore');
+var bathroomBtnLiquidElem = <HTMLButtonElement>document.getElementById('btnLiquid');
+var bathroomBtnSolidElem = <HTMLButtonElement>document.getElementById('btnSolid');
+var bathroomBtnBothElem = <HTMLButtonElement>document.getElementById('btnBoth');
+var bathroomBtnDoneElem = <HTMLButtonElement>document.getElementById('btnDone');
+var bathroomBtnOneMoreElem = <HTMLButtonElement>document.getElementById('btnOneMore');
 var bathroomTextCommentElem = <HTMLInputElement>document.getElementById('textComment');
+var bathroomSelectBabyElem = <HTMLSelectElement>document.getElementById('selectBaby');
 bathroomInitialize()
 
 function bathroomInitialize() {
@@ -28,6 +29,7 @@ function bathroomUpdateSubmitBtns() {
 
 function bathroomSelectBaby(babyId: number) {
     bathroomEvent.babyId = +babyId;
+    bathroomSelectBabyElem.selectedIndex = babyId;
     bathroomUpdateSubmitBtns();
 }
 
@@ -71,5 +73,26 @@ function bathroomUpdateComment(comment: string) {
 function bathroomAddBathroomEvent(goHome: boolean) {
     var data = { "bathroomEvent": bathroomEvent }
     postDataToServer("/bathroom", data, goHome, bathroomInitialize);
+    window.location.reload();
+} 
+
+function bathroomDeleteBathroomEvent(eventId: number) {
+    var event = new BathroomEvent();
+    event.eventId = eventId;
+    event.deleteFlag = true;
+    var data = { "bathroomEvent": event }
+    postDataToServer("/bathroom", data, false, bathroomInitialize);
+    window.location.reload();
+} 
+
+function bathroomSaveBathroomEvent(recentEvent: any[]) {
+    var event = new BathroomEvent();
+    event.eventId = recentEvent[0];
+    event.dateTime = recentEvent[2];
+    event.type = recentEvent[3];
+    event.comment = recentEvent[4];
+    var data = { "bathroomEvent": event }
+    postDataToServer("/bathroom", data, false, bathroomInitialize);
+    window.location.reload();
 } 
 
