@@ -73,7 +73,6 @@ function bathroomUpdateComment(comment: string) {
 function bathroomAddBathroomEvent(goHome: boolean) {
     var data = { "bathroomEvent": bathroomEvent }
     postDataToServer("/bathroom", data, goHome, bathroomInitialize);
-    window.location.reload();
 } 
 
 function bathroomDeleteBathroomEvent(eventId: number) {
@@ -82,7 +81,6 @@ function bathroomDeleteBathroomEvent(eventId: number) {
     event.deleteFlag = true;
     var data = { "bathroomEvent": event }
     postDataToServer("/bathroom", data, false, bathroomInitialize);
-    window.location.reload();
 } 
 
 function bathroomSaveBathroomEvent(recentEvent: any[]) {
@@ -93,6 +91,5 @@ function bathroomSaveBathroomEvent(recentEvent: any[]) {
     event.comment = recentEvent[4];
     var data = { "bathroomEvent": event }
     postDataToServer("/bathroom", data, false, bathroomInitialize);
-    window.location.reload();
 } 
 

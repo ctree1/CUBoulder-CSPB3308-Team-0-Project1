@@ -79,6 +79,7 @@ function postDataToServer(url, data, goHome, callback) {
             }
             else {
                 callback();
+                window.location.reload();
             }
         }
     };

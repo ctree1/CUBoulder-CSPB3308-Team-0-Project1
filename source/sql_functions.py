@@ -28,9 +28,8 @@ def bathroom_recent_events(db_path = "./sqlite3/baby.db"):
         bathroom.bathroomComment as 'Comment' FROM bathroom\
         LEFT JOIN babies ON bathroom.babyID = babies.babyID\
         LEFT JOIN bathroomType ON bathroom.bathroomType = bathroomType.bathroomTypeID\
-        WHERE bathroom.babyID = " + str(get_last_baby_bathroom()) + "\
         ORDER BY bathroomDateTime DESC\
-        LIMIT 3;")
+        LIMIT 5;")
     rows = cur.fetchall()
     
     bathroom_recent_lst = []
@@ -115,9 +114,21 @@ def add_baby(baby_dict, db_path = "./sqlite3/baby.db"):
     conn.close()
     #return error/success code
 
-#sleep function, added for testing
+# value should be python dict: {babyID: int, type: int, comment: string, dateTime: valid dateTime string} 
 def sleep_sql_ins(value, db_path = "./sqlite3/baby.db"):
-    pass
+    conn = sqlite3.connect(db_path)       #connect to database
+    cur = conn.cursor()
+    babyID = value['babyId']        #split dictionary into individual variables
+    sleepType = value['type']
+    sleepComment = value['comment']
+    sleepDateTime = value['dateTime']
+
+    #execute sql insert statement
+    cur.execute("PRAGMA foreign_keys = ON")
+    cur.execute("INSERT INTO sleep (babyID, sleepType, sleepDateTime, sleepComment) VALUES(?, ?, ?, ?);", (babyID, sleepType, sleepDateTime, sleepComment))
+    conn.commit()
+    conn.close()
+    # return error/success code
 
 def sleep_recent_events(db_path = "./sqlite3/baby.db"):
     conn = sqlite3.connect(db_path)       #connect to database
@@ -132,9 +143,8 @@ def sleep_recent_events(db_path = "./sqlite3/baby.db"):
         FROM sleep\
         LEFT JOIN babies ON sleep.babyID = babies.babyID\
         LEFT JOIN sleepType ON sleep.sleepType = sleepType.sleepTypeID\
-        WHERE sleep.babyID = " + str(get_last_baby_sleep()) + "\
         ORDER BY sleep.sleepDateTime DESC\
-        LIMIT 3;")
+        LIMIT 5;")
     rows = cur.fetchall()
     
     sleep_recent_lst = []

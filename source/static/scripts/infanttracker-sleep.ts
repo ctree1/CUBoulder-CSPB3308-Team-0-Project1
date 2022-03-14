@@ -64,7 +64,6 @@ function sleepUpdateComment(comment: string) {
 function sleepAddSleepEvent(goHome: boolean) {
     var data = { "sleepEvent": sleepEvent }
     postDataToServer("/sleep", data, goHome, sleepInitialize);
-    window.location.reload();
 }
 
 function sleepDeleteSleepEvent(eventId: number) {
@@ -73,7 +72,6 @@ function sleepDeleteSleepEvent(eventId: number) {
     event.deleteFlag = true;
     var data = { "sleepEvent": event }
     postDataToServer("/sleep", data, false, sleepInitialize);
-    window.location.reload();
 } 
 
 function sleepSaveSleepEvent(recentEvent: any[]) {
@@ -84,5 +82,4 @@ function sleepSaveSleepEvent(recentEvent: any[]) {
     event.comment = recentEvent[4];
     var data = { "sleepEvent": event }
     postDataToServer("/sleep", data, false, sleepInitialize);
-    window.location.reload();
 } 

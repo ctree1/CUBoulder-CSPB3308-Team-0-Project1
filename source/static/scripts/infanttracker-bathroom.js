@@ -67,7 +67,6 @@ function bathroomUpdateComment(comment) {
 function bathroomAddBathroomEvent(goHome) {
     var data = { "bathroomEvent": bathroomEvent };
     postDataToServer("/bathroom", data, goHome, bathroomInitialize);
-    window.location.reload();
 }
 function bathroomDeleteBathroomEvent(eventId) {
     var event = new BathroomEvent();
@@ -75,7 +74,6 @@ function bathroomDeleteBathroomEvent(eventId) {
     event.deleteFlag = true;
     var data = { "bathroomEvent": event };
     postDataToServer("/bathroom", data, false, bathroomInitialize);
-    window.location.reload();
 }
 function bathroomSaveBathroomEvent(recentEvent) {
     var event = new BathroomEvent();
@@ -85,6 +83,5 @@ function bathroomSaveBathroomEvent(recentEvent) {
     event.comment = recentEvent[4];
     var data = { "bathroomEvent": event };
     postDataToServer("/bathroom", data, false, bathroomInitialize);
-    window.location.reload();
 }
 //# sourceMappingURL=infanttracker-bathroom.js.map

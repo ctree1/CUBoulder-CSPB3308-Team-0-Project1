@@ -73,6 +73,7 @@ function postDataToServer(url: string, data: any, goHome: boolean, callback: Fun
                 window.open("/home",'_self');
             } else {
                 callback();
+                window.location.reload();tsc
             }
         }
     };

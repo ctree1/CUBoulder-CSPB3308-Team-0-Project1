@@ -58,7 +58,6 @@ function sleepUpdateComment(comment) {
 function sleepAddSleepEvent(goHome) {
     var data = { "sleepEvent": sleepEvent };
     postDataToServer("/sleep", data, goHome, sleepInitialize);
-    window.location.reload();
 }
 function sleepDeleteSleepEvent(eventId) {
     var event = new SleepEvent();
@@ -66,7 +65,6 @@ function sleepDeleteSleepEvent(eventId) {
     event.deleteFlag = true;
     var data = { "sleepEvent": event };
     postDataToServer("/sleep", data, false, sleepInitialize);
-    window.location.reload();
 }
 function sleepSaveSleepEvent(recentEvent) {
     var event = new SleepEvent();
@@ -76,6 +74,5 @@ function sleepSaveSleepEvent(recentEvent) {
     event.comment = recentEvent[4];
     var data = { "sleepEvent": event };
     postDataToServer("/sleep", data, false, sleepInitialize);
-    window.location.reload();
 }
 //# sourceMappingURL=infanttracker-sleep.js.map
