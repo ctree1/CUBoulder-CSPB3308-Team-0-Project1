@@ -44,6 +44,7 @@ def setup():
         baby_and_prefs = json.loads(result) # creates python dictionary
         if 'preferences' in baby_and_prefs.keys():
             prefs = baby_and_prefs['preferences']
+            add_prefs(prefs)
             print("Preferences: " + str(prefs))
             # update DB with preferences
         elif 'baby' in baby_and_prefs.keys():

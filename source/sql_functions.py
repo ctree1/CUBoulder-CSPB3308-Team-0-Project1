@@ -17,6 +17,18 @@ def bathroom_sql_ins(value, db_path = "./sqlite3/baby.db"):
     conn.close()
     # return error/success code
 
+def add_prefs(pref_dict, db_path = "./sqlite3/baby.db"):
+    conn = sqlite3.connect(db_path)       #connect to database
+    cur = conn.cursor()
+    
+    cur.execute("PRAGMA foreign_keys = ON") # enforce foreign key constraints
+    cur.execute("INSERT INTO preferences (liquidUnits, weightUnits, heightUnits) VALUES (?, ?, ?);",(pref_dict['liquidUnits'],pref_dict['weightUnits'], pref_dict['heightUnits']))
+    
+    conn.commit()
+    conn.close()
+    #return error/success code
+
+
 def bathroom_recent_events(db_path = "./sqlite3/baby.db"):
     conn = sqlite3.connect(db_path)       #connect to database
     cur = conn.cursor()
