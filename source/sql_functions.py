@@ -177,7 +177,6 @@ def delete_rows(table, eventID, db_path = "./sqlite3/baby.db"):
     conn = sqlite3.connect(db_path)       #connect to database
     cur = conn.cursor()
     
-    #initials=baby_dict['firstName'][0] + baby_dict['lastName'][0]
     cur.execute("DELETE FROM " + str(table) + "\
         WHERE " + str(table) + "EventID = " + str(eventID) + ";")
         #Example DELETE FROM sleep WHERE sleepEventID = 10;
@@ -185,6 +184,47 @@ def delete_rows(table, eventID, db_path = "./sqlite3/baby.db"):
     conn.commit()
     conn.close()
 
+def delete_preferences(db_path = "./sqlite3/baby.db"):
+    conn = sqlite3.connect(db_path)       #connect to database
+    cur = conn.cursor()
+    
+    cur.execute("DELETE * FROM preferences;")
+
+    conn.commit()
+    conn.close()
+
+def feed_recent_events(db_path = "./sqlite3/baby.db"):
+    conn = sqlite3.connect(db_path)       #connect to database
+    cur = conn.cursor()
+
+    cur.execute("SELECT\
+        feed.feedEventID,\
+        babies.firstName || ' ' || babies.lastName as 'Baby',\
+        feed.feedDateTime as 'Time',\
+        feed.leftBreastDur as 'Left Breast, min',\
+        feed.rightBreastDur as 'Right Breast, min',\
+        feed.totalBreastDur as 'Total Breast, min',\
+        feed.leftPumpQty as 'Left Pump Qty',\
+        feed.rightPumpQty as 'Right Pump Qty',\
+        feed.totalPumpQty as 'Total Pump Qty',\
+        feed.bottleBreastQty as 'Bottle Breast Qty',\
+        feed.bottleBreastQty as 'Bottle Formulat Qty',\
+        feed.totalBottleQty as 'Total Bottle Qty',\
+        feed.feedComment as 'Comment' FROM feed\
+        LEFT JOIN babies ON feed.babyID = babies.babyID\
+        ORDER BY feedDateTime DESC\
+        LIMIT 5;")
+    rows = cur.fetchall()
+
+    feed_recent_lst = []
+    for row in rows:
+        print(row)
+        row_array = (row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10], row[11], row[12], row[13])
+        feed_recent_lst.append(row_array)
+
+    conn.commit()
+    conn.close()
+    return feed_recent_lst
 
 class Baby:
     def __init__(self, rows):

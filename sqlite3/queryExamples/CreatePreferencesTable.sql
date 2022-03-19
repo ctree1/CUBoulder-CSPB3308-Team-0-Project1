@@ -3,7 +3,7 @@
 DROP TABLE IF EXISTS preferences;
 
 CREATE TABLE preferences (
-liquidUnits INTEGER DEFAULT 1,
-weightUnits INTEGER DEFAULT 1,
-heightUnits INTEGER DEFAULT 1
+liquidUnits DECIMAL DEFAULT 1, --1=oz, 2=ml
+weightUnits DECIMAL DEFAULT 1, --1=lb, 2=kg
+heightUnits INTEGER DEFAULT 1  --1=in, 2=cm
 );

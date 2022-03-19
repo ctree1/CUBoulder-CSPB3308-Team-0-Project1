@@ -1,12 +1,13 @@
 -- SQLite
 --SELECT * FROM babies;
 --SELECT * FROM bathroom ORDER BY bathroomDateTime DESC;
-SELECT * FROM sleep;
+--SELECT * FROM sleep;
 --SELECT * FROM babies;
 --SELECT * FROM preferences;
 --SELECT * FROM bathroomType;
 --SELECT * FROM sleepType;
 --SELECT * FROM feed;
+SELECT * FROM preferences;
 --INSERT INTO sleepType (sleepTypeName) VALUES ("Asleep");
 --INSERT INTO babies (birthDate, firstName, lastName) VALUES (2022-02-24, "Joe", "Baby");
 --ALTER TABLE sleepType RENAME COLUMN sleepEventName TO sleepTypeName;
