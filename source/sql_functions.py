@@ -1,6 +1,5 @@
 import sqlite3
 
-
 # value should be python dict: {babyID: int, type: int, comment: string, dateTime: valid dateTime string} 
 def bathroom_sql_ins(value, db_path = "./sqlite3/baby.db"):
     conn = sqlite3.connect(db_path)       #connect to database
@@ -219,12 +218,36 @@ def feed_recent_events(db_path = "./sqlite3/baby.db"):
     feed_recent_lst = []
     for row in rows:
         print(row)
-        row_array = (row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10], row[11], row[12], row[13])
+        row_array = (row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10], row[11], row[12])
         feed_recent_lst.append(row_array)
 
     conn.commit()
     conn.close()
     return feed_recent_lst
+
+def read_sql(queryName):
+    with open(queryName)as q:
+        query_text = q.read()
+    return query_text
+
+def reset_db(db_path = "./sqlite3/baby.db"):
+    # read sql file in stead of hard coding -
+   
+    conn = sqlite3.connect(db_path)       #connect to database
+    cur = conn.cursor()
+    
+    cur.executescript(read_sql("./sqlite3/queryExamples/CreateBabiesTable.sql"))
+    cur.executescript(read_sql("./sqlite3/queryExamples/AddBaby.sql"))
+    cur.executescript(read_sql("./sqlite3/queryExamples/CreateBathroomTable.sql"))
+    cur.executescript(read_sql("./sqlite3/queryExamples/AddBathroom.sql"))
+    cur.executescript(read_sql("./sqlite3/queryExamples/CreateSleepTable.sql"))
+    cur.executescript(read_sql("./sqlite3/queryExamples/AddSleep.sql"))
+    cur.executescript(read_sql("./sqlite3/queryExamples/CreateFeedTable.sql"))
+    cur.executescript(read_sql("./sqlite3/queryExamples/AddFeed.sql"))
+
+
+    conn.commit()
+    conn.close()
 
 class Baby:
     def __init__(self, rows):
@@ -313,3 +336,5 @@ class Feed:
 #bathroom_recent_events()
 #sleep_recent_events()
 #delete_rows("sleep", 11)
+#feed_recent_events()
+reset_db()

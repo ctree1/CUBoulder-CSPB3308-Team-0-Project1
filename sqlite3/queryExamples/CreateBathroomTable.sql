@@ -1,4 +1,6 @@
 -- SQLite
+DROP TABLE IF EXISTS bathroom;
+
 CREATE TABLE bathroom (
 bathroomEventID INTEGER PRIMARY KEY AUTOINCREMENT,
 eventType TEXT DEFAULT "Bathroom" NOT NULL,
