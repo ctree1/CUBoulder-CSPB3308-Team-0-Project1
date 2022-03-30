@@ -20,6 +20,7 @@ def add_prefs(pref_dict, db_path = "./sqlite3/baby.db"):
     conn = sqlite3.connect(db_path)       #connect to database
     cur = conn.cursor()
     
+    cur.execute("DROP TABLE IF EXISTS preferences;")
     cur.execute("PRAGMA foreign_keys = ON") # enforce foreign key constraints
     cur.execute("INSERT INTO preferences (liquidUnits, weightUnits, heightUnits) VALUES (?, ?, ?);",(pref_dict['liquidUnits'],pref_dict['weightUnits'], pref_dict['heightUnits']))
     
@@ -245,9 +246,41 @@ def reset_db(db_path = "./sqlite3/baby.db"):
     cur.executescript(read_sql("./sqlite3/queryExamples/CreateFeedTable.sql"))
     cur.executescript(read_sql("./sqlite3/queryExamples/AddFeed.sql"))
 
-
     conn.commit()
     conn.close()
+
+# returns the selected preferences of the table (1,1,1) (liquid, weight, height)
+def get_prefs(db_path = "./sqlite3/baby.db"):
+    conn = sqlite3.connect(db_path)       #connect to database
+    cur = conn.cursor()
+    
+    cur.execute("PRAGMA foreign_keys = ON") # enforce foreign key constraints
+    cur.execute("SELECT * FROM preferences;")
+    
+    pref_lst = cur.fetchall()
+    conn.close()
+    pref_lst = pref_lst[0]
+    #prefs = {"liquid":pref_lst[0], "weight":pref_lst[1], "height":pref_lst[2]}
+    return pref_lst[0]    #return error/success code    
+
+# Convert the units to that of preferences, pass in values for liquid, weight, and height
+# If units are not necessary, pass in value of 0
+# e.g for eat view, convert only liquids, pass values of (12, 0, 0)
+def convert_units(liquid, weight, height):
+    prefs = get_prefs()
+    liquid_flag = prefs[0]
+    weight_flag = prefs[1]
+    height_flag = prefs[2]
+    liquid_ret = liquid
+    weight_ret = weight
+    height_ret = height
+    if(liquid_flag != 1):
+        liquid_ret = liquid_ret * 29.5735
+    if(weight_flag != 1):
+        weight_ret = weight_ret * 0.453582    
+    if(height_flag != 1):
+        height_ret = height_ret * 2.54
+    return(liquid_ret, weight_ret, height_ret)
 
 class Baby:
     def __init__(self, rows):
