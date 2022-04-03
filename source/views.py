@@ -97,15 +97,24 @@ def sleep():
             recentEvents = sleep_recent_events()
         )
 
-@app.route('/eat')
-def eat():
-    """Renders the eat page."""
-    return render_template(
-        'eat.html',
-        title='Eat',
-        year=datetime.now().year,
-        message='Eat data from backend here..'
-    )
+@app.route('/feed')
+def feed():
+    """Renders the feed page."""
+    if request.method == 'POST':
+        result = request.data
+        feed_event = json.loads(result) # creates python dictionary
+        if feed_event['feedEvent']['deleteFlag'] == True:
+            delete_rows('feed', feed_event['feedEvent']['eventId'])
+        else:
+            feed_sql_ins(feed_event['feedEvent'])             #insert into database
+        return  jsonify(""), 200
+    else:
+        return render_template(
+            'feed.html',
+            babies = get_babies(),
+            #lastBaby = get_last_baby_feed(),       NEED - get_last_baby_feed
+            recentEvents = feed_recent_events()
+        )
 
 @app.route('/measures')
 def measures():

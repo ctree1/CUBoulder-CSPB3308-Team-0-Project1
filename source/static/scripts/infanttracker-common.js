@@ -11,6 +11,12 @@ var SleepTypeEnum;
     SleepTypeEnum[SleepTypeEnum["awake"] = 1] = "awake";
     SleepTypeEnum[SleepTypeEnum["asleep"] = 2] = "asleep";
 })(SleepTypeEnum || (SleepTypeEnum = {}));
+var FeedSideEnum;
+(function (FeedSideEnum) {
+    FeedSideEnum[FeedSideEnum["none"] = 0] = "none";
+    FeedSideEnum[FeedSideEnum["left"] = 1] = "left";
+    FeedSideEnum[FeedSideEnum["right"] = 2] = "right";
+})(FeedSideEnum || (FeedSideEnum = {}));
 var LiquidUnitsEnum;
 (function (LiquidUnitsEnum) {
     LiquidUnitsEnum[LiquidUnitsEnum["none"] = 0] = "none";
@@ -67,6 +73,17 @@ var SleepEvent = /** @class */ (function () {
     }
     return SleepEvent;
 }());
+var FeedEvent = /** @class */ (function () {
+    function FeedEvent() {
+        this.eventId = null;
+        this.babyId = null;
+        this.breastSide = 0;
+        this.pumpSide = 0;
+        this.comment = "";
+        this.deleteFlag = false;
+    }
+    return FeedEvent;
+}());
 function postDataToServer(url, data, goHome, callback) {
     var xhr = new XMLHttpRequest();
     xhr.open("POST", url, true);
@@ -80,7 +97,6 @@ function postDataToServer(url, data, goHome, callback) {
             else {
                 callback();
                 window.location.reload();
-                tsc;
             }
         }
     };

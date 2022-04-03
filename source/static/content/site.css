@@ -40,3 +40,8 @@ input[type="checkbox"].input-validation-error {
 .validation-summary-valid {
     display: none;
 }
+
+/* Project Team additions start here */
+.feed-row {
+    margin-bottom: 10px;
+}

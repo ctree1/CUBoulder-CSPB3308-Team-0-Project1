@@ -1,0 +1,145 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="jumbotron">
+    <h1>Infant Tracker</h1>
+</div>
+
+<div class="container mt-3">
+    <div class="row feed-row">
+        <div class="col">
+            <div class="d-flex flex-row d-flex">
+                <select class="form-select me-3" id="selectBaby" onChange="feedSelectBaby(this.value)">
+                    <option value="null" selected>Select Baby</option>
+                    {% for baby in babies %}
+                    <option value="{{ baby[0] }}">{{ baby[3] }} {{ baby[4] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="button" id="btnLiquid" class="btn btn-secondary" onclick="feedUpdateFeedType(1)">Left Breast
+                Feed</button>
+            <button type="button" id="btnSolid" class="btn btn-secondary" onclick="feedUpdateFeedType(2)">Right Breast
+                Feed</button>
+        </div>
+        <div class="col">
+            <div class="d-flex flex-row d-flex">
+                <div class="col">
+                    <button type="button" id="btnLiquid" class="btn btn-secondary" onclick="feedUpdateFeedType(1)">Left
+                        Pump</button>
+                    <button type="button" id="btnLiquid" class="btn btn-secondary" onclick="feedUpdateFeedType(1)">Right
+                        Pump</button>
+                </div>
+                <div class="col">
+                    <button type="button" id="btnLiquid" class="btn btn-secondary"
+                        onclick="feedUpdateFeedType(1)">Bottle</button>
+                    <button type="button" id="btnLiquid" class="btn btn-secondary"
+                        onclick="feedUpdateFeedType(1)">Formula</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row feed-row">
+        <div class="col">
+            <button type="button" id="btnLiquid" class="btn btn-secondary"
+                onclick="feedUpdateFeedType(1)">Start</button>
+            <button type="button" id="btnLiquid" class="btn btn-secondary" onclick="feedUpdateFeedType(1)">Stop</button>
+            <div class="d-flex flex-row d-flex">
+                <h3>00:00:00</h3>
+            </div>
+            <div class="d-flex flex-row d-flex">
+                <h4>Enter Duration</h4>
+            </div>
+            <button type="button" id="btnLiquid" class="btn btn-secondary" onclick="feedUpdateFeedType(1)">Change to duration drop-down</button>
+            <!-- <div class="d-flex flex-row d-flex">
+                <h3>00:00:00</h3>
+            </div> -->
+        </div>
+        <div class="col">
+            2 of 2
+        </div>
+    </div>
+    <div class="row feed-row">
+        <button type="button" id="btnLiquid" class="btn btn-secondary" onclick="feedUpdateFeedType(1)">Change to Time button</button>
+    </div>
+
+    <div class="container mt-3">
+        <h2 class="text-light bg-secondary">Select baby area</h2>
+        <div class="d-flex flex-row d-flex">
+            <select class="form-select me-3" id="selectBaby" onChange="feedSelectBaby(this.value)">
+                <option value="null" selected>Select Baby</option>
+                {% for baby in babies %}
+                <option value="{{ baby[0] }}">{{ baby[3] }} {{ baby[4] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <div class="container mt-3">
+        <h2 class="text-light bg-secondary">Feed Type area</h2>
+        <button type="button" id="btnLiquid" class="btn btn-secondary" onclick="feedUpdateFeedType(1)">Liquid</button>
+        <button type="button" id="btnSolid" class="btn btn-secondary" onclick="feedUpdateFeedType(2)">Solid</button>
+        <button type="button" id="btnBoth" class="btn btn-secondary" onclick="feedUpdateFeedType(3)">Both</button>
+    </div>
+
+    <div class="container mt-3">
+        <h2 class="text-light bg-secondary">Time area</h2>
+        <div class="form-group">
+            <label for="inputDateTime">Select a date and time:</label>
+            <input type="datetime-local" id="inputDateTime" onChange="feedUpdateDateTime(this.value)" />
+        </div>
+    </div>
+
+    <div class="container mt-3">
+        <h2 class="text-light bg-secondary">Comments area</h2>
+        <div class="form-group">
+            <label for="comment">Comment:</label>
+            <textarea class="form-control" rows="5" id="textComment"
+                onChange="feedUpdateComment(this.value)"></textarea>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-3">
+    <button type="button" id="btnDone" class="btn btn-success" onClick='feedAddFeedEvent(true)' disabled>Done</button>
+    <button type="button" id="btnOneMore" class="btn btn-primary" onClick='feedAddFeedEvent(false)' disabled>One
+        More</button>
+</div>
+
+<div class="container mt-3">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">DateTime</th>
+                <th scope="col">Name</th>
+                <th scope="col">Feed Type</th>
+                <th scope="col">Comment</th>
+                <th scope="col">Delete</th>
+                <th scope="col">Save</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% set currEvent = 0 %}
+            {% for event in recentEvents %}
+            {% set currEvent = event %}
+            <tr>
+                <td><input type="datetime-local" value="{{ event[2] }}" /></td>
+                <td>{{ event[1] }}</td>
+                <td>{{ event[3] }}</td>
+                <td><textarea class="form-control" rows="1">{{ event[4] }}</textarea></td>
+                <td><button type="button" class="btn btn-danger"
+                        onClick="feedDeleteFeedEvent({{ event[0]|safe }})">Delete</button></td>
+                <td><button type="button" class="btn btn-success" disabled
+                        onClick="feedSaveFeedEvent({{ event|safe }})">Save</button></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/scripts/infanttracker-common.js"></script>
+<script src="/static/scripts/infanttracker-feed.js" onload="feedSelectBaby({{ lastBaby }})"></script>
+{% endblock %}

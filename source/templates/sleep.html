@@ -10,7 +10,7 @@
     <h2 class="text-light bg-secondary">Select baby area</h2>
     <div class="d-flex flex-row d-flex">
         <select class="form-select me-3" id="selectBaby" onChange="sleepSelectBaby(this.value)">
-            <option value="null" selected>Select</option>
+            <option value="null" selected>Select Baby</option>
             {% for baby in babies %}
                 <option value="{{ baby[0] }}">{{ baby[3] }} {{ baby[4] }}</option>
             {% endfor %}

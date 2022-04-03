@@ -11,6 +11,12 @@ enum SleepTypeEnum {
     asleep = 2
 }
 
+enum FeedSideEnum {
+    none = 0,
+    left = 1,
+    right = 2
+}
+
 enum LiquidUnitsEnum {
     none = 0,
     ounces = 1,
@@ -62,6 +68,16 @@ class SleepEvent {
     deleteFlag: boolean = false;
 }
 
+class FeedEvent {
+    eventId: number = null;
+    babyId: number = null;
+    breastSide: FeedSideEnum = 0;
+    pumpSide: FeedSideEnum = 0;
+    dateTime: string;
+    comment: string = ""
+    deleteFlag: boolean = false;
+}
+
 function postDataToServer(url: string, data: any, goHome: boolean, callback: Function ) {
     let xhr = new XMLHttpRequest();
     xhr.open("POST", url, true);
@@ -73,7 +89,7 @@ function postDataToServer(url: string, data: any, goHome: boolean, callback: Fun
                 window.open("/home",'_self');
             } else {
                 callback();
-                window.location.reload();tsc
+                window.location.reload();
             }
         }
     };
