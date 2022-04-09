@@ -43,5 +43,22 @@ input[type="checkbox"].input-validation-error {
 
 /* Project Team additions start here */
 .feed-row {
-    margin-bottom: 10px;
+    margin: 0px;
+    border: 1px solid;
+}
+
+/* .feed-row-height {
+    height: 100%;
+} */
+
+.feed-col {
+    align-self: center;
+    /* border-left: 1px solid;
+    border-right: 1px solid; */
+    padding: 10px;
+}
+
+.feed-col-centering {
+    align-self: center;
+    text-align: center;
 }

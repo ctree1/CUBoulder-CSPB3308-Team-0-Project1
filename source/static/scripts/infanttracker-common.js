@@ -17,6 +17,12 @@ var FeedSideEnum;
     FeedSideEnum[FeedSideEnum["left"] = 1] = "left";
     FeedSideEnum[FeedSideEnum["right"] = 2] = "right";
 })(FeedSideEnum || (FeedSideEnum = {}));
+var FeedBottleFormulaEnum;
+(function (FeedBottleFormulaEnum) {
+    FeedBottleFormulaEnum[FeedBottleFormulaEnum["none"] = 0] = "none";
+    FeedBottleFormulaEnum[FeedBottleFormulaEnum["bottle"] = 1] = "bottle";
+    FeedBottleFormulaEnum[FeedBottleFormulaEnum["formula"] = 2] = "formula";
+})(FeedBottleFormulaEnum || (FeedBottleFormulaEnum = {}));
 var LiquidUnitsEnum;
 (function (LiquidUnitsEnum) {
     LiquidUnitsEnum[LiquidUnitsEnum["none"] = 0] = "none";
@@ -79,6 +85,9 @@ var FeedEvent = /** @class */ (function () {
         this.babyId = null;
         this.breastSide = 0;
         this.pumpSide = 0;
+        this.bottleFormula = 0;
+        this.duration = 0;
+        this.quantity = 0;
         this.comment = "";
         this.deleteFlag = false;
     }

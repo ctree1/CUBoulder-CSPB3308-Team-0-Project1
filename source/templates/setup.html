@@ -3,72 +3,71 @@
 {% block content %}
 
 <div class="jumbotron">
-    <h1>Infant Tracker</h1>
+    <h1>Setup</h1>
 </div>
 
 <div class="container mt-3">
-    <h1>Baby area</h2>
-</div>
-    
-<div class="container mt-3">
-    <h2 class="text-light bg-secondary">Add Baby area</h2>
-    <div class="form-group">
-        <label for="inputFirstName">First Name:</label>
-        <input type="text" class="form-control" id="inputFirstName" onChange="setupUpdateFirstName(this.value)">
+    <div class="row feed-row">
+        <div class="col feed-col" style="align-self: start;">
+            <div class="container mt-3">
+                <h2 class="text-light bg-secondary">Add Baby</h2>
+                <div class="form-group">
+                    <label for="inputFirstName">First Name:</label>
+                    <input type="text" class="form-control" id="inputFirstName" onChange="setupUpdateFirstName(this.value)">
+                </div>
+                <div class="form-group">
+                    <label for="inputLastName">Last Name:</label>
+                    <input type="text" class="form-control" id="inputLastName" onChange="setupUpdateLastName(this.value)">
+                </div>
+                <div class="form-group">
+                    <label for="inputAbbrev">Abbreviation:</label>
+                    <input type="text" class="form-control" id="inputAbbrev" onChange="setupUpdateAbbrev(this.value)">
+                </div>
+                <div class="form-group">
+                    <label for="inputBirthWeight">Birth Weight:</label>
+                    <input type="number" class="form-control" id="inputBirthWeight" onChange="setupUpdateBirthWeight(this.value)">
+                </div>
+                <div class="form-group">
+                    <label for="inputBirthHeight">Birth Height:</label>
+                    <input type="number" class="form-control" id="inputBirthHeight" onChange="setupUpdateBirthHeight(this.value)">
+                </div>
+                <div class="form-group">
+                    <label for="inputBirthDate">Birthdate:</label>
+                    <input type="date" class="form-control" id="inputBirthDate" onChange="setupUpdateDate(this.value)" />
+                </div>
+            </div>
+            <div class="container mt-3">
+                <button type="button" id="btnDone" class="btn btn-success" onClick='setupAddBaby(true)'
+                    disabled>Done</button>
+                <button type="button" id="btnOneMore" class="btn btn-primary" onClick='setupAddBaby(false)' disabled>One
+                    More</button>
+            </div>
+        </div>
+        <div class="col feed-col" style="align-self: start;">
+            <div class="container mt-3">
+                <h2 class="text-light bg-secondary">Preferences</h2>
+                <div style="padding: 10px;">
+                    <label>Liquid Units:</label>
+                    <button type="button" id="btnLiquidOz" class="btn btn-secondary" onclick="setupUpdateLiquidUnits(1)">Ounces</button>
+                    <button type="button" id="btnLiquidMl" class="btn btn-secondary" onclick="setupUpdateLiquidUnits(2)">Milliliters</button>
+                </div>
+                <div style="padding: 10px;">
+                    <label>Weight Units:</label>
+                    <button type="button" id="btnWeightLb" class="btn btn-secondary" onclick="setupUpdateWeightUnits(1)">Pounds</button>
+                    <button type="button" id="btnWeightKg" class="btn btn-secondary" onclick="setupUpdateWeightUnits(2)">Kilograms</button>
+                </div>
+                <div style="padding: 10px;">
+                    <label>Height Units:</label>
+                    <button type="button" id="btnHeightIn" class="btn btn-secondary" onclick="setupUpdateHeightUnits(1)">Inches</button>
+                    <button type="button" id="btnHeightCm" class="btn btn-secondary" onclick="setupUpdateHeightUnits(2)">Centimeters</button>
+                </div>
+            </div>
+            <div class="container mt-3">
+                <button type="button" id="btnSave" class="btn btn-success" onClick='setupSavePrefs()' disabled>Save</button>
+            </div>
+        </div>
     </div>
-    <div class="form-group">
-        <label for="inputLastName">Last Name:</label>
-        <input type="text" class="form-control" id="inputLastName" onChange="setupUpdateLastName(this.value)">
-    </div>
-    <div class="form-group">
-        <label for="inputAbbrev">Abbreviation:</label>
-        <input type="text" class="form-control" id="inputAbbrev" onChange="setupUpdateAbbrev(this.value)">
-    </div>
-    <div class="form-group">
-        <label for="inputBirthWeight">Birth Weight:</label>
-        <input type="number" class="form-control" id="inputBirthWeight" onChange="setupUpdateBirthWeight(this.value)">
-    </div>
-    <div class="form-group">
-        <label for="inputBirthHeight">Birth Height:</label>
-        <input type="number" class="form-control" id="inputBirthHeight" onChange="setupUpdateBirthHeight(this.value)">
-    </div>
-    <div class="form-group">
-        <label for="inputBirthDate">Birthdate:</label>
-        <input type="date" class="form-control" id="inputBirthDate" onChange="setupUpdateDate(this.value)" />
-    </div>
 </div>
-
-<div class="container mt-3">
-    <button type="button" id="btnDone" class="btn btn-success" onClick='setupAddBaby(true)' disabled>Done</button>
-    <button type="button" id="btnOneMore" class="btn btn-primary" onClick='setupAddBaby(false)' disabled>One More</button>
-</div>
-
-<div class="container mt-3">
-    <h1>Preferences area</h2>
-</div>
-
-<div class="container mt-3">
-    <h2 class="text-light bg-secondary">Liquid Units area</h2>
-    <button type="button" id="btnLiquidOz" class="btn btn-secondary" onclick="setupUpdateLiquidUnits(1)">Ounces</button>
-    <button type="button" id="btnLiquidMl" class="btn btn-secondary" onclick="setupUpdateLiquidUnits(2)">Milliliters</button>
-</div>
-
-<div class="container mt-3">
-    <h2 class="text-light bg-secondary">Weight Units area</h2>
-    <button type="button" id="btnWeightLb" class="btn btn-secondary" onclick="setupUpdateWeightUnits(1)">Pounds</button>
-    <button type="button" id="btnWeightKg" class="btn btn-secondary" onclick="setupUpdateWeightUnits(2)">Kilograms</button>
-</div>
-
-<div class="container mt-3">
-    <h2 class="text-light bg-secondary">Height Units area</h2>
-    <button type="button" id="btnHeightIn" class="btn btn-secondary" onclick="setupUpdateHeightUnits(1)">Inches</button>
-    <button type="button" id="btnHeightCm" class="btn btn-secondary" onclick="setupUpdateHeightUnits(2)">Centimeters</button>
-</div>
-
-<div class="container mt-3">
-    <button type="button" id="btnSave" class="btn btn-success" onClick='setupSavePrefs()' disabled>Save</button>
-</div>
-
 {% endblock %}
 
 {% block scripts %}

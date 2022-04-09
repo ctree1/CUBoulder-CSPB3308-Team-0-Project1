@@ -56,7 +56,7 @@ def setup():
     else:
         return render_template(
             'setup.html',
-            # Get preferences
+            prefs = get_prefs()
         )
 
 @app.route('/bathroom',methods = ['POST', 'GET'])
@@ -94,10 +94,11 @@ def sleep():
             'sleep.html',
             babies = get_babies(),
             lastBaby = get_last_baby_sleep(),
-            recentEvents = sleep_recent_events()
+            recentEvents = sleep_recent_events(),
+            prefs = get_prefs()
         )
 
-@app.route('/feed')
+@app.route('/feed',methods = ['POST', 'GET'])
 def feed():
     """Renders the feed page."""
     if request.method == 'POST':
@@ -112,7 +113,7 @@ def feed():
         return render_template(
             'feed.html',
             babies = get_babies(),
-            #lastBaby = get_last_baby_feed(),       NEED - get_last_baby_feed
+            lastBaby = get_last_baby_feed(),
             recentEvents = feed_recent_events()
         )
 

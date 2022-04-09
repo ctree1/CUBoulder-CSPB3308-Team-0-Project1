@@ -35,7 +35,9 @@ function setupUpdateSubmitBtns() {
     }
 }
 function setupUpdateSaveBtn() {
-    if (preferences.weightUnits != WeightUnitsEnum.none && preferences.liquidUnits != LiquidUnitsEnum.none) {
+    if (preferences.weightUnits != WeightUnitsEnum.none &&
+        preferences.liquidUnits != LiquidUnitsEnum.none &&
+        preferences.heightUnits != HeightUnitsEnum.none) {
         btnSaveElem.disabled = false;
     }
     else {

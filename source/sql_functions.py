@@ -112,6 +112,10 @@ def get_last_baby_sleep(db_path = "./sqlite3/baby.db"):
     conn.close()
     return babyid
     
+def get_last_baby_feed(db_path = "./sqlite3/baby.db"):
+    #TODO - Needs to be completed
+    return 1
+
 # function inserts new baby into database
 # SELECT * FROM babies shows babies table as (1, u'Baby', u'2022-02-02', u'Jane', u'Test2')
 def add_baby(baby_dict, db_path = "./sqlite3/baby.db"):
