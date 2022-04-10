@@ -44,8 +44,8 @@ function feedInitialize() {
 }
 function feedUpdateSubmitBtns() {
     if (feedEvent.babyId && feedEvent.babyId != 0 &&
-        (feedEvent.breastSide != FeedSideEnum.none || feedEvent.pumpSide != FeedSideEnum.none) &&
-        feedEvent.bottleType != FeedBottleTypeEnum.none) {
+        (feedEvent.breastSide != FeedSideEnum.none || feedEvent.pumpSide != FeedSideEnum.none ||
+            feedEvent.bottleType != FeedBottleTypeEnum.none)) {
         feedBtnDoneElem.disabled = false;
         feedBtnOneMoreElem.disabled = false;
     }
