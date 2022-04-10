@@ -58,14 +58,14 @@ function feedUpdateSubmitBtns() {
     }
 }
 
-function feedDefaults(babyId: number, [liquidUnits, weightUnits, heightUnits]) {
+function feedDefaults(babyId: number, prefs: number[]) {
     feedEvent.babyId = +babyId;
     feedSelectBabyElem.selectedIndex = babyId;
     feedUpdateSubmitBtns();
 
-    preferences.liquidUnits = liquidUnits;
-    preferences.weightUnits = weightUnits;
-    preferences.heightUnits = heightUnits;
+    preferences.liquidUnits = prefs[0];
+    preferences.weightUnits = prefs[1];
+    preferences.heightUnits = prefs[2];
     // Now updates labels
 }
 

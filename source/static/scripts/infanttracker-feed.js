@@ -54,14 +54,13 @@ function feedUpdateSubmitBtns() {
         feedBtnOneMoreElem.disabled = true;
     }
 }
-function feedDefaults(babyId, _a) {
-    var liquidUnits = _a[0], weightUnits = _a[1], heightUnits = _a[2];
+function feedDefaults(babyId, prefs) {
     feedEvent.babyId = +babyId;
     feedSelectBabyElem.selectedIndex = babyId;
     feedUpdateSubmitBtns();
-    preferences.liquidUnits = liquidUnits;
-    preferences.weightUnits = weightUnits;
-    preferences.heightUnits = heightUnits;
+    preferences.liquidUnits = prefs[0];
+    preferences.weightUnits = prefs[1];
+    preferences.heightUnits = prefs[2];
     // Now updates labels
 }
 function feedUpdateBreastSide(side) {
