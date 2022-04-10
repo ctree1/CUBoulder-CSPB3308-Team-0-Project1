@@ -44,6 +44,11 @@ function setupUpdateSaveBtn() {
         btnSaveElem.disabled = true;
     }
 }
+function setupDefaults(prefs) {
+    setupUpdateLiquidUnits(prefs[0]);
+    setupUpdateWeightUnits(prefs[1]);
+    setupUpdateHeightUnits(prefs[2]);
+}
 function setupUpdateLiquidUnits(units) {
     preferences.liquidUnits = units;
     switch (units) {

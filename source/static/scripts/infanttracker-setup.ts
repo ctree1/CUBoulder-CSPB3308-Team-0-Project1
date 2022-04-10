@@ -46,6 +46,12 @@ function setupUpdateSaveBtn() {
     }
 }
 
+function setupDefaults(prefs : number[]) {
+    setupUpdateLiquidUnits(prefs[0]);
+    setupUpdateWeightUnits(prefs[1]);
+    setupUpdateHeightUnits(prefs[2]);
+}
+
 function setupUpdateLiquidUnits(units: LiquidUnitsEnum) {
     preferences.liquidUnits = units;
     switch (units){

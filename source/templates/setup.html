@@ -72,5 +72,5 @@
 
 {% block scripts %}
 <script src="/static/scripts/infanttracker-common.js"></script>
-<script src="/static/scripts/infanttracker-setup.js"></script>
+<script src="/static/scripts/infanttracker-setup.js" onload="setupDefaults({{ prefs }})"></script>
 {% endblock %}

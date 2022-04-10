@@ -34,16 +34,16 @@
                         Pump</button>
                 </div>
                 <div class="col feed-col-centering">
-                    <button type="button" id="btnBottle" class="btn btn-secondary"
-                        onclick="feedUpdateBottleFormula(1)">Bottle</button>
-                    <button type="button" id="btnFormula" class="btn btn-secondary"
-                        onclick="feedUpdateBottleFormula(2)">Formula</button>
+                    <button type="button" id="btnBottleBreast" class="btn btn-secondary"
+                        onclick="feedUpdateBottleType(1)">Bottle Breast</button>
+                    <button type="button" id="btnBottleFormula" class="btn btn-secondary"
+                        onclick="feedUpdateBottleType(2)">Bottle Formula</button>
                 </div>
             </div>
         </div>
     </div>
     <div class="row feed-row">
-        <div class="col feed-col">
+        <div class="col feed-col" id="divDuration">
                 <button type="button" id="btnDurationStart" class="btn btn-secondary"
                     onclick="feedDurationStart()">Start</button>
                 <button type="button" id="btnDurationStop" class="btn btn-secondary"
@@ -51,21 +51,13 @@
                 <input id="textDurationEntry" type="number" name="btnDurationEntry" style="text-align: right;">
                 <text>min</text>
         </div>
-        <div class="col feed-col">
+        <div class="col feed-col" id="divQuantity">
             <div class="row">
                 <div class="col">
                     <h5>Begin</h5>
                     <div>
                         <input id="textQuantityBeginEntry" type="number" name="textQuantityBeginEntry"
                             style="text-align: right;" oninput="feedQuantityBeginChange(this.value)">
-                        <text>ml</text>
-                    </div>
-                </div>
-                <div class="col">
-                    <h5>Final</h5>
-                    <div>
-                        <input id="textQuantityDiffEntry" type="number" name="textQuantityDiffEntry"
-                            style="text-align: right;" oninput="feedQuantityDiffChange(this.value)">
                         <text>ml</text>
                     </div>
                 </div>
@@ -77,18 +69,17 @@
                         <text>ml</text>
                     </div>
                 </div>
+                <div class="col">
+                    <h5>Final</h5>
+                    <div>
+                        <input id="textQuantityDiffEntry" type="number" name="textQuantityDiffEntry"
+                            style="text-align: right;" oninput="feedQuantityDiffChange(this.value)">
+                        <text>ml</text>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-
-    <!-- <div class="row feed-row">
-        <div class="col feed-col">
-            <div class="form-group">
-                <label for="inputDateTime">Select a date and time:</label>
-                <input type="datetime-local" id="inputDateTime" onChange="feedUpdateDateTime(this.value)" />
-            </div>
-        </div>
-    </div> -->
 </div>
 
 <div class="container mt-3">
@@ -161,23 +152,9 @@
     </table>
 </div>
 
-<!-- feed.feedEventID,\
-babies.firstName || ' ' || babies.lastName as 'Baby',\
-feed.feedDateTime as 'Time',\
-feed.leftBreastDur as 'Left Breast, min',\
-feed.rightBreastDur as 'Right Breast, min',\
-feed.totalBreastDur as 'Total Breast, min',\
-feed.leftPumpQty as 'Left Pump Qty',\
-feed.rightPumpQty as 'Right Pump Qty',\
-feed.totalPumpQty as 'Total Pump Qty',\
-feed.bottleBreastQty as 'Bottle Breast Qty',\
-feed.bottleBreastQty as 'Bottle Formulat Qty',\
-feed.totalBottleQty as 'Total Bottle Qty',\
-feed.feedComment as 'Comment' FROM feed\ -->
-
 {% endblock %}
 
 {% block scripts %}
 <script src="/static/scripts/infanttracker-common.js"></script>
-<script src="/static/scripts/infanttracker-feed.js" onload="feedSelectBaby({{ lastBaby }})"></script>
+<script src="/static/scripts/infanttracker-feed.js" onload="feedDefaults({{ lastBaby }}, {{ prefs|safe }})"></script>
 {% endblock %}

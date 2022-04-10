@@ -21,6 +21,7 @@ def add_prefs(pref_dict, db_path = "./sqlite3/baby.db"):
     cur = conn.cursor()
     
     cur.execute("DROP TABLE IF EXISTS preferences;")
+    cur.execute("CREATE TABLE preferences (liquidUnits DECIMAL DEFAULT 1, weightUnits DECIMAL DEFAULT 1, heightUnits INTEGER DEFAULT 1);")
     cur.execute("PRAGMA foreign_keys = ON") # enforce foreign key constraints
     cur.execute("INSERT INTO preferences (liquidUnits, weightUnits, heightUnits) VALUES (?, ?, ?);",(pref_dict['liquidUnits'],pref_dict['weightUnits'], pref_dict['heightUnits']))
     
@@ -265,7 +266,7 @@ def get_prefs(db_path = "./sqlite3/baby.db"):
     conn.close()
     pref_lst = pref_lst[0]
     #prefs = {"liquid":pref_lst[0], "weight":pref_lst[1], "height":pref_lst[2]}
-    return pref_lst[0]    #return error/success code    
+    return list(pref_lst)  # Jinja has issues passing tuples to javascript function. Change to list.      # return error/success code    
 
 # Convert the units to that of preferences, pass in values for liquid, weight, and height
 # If units are not necessary, pass in value of 0

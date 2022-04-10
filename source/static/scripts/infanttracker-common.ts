@@ -17,9 +17,9 @@ enum FeedSideEnum {
     right = 2
 }
 
-enum FeedBottleFormulaEnum {
+enum FeedBottleTypeEnum {
     none = 0,
-    bottle  = 1,
+    breast  = 1,
     formula = 2
 }
 
@@ -79,10 +79,9 @@ class FeedEvent {
     babyId: number = null;
     breastSide: FeedSideEnum = 0;
     pumpSide: FeedSideEnum = 0;
-    bottleFormula: FeedBottleFormulaEnum = 0;
+    bottleType: FeedBottleTypeEnum = 0;
     duration: number = 0;
     quantity: number = 0;
-
     dateTime: string;
     comment: string = ""
     deleteFlag: boolean = false;

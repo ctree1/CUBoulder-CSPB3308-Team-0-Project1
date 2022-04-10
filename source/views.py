@@ -94,8 +94,7 @@ def sleep():
             'sleep.html',
             babies = get_babies(),
             lastBaby = get_last_baby_sleep(),
-            recentEvents = sleep_recent_events(),
-            prefs = get_prefs()
+            recentEvents = sleep_recent_events()
         )
 
 @app.route('/feed',methods = ['POST', 'GET'])
@@ -114,7 +113,8 @@ def feed():
             'feed.html',
             babies = get_babies(),
             lastBaby = get_last_baby_feed(),
-            recentEvents = feed_recent_events()
+            recentEvents = feed_recent_events(),
+            prefs = get_prefs()
         )
 
 @app.route('/measures')
