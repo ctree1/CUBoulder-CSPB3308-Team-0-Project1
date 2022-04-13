@@ -240,7 +240,7 @@ def feed_recent_events(db_path = "./sqlite3/baby.db"):
         feed.rightPumpQty as 'Right Pump Qty',\
         feed.totalPumpQty as 'Total Pump Qty',\
         feed.bottleBreastQty as 'Bottle Breast Qty',\
-        feed.bottleBreastQty as 'Bottle Formulat Qty',\
+        feed.bottleFormulaQty as 'Bottle Formula Qty',\
         feed.totalBottleQty as 'Total Bottle Qty',\
         feed.feedComment as 'Comment' FROM feed\
         LEFT JOIN babies ON feed.babyID = babies.babyID\
@@ -250,7 +250,40 @@ def feed_recent_events(db_path = "./sqlite3/baby.db"):
 
     feed_recent_lst = []
     for row in rows:
-        row_array = (row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10], row[11], row[12])
+        feed = row[0]
+        name = row[1]
+        dateTime = row[2]
+        leftBreast = row[3]
+        rightBreast = row[4]
+        totalBreast = row[5]
+        leftPump = row[6]
+        if(leftPump != None):
+            leftPump = convert_units(leftPump,0,0)[0]
+
+        rightPump = row[7]
+        if(rightPump != None):
+            rightPump = convert_units(rightPump,0,0)[0]
+        totalPump = row[8]
+
+        if(totalPump != None):
+            totalPump = convert_units(totalPump,0,0)[0]
+
+        bottleBreast = row[9]
+        if(bottleBreast != None):
+            bottleBreast = convert_units(bottleBreast,0,0)[0]
+
+        bottleFormula = row[10]
+        if(bottleFormula != None):
+            bottleFormula = convert_units(bottleFormula,0,0)[0]
+
+        totalBottle = row[11]
+        if(totalBottle != None):
+            totalBottle = convert_units(totalBottle,0,0)[0]
+
+        comment = row[12]
+        print("Comment: ", comment)
+        print("\n")
+        row_array = (feed, name, dateTime, leftBreast, rightBreast, totalBreast, leftPump, rightPump, totalPump, bottleBreast, bottleFormula, totalBottle, comment)
         feed_recent_lst.append(row_array)
 
     conn.commit()
