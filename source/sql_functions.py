@@ -47,7 +47,6 @@ def bathroom_recent_events(db_path = "./sqlite3/baby.db"):
     
     bathroom_recent_lst = []
     for row in rows:
-        print(row)
         row_array = [row[0], row[1], row[2], row[3], row[4]]
         bathroom_recent_lst.append(row_array)
 
@@ -66,7 +65,6 @@ def get_babies_old(db_path = "./sqlite3/baby.db"):
     
     baby_lst = []
     for row in rows:
-        print(row)
         tuple = (row[0], row[3])
         baby_lst.append(tuple)
 
@@ -166,7 +164,6 @@ def sleep_recent_events(db_path = "./sqlite3/baby.db"):
     
     sleep_recent_lst = []
     for row in rows:
-        print(row)
         row_array = (row[0], row[1], row[2], row[3], row[4], row[5])
         sleep_recent_lst.append(row_array)
 
@@ -176,7 +173,37 @@ def sleep_recent_events(db_path = "./sqlite3/baby.db"):
 
 #feed function, added for testing
 def feed_sql_ins(value, db_path = "./sqlite3/baby.db"):
-    pass
+    #{'eventId': None, 'babyId': 1, 'breastSide': 2, 'pumpSide': 0, 'bottleType': 0, 'duration': 5, 
+    #'quantity': 0, 'comment': '', 'deleteFlag': False, 'dateTime': '2022-04-13T14:19:36'}
+    conn = sqlite3.connect(db_path)       #connect to database
+    cur = conn.cursor()
+    babyID = value['babyId']       #split dictionary into individual variables
+    leftBreastDur, rightBreastDur, leftPumpQty, rightPumpQty, bottleBreastQty, bottleFormulaQty = None,None,None,None,None,None
+    
+    if(value['breastSide'] == 1):
+        leftBreastDur = value['duration']
+    elif(value['breastSide'] == 2):
+        rightBreastDur = value['duration']
+    elif(value['pumpSide'] == 1):
+        leftPumpQty = value['quantity']
+    elif(value['pumpSide'] == 2):
+        rightPumpQty = value['quantity']
+    elif(value['bottleType'] == 1):
+        bottleBreastQty = value['quantity'] 
+    elif(value['bottleType'] == 2):
+        bottleFormulaQty = value['quantity']   
+    feedComment = value['comment']
+    feedDateTime = value['dateTime']
+
+    #execute sql insert statement
+    cur.execute("PRAGMA foreign_keys = ON")
+    cur.execute("INSERT INTO feed (\
+        babyID,leftBreastDur,rightBreastDur,leftPumpQty,\
+        rightPumpQty,bottleBreastQty,bottleFormulaQty,\
+        feedDateTime, feedComment) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);"
+        ,(babyID, leftBreastDur, rightBreastDur, leftPumpQty, rightPumpQty, bottleBreastQty, bottleFormulaQty, feedDateTime, feedComment))
+    conn.commit()
+    conn.close()
 
 def delete_rows(table, eventID, db_path = "./sqlite3/baby.db"):
     conn = sqlite3.connect(db_path)       #connect to database
@@ -223,7 +250,6 @@ def feed_recent_events(db_path = "./sqlite3/baby.db"):
 
     feed_recent_lst = []
     for row in rows:
-        print(row)
         row_array = (row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10], row[11], row[12])
         feed_recent_lst.append(row_array)
 

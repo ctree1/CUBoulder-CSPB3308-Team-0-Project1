@@ -106,6 +106,7 @@ def feed():
         if feed_event['feedEvent']['deleteFlag'] == True:
             delete_rows('feed', feed_event['feedEvent']['eventId'])
         else:
+            print(feed_event['feedEvent'])
             feed_sql_ins(feed_event['feedEvent'])             #insert into database
         return  jsonify(""), 200
     else:

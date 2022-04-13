@@ -18,6 +18,6 @@ def read_db(db_path = "./sqlite3/baby.db", query = "SELECT * FROM babies"):
     return rows # return rows if you want them
 
 # one of many queries which could be inserted into read_db()
-query = '''SELECT * FROM preferences'''
+query = '''SELECT * FROM feed'''
 
 read_db(query=query)
