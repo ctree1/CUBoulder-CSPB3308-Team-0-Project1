@@ -112,8 +112,16 @@ def get_last_baby_sleep(db_path = "./sqlite3/baby.db"):
     return babyid
     
 def get_last_baby_feed(db_path = "./sqlite3/baby.db"):
-    #TODO - Needs to be completed
-    return 1
+    conn = sqlite3.connect(db_path)       #connect to database
+    cur = conn.cursor()   
+
+    # query database for last babies stored in sleep
+    cur.execute("PRAGMA foreign_keys = ON")
+    cur.execute("SELECT babyID FROM feed ORDER BY feedDateTime DESC LIMIT 1;")
+    baby_lst = cur.fetchone()
+    babyid = baby_lst[0] #take first tuple
+    conn.close()
+    return babyid
 
 # function inserts new baby into database
 # SELECT * FROM babies shows babies table as (1, u'Baby', u'2022-02-02', u'Jane', u'Test2')
