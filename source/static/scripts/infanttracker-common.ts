@@ -97,7 +97,9 @@ function postDataToServer(url: string, data: any, goHome: boolean, callback: Fun
             if (goHome) {
                 window.open("/home",'_self');
             } else {
-                callback();
+                if (callback) {
+                    callback();
+                }
                 window.location.reload();
             }
         }

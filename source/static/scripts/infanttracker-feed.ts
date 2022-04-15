@@ -1,6 +1,5 @@
 var feedEvent = new FeedEvent();
-var preferences = new Preferences();
-
+var feedPreferences = new Preferences();
 var feedBtnLeftBreastElem = <HTMLButtonElement>document.getElementById('btnLeftBreast');
 var feedBtnRightBreastElem = <HTMLButtonElement>document.getElementById('btnRightBreast');
 var feedBtnLeftPumpElem = <HTMLButtonElement>document.getElementById('btnLeftPump');
@@ -61,15 +60,87 @@ function feedUpdateSubmitBtns() {
     }
 }
 
+function feedSelectBaby(babyId: number) {
+    feedEvent.babyId = +babyId;
+    feedSelectBabyElem.selectedIndex = babyId;
+    feedUpdateSubmitBtns();
+}
+
+function updateUnits(label: string, units: string): string {
+    var re = /.*\(.*\)/;
+    var matchTest = label.search(re);
+    if (matchTest != -1) {
+        var newLabel = label.replace( /\(.*\)/, "(" + units + ")")
+        return newLabel;
+    } else {
+        return units;
+    }
+}
+
 function feedDefaults(babyId: number, prefs: number[]) {
+    // Update last baby
     feedEvent.babyId = +babyId;
     feedSelectBabyElem.selectedIndex = babyId;
     feedUpdateSubmitBtns();
 
-    preferences.liquidUnits = prefs[0];
-    preferences.weightUnits = prefs[1];
-    preferences.heightUnits = prefs[2];
-    // Now updates labels
+    // Update unit preferences
+    feedPreferences.liquidUnits = prefs[0];
+    feedPreferences.weightUnits = prefs[1];
+    feedPreferences.heightUnits = prefs[2];
+    var elems = Array.prototype.slice.call(feedLabelPrefLiquidElems)
+    switch (feedPreferences.liquidUnits) {
+        case LiquidUnitsEnum.ounces:
+            elems.forEach((elem: HTMLElement) => {
+                elem.innerText = updateUnits(elem.innerText, "oz");
+            });
+            break;
+        case LiquidUnitsEnum.milliliters:
+            elems.forEach((elem: HTMLElement) => {
+                elem.innerText = updateUnits(elem.innerText, "ml");
+            });
+            break;
+        default:
+            elems.forEach((elem: HTMLElement) => {
+                elem.innerText = "";
+            });
+            break;
+    }
+    var elems = Array.prototype.slice.call(feedLabelPrefWeightElems)
+    switch (feedPreferences.weightUnits) {
+        case WeightUnitsEnum.pounds:
+            elems.forEach((elem: HTMLElement) => {
+                elem.innerText = updateUnits(elem.innerText, "lb");
+            });
+            break;
+        case WeightUnitsEnum.kilograms:
+            elems.forEach((elem: HTMLElement) => {
+                elem.innerText = updateUnits(elem.innerText, "kg");
+            });
+            break;
+        default:
+            elems.forEach((elem: HTMLElement) => {
+                elem.innerText = "";
+            });
+            break;
+    }
+    var elems = Array.prototype.slice.call(feedLabelPrefHeightElems)
+    switch (feedPreferences.heightUnits) {
+        case HeightUnitsEnum.inches:
+            elems.forEach((elem: HTMLElement) => {
+                elem.innerText = updateUnits(elem.innerText, "in");
+            });
+            break;
+        case HeightUnitsEnum.centimeters:
+            elems.forEach((elem: HTMLElement) => {
+                elem.innerText = updateUnits(elem.innerText, "cm");
+            });
+            break;
+        default:
+            elems.forEach((elem: HTMLElement) => {
+                elem.innerText = "";
+            });
+            break;
+    }
 }
 
 function feedUpdateBreastSide(side: FeedSideEnum) {
@@ -170,6 +241,10 @@ function feedDurationStop() {
     feedUpdateDurationStartStop();
 }
 
+function feedDurationChange(duration: number) {
+    feedEvent.duration = duration;
+}
+
 function feedUpdateQuantityDiff() {
     feedTextQuantityDiffEntryElem.value = feedEvent.quantity.toString();
 }
@@ -201,6 +276,7 @@ function feedUpdateComment(comment: string) {
 }
 
 function feedAddFeedEvent(goHome: boolean) {
+    feedDurationStop();
     var data = { "feedEvent": feedEvent }
     postDataToServer("/feed", data, goHome, feedInitialize);
 }

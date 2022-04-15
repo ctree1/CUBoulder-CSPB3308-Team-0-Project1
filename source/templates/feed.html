@@ -48,7 +48,7 @@
                     onclick="feedDurationStart()">Start</button>
                 <button type="button" id="btnDurationStop" class="btn btn-secondary"
                     onclick="feedDurationStop()">Stop</button>
-                <input id="textDurationEntry" type="number" name="btnDurationEntry" style="text-align: right;">
+                <input id="textDurationEntry" type="number" name="btnDurationEntry" style="text-align: right;" oninput="feedDurationChange(this.value)">
                 <text>min</text>
         </div>
         <div class="col feed-col" id="divQuantity">
@@ -110,16 +110,12 @@
             <tr>
                 <th scope="col">DateTime</th>
                 <th scope="col">Name</th>
-
                 <th scope="col">Left Breast (min)</th>
                 <th scope="col">Right Breast (min)</th>
-
-                <th scope="col">Left Pump Qty (ml)</th>
-                <th scope="col">Right Pump Qty (ml)</th>
-
-                <th scope="col">Bottle Breast Qty (ml)</th>
-                <th scope="col">Bottle Formula Qty (ml)</th>
-
+                <th scope="col" class="labelPrefLiquid">Left Pump Qty (ml)</th>
+                <th scope="col" class="labelPrefLiquid">Right Pump Qty (ml)</th>
+                <th scope="col" class="labelPrefLiquid">Bottle Breast Qty (ml)</th>
+                <th scope="col" class="labelPrefLiquid">Bottle Formula Qty (ml)</th>
                 <th scope="col">Comment</th>
                 <th scope="col">Delete</th>
                 <th scope="col">Save</th>
@@ -132,17 +128,12 @@
             <tr>
                 <td><input type="datetime-local" value="{{ event[2] }}" /></td>
                 <td>{{ event[1] }}</td>
-
                 <td>{{ event[3] }}</td>
                 <td>{{ event[4] }}</td>
-
                 <td>{{ event[6] }}</td>
                 <td>{{ event[7] }}</td>
-
                 <td>{{ event[9] }}</td>
                 <td>{{ event[10] }}</td>
-
-
                 <td><textarea class="form-control" rows="1">{{ event[12] }}</textarea></td>
                 <td><button type="button" class="btn btn-danger"
                         onClick="feedDeleteFeedEvent({{ event[0]|safe }})">Delete</button></td>

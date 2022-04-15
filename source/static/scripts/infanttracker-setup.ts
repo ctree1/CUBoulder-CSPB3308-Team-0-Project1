@@ -1,20 +1,24 @@
-var baby = new Baby();
-var preferences  = new Preferences();
-var dateElem = <HTMLInputElement>document.getElementById('inputBirthDate');
-var inputFirstNameElem = <HTMLInputElement>document.getElementById('inputFirstName');
-var inputLastNameElem = <HTMLInputElement>document.getElementById('inputLastName');
-var inputAbbrevElem = <HTMLInputElement>document.getElementById('inputAbbrev');
-var inputBirthWeightElem = <HTMLInputElement>document.getElementById('inputBirthWeight');
-var inputBirthHeightElem = <HTMLInputElement>document.getElementById('inputBirthHeight');
-var btnLiquidOzElem = <HTMLInputElement>document.getElementById('btnLiquidOz');
-var btnLiquidMlElem = <HTMLInputElement>document.getElementById('btnLiquidMl');
-var btnWeightLbElem = <HTMLInputElement>document.getElementById('btnWeightLb');
-var btnWeightKgElem = <HTMLInputElement>document.getElementById('btnWeightKg');
-var btnHeightInElem = <HTMLInputElement>document.getElementById('btnHeightIn');
-var btnHeightCmElem = <HTMLInputElement>document.getElementById('btnHeightCm');
-var btnOneMoreElem = <HTMLInputElement>document.getElementById('btnOneMore');
-var btnDoneElem = <HTMLInputElement>document.getElementById('btnDone');
-var btnSaveElem = <HTMLInputElement>document.getElementById('btnSave');
+var setupBaby = new Baby();
+var setupPreferences  = new Preferences();
+var setupLastPreferences  = new Preferences();
+var setupDateElem = <HTMLInputElement>document.getElementById('inputBirthDate');
+var setupInputFirstNameElem = <HTMLInputElement>document.getElementById('inputFirstName');
+var setupInputLastNameElem = <HTMLInputElement>document.getElementById('inputLastName');
+var setupInputAbbrevElem = <HTMLInputElement>document.getElementById('inputAbbrev');
+var setupInputBirthWeightElem = <HTMLInputElement>document.getElementById('inputBirthWeight');
+var setupInputBirthHeightElem = <HTMLInputElement>document.getElementById('inputBirthHeight');
+var setupBtnLiquidOzElem = <HTMLInputElement>document.getElementById('btnLiquidOz');
+var setupBtnLiquidMlElem = <HTMLInputElement>document.getElementById('btnLiquidMl');
+var setupBtnWeightLbElem = <HTMLInputElement>document.getElementById('btnWeightLb');
+var setupBtnWeightKgElem = <HTMLInputElement>document.getElementById('btnWeightKg');
+var setupBtnHeightInElem = <HTMLInputElement>document.getElementById('btnHeightIn');
+var setupBtnHeightCmElem = <HTMLInputElement>document.getElementById('btnHeightCm');
+var setupBtnOneMoreElem = <HTMLInputElement>document.getElementById('btnOneMore');
+var setupBtnDoneElem = <HTMLInputElement>document.getElementById('btnDone');
+var setupBtnSaveElem = <HTMLInputElement>document.getElementById('btnSave');
+var setupLabelPrefLiquidElems = <HTMLCollectionOf<HTMLElement>>document.getElementsByClassName('labelPrefLiquid');
+var setupLabelPrefWeightElems = <HTMLCollectionOf<HTMLElement>>document.getElementsByClassName('labelPrefWeight');
+var setupLabelPrefHeightElems = <HTMLCollectionOf<HTMLElement>>document.getElementsByClassName('labelPrefHeight');
 setupInitialize()
 
 function setupInitialize() {
@@ -27,130 +31,190 @@ function setupInitialize() {
 }
 
 function setupUpdateSubmitBtns() {
-    if (baby.birthDate && baby.firstName.length != 0 && baby.lastName.length != 0) {
-        btnDoneElem.disabled = false;
-        btnOneMoreElem.disabled = false;
+    if (setupBaby.birthDate && setupBaby.firstName.length != 0 && setupBaby.lastName.length != 0) {
+        setupBtnDoneElem.disabled = false;
+        setupBtnOneMoreElem.disabled = false;
     } else {
-        btnDoneElem.disabled = true;
-        btnOneMoreElem.disabled = true;
+        setupBtnDoneElem.disabled = true;
+        setupBtnOneMoreElem.disabled = true;
     }
 }
 
 function setupUpdateSaveBtn() {
-    if (preferences.weightUnits != WeightUnitsEnum.none &&
-        preferences.liquidUnits != LiquidUnitsEnum.none &&
-        preferences.heightUnits != HeightUnitsEnum.none) {
-        btnSaveElem.disabled = false;
+    if ((setupPreferences.liquidUnits != LiquidUnitsEnum.none &&
+        setupPreferences.weightUnits !=  WeightUnitsEnum.none &&
+        setupPreferences.heightUnits != HeightUnitsEnum.none) &&
+        setupLastPreferences.liquidUnits != setupPreferences.liquidUnits ||
+        setupLastPreferences.weightUnits != setupPreferences.weightUnits ||
+        setupLastPreferences.heightUnits != setupPreferences.heightUnits) {
+        setupBtnSaveElem.disabled = false;
     } else {
-        btnSaveElem.disabled = true;
+        setupBtnSaveElem.disabled = true;
     }
 }
 
 function setupDefaults(prefs : number[]) {
+    setupLastPreferences.liquidUnits = prefs[0];
+    setupLastPreferences.weightUnits = prefs[1];
+    setupLastPreferences.heightUnits = prefs[2];
+    var elems = Array.prototype.slice.call(setupLabelPrefLiquidElems)
+    switch (setupLastPreferences.liquidUnits) {
+        case LiquidUnitsEnum.ounces:
+            elems.forEach((elem: HTMLElement) => {
+                elem.innerText = "oz";
+            });
+            break;
+        case LiquidUnitsEnum.milliliters:
+            elems.forEach((elem: HTMLElement) => {
+                elem.innerText = "ml";
+            });
+            break;
+        default:
+            elems.forEach((elem: HTMLElement) => {
+                elem.innerText = "";
+            });
+            break;
+    }
+    var elems = Array.prototype.slice.call(setupLabelPrefWeightElems)
+    switch (setupLastPreferences.weightUnits) {
+        case WeightUnitsEnum.pounds:
+            elems.forEach((elem: HTMLElement) => {
+                elem.innerText = "lb";
+            });
+            break;
+        case WeightUnitsEnum.kilograms:
+            elems.forEach((elem: HTMLElement) => {
+                elem.innerText = "kg";
+            });
+            break;
+        default:
+            elems.forEach((elem: HTMLElement) => {
+                elem.innerText = "";
+            });
+            break;
+    }
+    var elems = Array.prototype.slice.call(setupLabelPrefHeightElems)
+    switch (setupLastPreferences.heightUnits) {
+        case HeightUnitsEnum.inches:
+            elems.forEach((elem: HTMLElement) => {
+                elem.innerText = "in";
+            });
+            break;
+        case HeightUnitsEnum.centimeters:
+            elems.forEach((elem: HTMLElement) => {
+                elem.innerText = "cm";
+            });
+            break;
+        default:
+            elems.forEach((elem: HTMLElement) => {
+                elem.innerText = "";
+            });
+            break;
+    }
     setupUpdateLiquidUnits(prefs[0]);
     setupUpdateWeightUnits(prefs[1]);
     setupUpdateHeightUnits(prefs[2]);
 }
 
 function setupUpdateLiquidUnits(units: LiquidUnitsEnum) {
-    preferences.liquidUnits = units;
+    setupPreferences.liquidUnits = units;
     switch (units){
         case LiquidUnitsEnum.ounces:
-            btnLiquidOzElem.className = "btn btn-primary"
-            btnLiquidMlElem.className = "btn btn-secondary"
+            setupBtnLiquidOzElem.className = "btn btn-primary"
+            setupBtnLiquidMlElem.className = "btn btn-secondary"
             break;
         case LiquidUnitsEnum.milliliters:
-            btnLiquidOzElem.className = "btn btn-secondary"
-            btnLiquidMlElem.className = "btn btn-primary"
+            setupBtnLiquidOzElem.className = "btn btn-secondary"
+            setupBtnLiquidMlElem.className = "btn btn-primary"
             break;
         default:
-            btnLiquidOzElem.className = "btn btn-secondary"
-            btnLiquidMlElem.className = "btn btn-secondary"
+            setupBtnLiquidOzElem.className = "btn btn-secondary"
+            setupBtnLiquidMlElem.className = "btn btn-secondary"
             break;
     }
     setupUpdateSaveBtn();
 }
 
 function setupUpdateWeightUnits(units: WeightUnitsEnum) {
-    preferences.weightUnits = units;
+    setupPreferences.weightUnits = units;
     switch (units){
         case WeightUnitsEnum.pounds:
-            btnWeightLbElem.className = "btn btn-primary"
-            btnWeightKgElem.className = "btn btn-secondary"
+            setupBtnWeightLbElem.className = "btn btn-primary"
+            setupBtnWeightKgElem.className = "btn btn-secondary"
             break;
         case WeightUnitsEnum.kilograms:
-            btnWeightLbElem.className = "btn btn-secondary"
-            btnWeightKgElem.className = "btn btn-primary"
+            setupBtnWeightLbElem.className = "btn btn-secondary"
+            setupBtnWeightKgElem.className = "btn btn-primary"
             break;
         default:
-            btnWeightLbElem.className = "btn btn-secondary"
-            btnWeightKgElem.className = "btn btn-secondary"
+            setupBtnWeightLbElem.className = "btn btn-secondary"
+            setupBtnWeightKgElem.className = "btn btn-secondary"
             break;
     }
     setupUpdateSaveBtn();
 }
 
 function setupUpdateHeightUnits(units: HeightUnitsEnum) {
-    preferences.heightUnits = units;
+    setupPreferences.heightUnits = units;
     switch (units){
         case HeightUnitsEnum.inches:
-            btnHeightInElem.className = "btn btn-primary"
-            btnHeightCmElem.className = "btn btn-secondary"
+            setupBtnHeightInElem.className = "btn btn-primary"
+            setupBtnHeightCmElem.className = "btn btn-secondary"
             break;
         case HeightUnitsEnum.centimeters:
-            btnHeightInElem.className = "btn btn-secondary"
-            btnHeightCmElem.className = "btn btn-primary"
+            setupBtnHeightInElem.className = "btn btn-secondary"
+            setupBtnHeightCmElem.className = "btn btn-primary"
             break;
         default:
-            btnHeightInElem.className = "btn btn-secondary"
-            btnHeightCmElem.className = "btn btn-secondary"
+            setupBtnHeightInElem.className = "btn btn-secondary"
+            setupBtnHeightCmElem.className = "btn btn-secondary"
             break;
     }
     setupUpdateSaveBtn();
 }
 
 function setupUpdateDate(date: string) {
-    baby.birthDate = date;
-    dateElem.value = date;
+    setupBaby.birthDate = date;
+    setupDateElem.value = date;
     setupUpdateSubmitBtns();
 }
 
 function setupUpdateFirstName(name: string) {
-    baby.firstName = name;
-    inputFirstNameElem.value = name;
+    setupBaby.firstName = name;
+    setupInputFirstNameElem.value = name;
     setupUpdateSubmitBtns();
 }
 
 function setupUpdateLastName(name: string) {
-    baby.lastName = name;
-    inputLastNameElem.value = name;
+    setupBaby.lastName = name;
+    setupInputLastNameElem.value = name;
     setupUpdateSubmitBtns();
 }
 
 function setupUpdateAbbrev(abbrev: string) {
-    baby.abbreviation = abbrev;
-    inputAbbrevElem.value = abbrev;
+    setupBaby.abbreviation = abbrev;
+    setupInputAbbrevElem.value = abbrev;
     setupUpdateSubmitBtns();
 }
 
 function setupUpdateBirthWeight(weight: string) {
-    baby.birthWeight = weight;
-    inputBirthWeightElem.value = weight;
+    setupBaby.birthWeight = weight;
+    setupInputBirthWeightElem.value = weight;
     setupUpdateSubmitBtns();
 }
 
 function setupUpdateBirthHeight(height: string) {
-    baby.birthHeight = height;
-    inputBirthHeightElem.value = height;
+    setupBaby.birthHeight = height;
+    setupInputBirthHeightElem.value = height;
     setupUpdateSubmitBtns();
 }
 
 function setupAddBaby(goHome: boolean) {
-    var data = { "baby": baby }
+    var data = { "baby": setupBaby }
     postDataToServer("/setup", data, goHome, setupInitialize);
 } 
 
 function setupSavePrefs() {
-    var data = { "preferences": preferences }
+    var data = { "preferences": setupPreferences }
     postDataToServer("/setup", data, false, null);
 }
