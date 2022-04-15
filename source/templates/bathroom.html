@@ -12,7 +12,7 @@
         <select class="form-select me-3" id="selectBaby" onChange="bathroomSelectBaby(this.value)">
             <option value="null" selected>Select Baby</option>
             {% for baby in babies %}
-                <option value="{{ baby[0] }}">{{ baby[3] }} {{ baby[4] }}</option>
+            <option value="{{ baby[0] }}">{{ baby[3] }} {{ baby[4] }}</option>
             {% endfor %}
         </select>
     </div>
@@ -20,7 +20,8 @@
 
 <div class="container mt-3">
     <h2 class="text-light bg-secondary">Bathroom Type</h2>
-    <button type="button" id="btnLiquid" class="btn btn-secondary" onclick="bathroomUpdateBathroomType(1)">Liquid</button>
+    <button type="button" id="btnLiquid" class="btn btn-secondary"
+        onclick="bathroomUpdateBathroomType(1)">Liquid</button>
     <button type="button" id="btnSolid" class="btn btn-secondary" onclick="bathroomUpdateBathroomType(2)">Solid</button>
     <button type="button" id="btnBoth" class="btn btn-secondary" onclick="bathroomUpdateBathroomType(3)">Both</button>
 </div>
@@ -37,45 +38,49 @@
     <h2 class="text-light bg-secondary">Comments</h2>
     <div class="form-group">
         <label for="comment">Comment:</label>
-        <textarea class="form-control" rows="5" id="textComment" onChange="bathroomUpdateComment(this.value)"></textarea>
+        <textarea class="form-control" rows="5" id="textComment"
+            onChange="bathroomUpdateComment(this.value)"></textarea>
     </div>
 </div>
 </div>
 
 <div class="container mt-3">
-    <button type="button" id="btnDone" class="btn btn-success" onClick='bathroomAddBathroomEvent(true)' disabled>Done</button>
-    <button type="button" id="btnOneMore" class="btn btn-primary" onClick='bathroomAddBathroomEvent(false)' disabled>One More</button>
+    <button type="button" id="btnDone" class="btn btn-success" onClick='bathroomAddBathroomEvent(true)'
+        disabled>Done</button>
+    <button type="button" id="btnOneMore" class="btn btn-primary" onClick='bathroomAddBathroomEvent(false)' disabled>One
+        More</button>
 </div>
 
 <div class="container mt-3">
     <table class="table">
         <thead>
-          <tr>
-            <th scope="col">DateTime</th>
-            <th scope="col">Name</th>
-            <th scope="col">Bathroom Type</th>
-            <th scope="col">Comment</th>
-            <th scope="col">Delete</th>
-            <th scope="col">Save</th>
-          </tr>
+            <tr>
+                <th scope="col">DateTime</th>
+                <th scope="col">Name</th>
+                <th scope="col">Bathroom Type</th>
+                <th scope="col">Comment</th>
+                <th scope="col">Delete</th>
+                <th scope="col">Save</th>
+            </tr>
         </thead>
         <tbody>
             {% set currEvent = 0 %}
             {% for event in recentEvents %}
-                {% set currEvent = event %}
-                <tr>
-                    <td><input type="datetime-local" value="{{ event[2] }}"/></td>
-                    <td>{{ event[1] }}</td>
-                    <td>{{ event[3] }}</td>
-                    <td><textarea class="form-control" rows="1">{{ event[4] }}</textarea></td>
-                    <td><button type="button" class="btn btn-danger" onClick="bathroomDeleteBathroomEvent({{ event[0]|safe }})">Delete</button></td>
-                    <td><button type="button" class="btn btn-success" disabled onClick="bathroomSaveBathroomEvent({{ event|safe }})">Save</button></td>
-                </tr>
+            {% set currEvent = event %}
+            <tr>
+                <td><input type="datetime-local" value="{{ event[2] }}" /></td>
+                <td>{{ event[1] }}</td>
+                <td>{{ event[3] }}</td>
+                <td><textarea class="form-control" rows="1">{{ event[4] }}</textarea></td>
+                <td><button type="button" class="btn btn-danger"
+                        onClick="bathroomDeleteBathroomEvent({{ event[0]|safe }})">Delete</button></td>
+                <td><button type="button" class="btn btn-success" disabled
+                        onClick="bathroomSaveBathroomEvent({{ event|safe }})">Save</button></td>
+            </tr>
             {% endfor %}
         </tbody>
-      </table>
+    </table>
 </div>
-
 {% endblock %}
 
 {% block scripts %}
