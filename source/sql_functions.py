@@ -47,7 +47,6 @@ def bathroom_recent_events(db_path = "./sqlite3/baby.db"):
     
     bathroom_recent_lst = []
     for row in rows:
-        print(row)
         row_array = [row[0], row[1], row[2], row[3], row[4]]
         bathroom_recent_lst.append(row_array)
 
@@ -66,7 +65,6 @@ def get_babies_old(db_path = "./sqlite3/baby.db"):
     
     baby_lst = []
     for row in rows:
-        print(row)
         tuple = (row[0], row[3])
         baby_lst.append(tuple)
 
@@ -114,8 +112,16 @@ def get_last_baby_sleep(db_path = "./sqlite3/baby.db"):
     return babyid
     
 def get_last_baby_feed(db_path = "./sqlite3/baby.db"):
-    #TODO - Needs to be completed
-    return 1
+    conn = sqlite3.connect(db_path)       #connect to database
+    cur = conn.cursor()   
+
+    # query database for last babies stored in sleep
+    cur.execute("PRAGMA foreign_keys = ON")
+    cur.execute("SELECT babyID FROM feed ORDER BY feedDateTime DESC LIMIT 1;")
+    baby_lst = cur.fetchone()
+    babyid = baby_lst[0] #take first tuple
+    conn.close()
+    return babyid
 
 # function inserts new baby into database
 # SELECT * FROM babies shows babies table as (1, u'Baby', u'2022-02-02', u'Jane', u'Test2')
@@ -166,7 +172,6 @@ def sleep_recent_events(db_path = "./sqlite3/baby.db"):
     
     sleep_recent_lst = []
     for row in rows:
-        print(row)
         row_array = (row[0], row[1], row[2], row[3], row[4], row[5])
         sleep_recent_lst.append(row_array)
 
@@ -176,7 +181,37 @@ def sleep_recent_events(db_path = "./sqlite3/baby.db"):
 
 #feed function, added for testing
 def feed_sql_ins(value, db_path = "./sqlite3/baby.db"):
-    pass
+    #{'eventId': None, 'babyId': 1, 'breastSide': 2, 'pumpSide': 0, 'bottleType': 0, 'duration': 5, 
+    #'quantity': 0, 'comment': '', 'deleteFlag': False, 'dateTime': '2022-04-13T14:19:36'}
+    conn = sqlite3.connect(db_path)       #connect to database
+    cur = conn.cursor()
+    babyID = value['babyId']       #split dictionary into individual variables
+    leftBreastDur, rightBreastDur, leftPumpQty, rightPumpQty, bottleBreastQty, bottleFormulaQty = None,None,None,None,None,None
+    
+    if(value['breastSide'] == 1):
+        leftBreastDur = value['duration']
+    elif(value['breastSide'] == 2):
+        rightBreastDur = value['duration']
+    elif(value['pumpSide'] == 1):
+        leftPumpQty = value['quantity']
+    elif(value['pumpSide'] == 2):
+        rightPumpQty = value['quantity']
+    elif(value['bottleType'] == 1):
+        bottleBreastQty = value['quantity'] 
+    elif(value['bottleType'] == 2):
+        bottleFormulaQty = value['quantity']   
+    feedComment = value['comment']
+    feedDateTime = value['dateTime']
+
+    #execute sql insert statement
+    cur.execute("PRAGMA foreign_keys = ON")
+    cur.execute("INSERT INTO feed (\
+        babyID,leftBreastDur,rightBreastDur,leftPumpQty,\
+        rightPumpQty,bottleBreastQty,bottleFormulaQty,\
+        feedDateTime, feedComment) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);"
+        ,(babyID, leftBreastDur, rightBreastDur, leftPumpQty, rightPumpQty, bottleBreastQty, bottleFormulaQty, feedDateTime, feedComment))
+    conn.commit()
+    conn.close()
 
 def delete_rows(table, eventID, db_path = "./sqlite3/baby.db"):
     conn = sqlite3.connect(db_path)       #connect to database
@@ -213,7 +248,7 @@ def feed_recent_events(db_path = "./sqlite3/baby.db"):
         feed.rightPumpQty as 'Right Pump Qty',\
         feed.totalPumpQty as 'Total Pump Qty',\
         feed.bottleBreastQty as 'Bottle Breast Qty',\
-        feed.bottleBreastQty as 'Bottle Formulat Qty',\
+        feed.bottleFormulaQty as 'Bottle Formula Qty',\
         feed.totalBottleQty as 'Total Bottle Qty',\
         feed.feedComment as 'Comment' FROM feed\
         LEFT JOIN babies ON feed.babyID = babies.babyID\
@@ -223,8 +258,40 @@ def feed_recent_events(db_path = "./sqlite3/baby.db"):
 
     feed_recent_lst = []
     for row in rows:
-        print(row)
-        row_array = (row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10], row[11], row[12])
+        feed = row[0]
+        name = row[1]
+        dateTime = row[2]
+        leftBreast = row[3]
+        rightBreast = row[4]
+        totalBreast = row[5]
+        leftPump = row[6]
+        if(leftPump != None):
+            leftPump = convert_units(leftPump,0,0)[0]
+
+        rightPump = row[7]
+        if(rightPump != None):
+            rightPump = convert_units(rightPump,0,0)[0]
+        totalPump = row[8]
+
+        if(totalPump != None):
+            totalPump = convert_units(totalPump,0,0)[0]
+
+        bottleBreast = row[9]
+        if(bottleBreast != None):
+            bottleBreast = convert_units(bottleBreast,0,0)[0]
+
+        bottleFormula = row[10]
+        if(bottleFormula != None):
+            bottleFormula = convert_units(bottleFormula,0,0)[0]
+
+        totalBottle = row[11]
+        if(totalBottle != None):
+            totalBottle = convert_units(totalBottle,0,0)[0]
+
+        comment = row[12]
+        print("Comment: ", comment)
+        print("\n")
+        row_array = (feed, name, dateTime, leftBreast, rightBreast, totalBreast, leftPump, rightPump, totalPump, bottleBreast, bottleFormula, totalBottle, comment)
         feed_recent_lst.append(row_array)
 
     conn.commit()
