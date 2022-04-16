@@ -187,6 +187,7 @@ def feed_sql_ins(value, db_path = "./sqlite3/baby.db"):
     cur = conn.cursor()
     babyID = value['babyId']       #split dictionary into individual variables
     leftBreastDur, rightBreastDur, leftPumpQty, rightPumpQty, bottleBreastQty, bottleFormulaQty = None,None,None,None,None,None
+    prefs = get_prefs()
     
     if(value['breastSide'] == 1):
         leftBreastDur = value['duration']
@@ -194,12 +195,20 @@ def feed_sql_ins(value, db_path = "./sqlite3/baby.db"):
         rightBreastDur = value['duration']
     elif(value['pumpSide'] == 1):
         leftPumpQty = value['quantity']
+        if(prefs[0] == 2):
+            leftPumpQty = leftPumpQty / 29.5735
     elif(value['pumpSide'] == 2):
         rightPumpQty = value['quantity']
+        if(prefs[0] == 2):
+            rightPumpQty = rightPumpQty / 29.5735
     elif(value['bottleType'] == 1):
         bottleBreastQty = value['quantity'] 
+        if(prefs[0] == 2):
+            bottleBreastQty = bottleBreastQty / 29.5735
     elif(value['bottleType'] == 2):
-        bottleFormulaQty = value['quantity']   
+        bottleFormulaQty = value['quantity']  
+        if(prefs[0] == 2):
+            bottleFormulaQty = bottleFormulaQty / 29.5735 
     feedComment = value['comment']
     feedDateTime = value['dateTime']
 
