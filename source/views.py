@@ -45,12 +45,10 @@ def setup():
         if 'preferences' in baby_and_prefs.keys():
             prefs = baby_and_prefs['preferences']
             add_prefs(prefs)
-            print("Preferences: " + str(prefs))
             # update DB with preferences
         elif 'baby' in baby_and_prefs.keys():
             baby = baby_and_prefs['baby']
             add_baby(baby)
-            print("Baby: " + str(baby))
             # update DB with preferences
         return  jsonify(""), 200
     else:

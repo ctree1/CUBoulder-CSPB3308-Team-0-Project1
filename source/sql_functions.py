@@ -196,19 +196,20 @@ def feed_sql_ins(value, db_path = "./sqlite3/baby.db"):
     elif(value['pumpSide'] == 1):
         leftPumpQty = value['quantity']
         if(prefs[0] == 2):
-            leftPumpQty = leftPumpQty / 29.5735
+            leftPumpQty = round(float(leftPumpQty) / 29.5735, 2)
+            
     elif(value['pumpSide'] == 2):
         rightPumpQty = value['quantity']
         if(prefs[0] == 2):
-            rightPumpQty = rightPumpQty / 29.5735
+            rightPumpQty = round(float(rightPumpQty) / 29.5735, 2)
     elif(value['bottleType'] == 1):
         bottleBreastQty = value['quantity'] 
         if(prefs[0] == 2):
-            bottleBreastQty = bottleBreastQty / 29.5735
+            bottleBreastQty = round(float(bottleBreastQty) / 29.5735, 2)
     elif(value['bottleType'] == 2):
         bottleFormulaQty = value['quantity']  
         if(prefs[0] == 2):
-            bottleFormulaQty = bottleFormulaQty / 29.5735 
+            bottleFormulaQty = round(float(bottleFormulaQty) / 29.5735, 2) 
     feedComment = value['comment']
     feedDateTime = value['dateTime']
 
@@ -273,33 +274,32 @@ def feed_recent_events(db_path = "./sqlite3/baby.db"):
         leftBreast = row[3]
         rightBreast = row[4]
         totalBreast = row[5]
+        
         leftPump = row[6]
         if(leftPump != None):
-            leftPump = convert_units(leftPump,0,0)[0]
+            leftPump = round(convert_units(leftPump,0,0)[0],2)
 
         rightPump = row[7]
         if(rightPump != None):
-            rightPump = convert_units(rightPump,0,0)[0]
+            rightPump = round(convert_units(rightPump,0,0)[0],2)
+        
         totalPump = row[8]
-
         if(totalPump != None):
             totalPump = convert_units(totalPump,0,0)[0]
 
         bottleBreast = row[9]
         if(bottleBreast != None):
-            bottleBreast = convert_units(bottleBreast,0,0)[0]
+            bottleBreast = round(convert_units(bottleBreast,0,0)[0],2)
 
         bottleFormula = row[10]
         if(bottleFormula != None):
-            bottleFormula = convert_units(bottleFormula,0,0)[0]
+            bottleFormula = round(convert_units(bottleFormula,0,0)[0],2)
 
         totalBottle = row[11]
         if(totalBottle != None):
             totalBottle = convert_units(totalBottle,0,0)[0]
 
         comment = row[12]
-        print("Comment: ", comment)
-        print("\n")
         row_array = (feed, name, dateTime, leftBreast, rightBreast, totalBreast, leftPump, rightPump, totalPump, bottleBreast, bottleFormula, totalBottle, comment)
         feed_recent_lst.append(row_array)
 
