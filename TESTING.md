@@ -102,8 +102,7 @@ All database entries in test.db are cleared after testing
 2. Follow the form inputs to add a baby
 3. Navigate to the Bathroom menu to ensure your baby is avaialble to select
 
-Step 1 Fails - Main menu is not yet implemented
-Steps 2 and 3 pass
+All steps pass
 
 ### Log a bathroom event
 1. From the main menu, select the bathroom page
@@ -111,12 +110,11 @@ Steps 2 and 3 pass
 3. Select the type of bathroom event
 4. The current time will be logged by default. Change the time and date if needed using the calendar icon
 5. Select Done to log the event and return to the main menu. Select One More to log this event and continue with another event.
-6. Check the tabular data page for recent entries
+6. Check the tabular data for recent entries
  
-Step 1 fail, not implemented - workaround is to use the ribbon
 Step 2 fail, not implemented
-Step 3 - 5 pass
-Step 6 fail, not implemented
+Step 3 - 6 pass
+
 
 ### Log a sleep event
 1. From the main menu, select the sleep page
@@ -124,10 +122,9 @@ Step 6 fail, not implemented
 3. Select the type of sleep event
 4. The current time will be logged by default. Change the time and date if needed using the calendar icon
 5. Select Done to log the event and return to the main menu. Select One More to log this event and continue with another event.
-6. Check the tabular data page for recent entries
+6. Check the tabular data for recent entries
  
-Step 1 fail, not implemented - workaround is to use the ribbon
-Steps 2 - 6 fail, not implemented
+All steps pass
 
 ### Log a feed event
 1. From the main menu, select the feed/eat page
@@ -138,5 +135,4 @@ Steps 2 - 6 fail, not implemented
 5. Select Done to log the event and return to the main menu. Select One More to log this event and continue with another event.
 7. Check the tabular data page for recent entries
  
-Step 1 fail, not implemented - workaround is to use the ribbon
-Steps 2 - 7 fail, not implemented
+All steps pass
