@@ -417,35 +417,35 @@ class Sleep:
     
 class Feed:
     def __init__(self, rows):
-        feedEventID = []
-        eventType = []
-        babyID = []
-        leftBreastDur = []
-        rigthBreastDur = []
-        totalBreastDur = []
-        leftPumpQty = []
-        rightPumpQty = []
-        totalPumpQty = []
-        bottleBreastQty = []
-        bottleFormulaQty = []
-        totalBottleQty = []
-        feedDateTime = []
-        feedComment = []
+        self.feedEventID = []
+        self.eventType = []
+        self.babyID = []
+        self.leftBreastDur = []
+        self.rightBreastDur = []
+        self.totalBreastDur = []
+        self.leftPumpQty = []
+        self.rightPumpQty = []
+        self.totalPumpQty = []
+        self.bottleBreastQty = []
+        self.bottleFormulaQty = []
+        self.totalBottleQty = []
+        self.feedDateTime = []
+        self.feedComment = []
         for row in rows:
-            feedEventID.append(row[0])
-            eventType.append(row[1])
-            babyID.append(row[2])
-            leftBreastDur.append(row[3])
-            rigthBreastDur.append(row[4])
-            totalBreastDur.append(row[5])
-            leftPumpQty.append(row[6])
-            rightPumpQty.append(row[7])
-            totalPumpQty.append(row[8])
-            bottleBreastQty.append(row[9])
-            bottleFormulaQty.append(row[10])
-            totalBottleQty.append(row[11])
-            feedDateTime.append(row[12])
-            feedComment.append(row[13])
+            self.feedEventID.append(row[0])
+            self.eventType.append(row[1])
+            self.babyID.append(row[2])
+            self.leftBreastDur.append(row[3])
+            self.rightBreastDur.append(row[4])
+            self.totalBreastDur.append(row[5])
+            self.leftPumpQty.append(row[6])
+            self.rightPumpQty.append(row[7])
+            self.totalPumpQty.append(row[8])
+            self.bottleBreastQty.append(row[9])
+            self.bottleFormulaQty.append(row[10])
+            self.totalBottleQty.append(row[11])
+            self.feedDateTime.append(row[12])
+            self.feedComment.append(row[13])
 
 #bathroom_recent_events()
 #sleep_recent_events()
