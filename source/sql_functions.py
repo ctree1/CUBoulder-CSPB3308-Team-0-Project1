@@ -277,11 +277,11 @@ def feed_recent_events(db_path = "./sqlite3/baby.db"):
         
         leftPump = row[6]
         if(leftPump != None):
-            leftPump = round(convert_units(leftPump,0,0)[0],2)
+            leftPump = round(convert_units(leftPump,0,0)[0],0)
 
         rightPump = row[7]
         if(rightPump != None):
-            rightPump = round(convert_units(rightPump,0,0)[0],2)
+            rightPump = round(convert_units(rightPump,0,0)[0],0)
         
         totalPump = row[8]
         if(totalPump != None):
@@ -289,11 +289,11 @@ def feed_recent_events(db_path = "./sqlite3/baby.db"):
 
         bottleBreast = row[9]
         if(bottleBreast != None):
-            bottleBreast = round(convert_units(bottleBreast,0,0)[0],2)
+            bottleBreast = round(convert_units(bottleBreast,0,0)[0],0)
 
         bottleFormula = row[10]
         if(bottleFormula != None):
-            bottleFormula = round(convert_units(bottleFormula,0,0)[0],2)
+            bottleFormula = round(convert_units(bottleFormula,0,0)[0],0)
 
         totalBottle = row[11]
         if(totalBottle != None):
