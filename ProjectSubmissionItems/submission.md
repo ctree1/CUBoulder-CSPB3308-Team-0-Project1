@@ -17,7 +17,7 @@ https://github.com/lamelza/CUBoulder-CSPB3308-Team-0-Project
 3. Documentation, and auto-doc files - https://github.com/lamelza/CUBoulder-CSPB3308-Team-0-Project/tree/main/Documetation
 4. Video of demo (optional)
 5. REAMDE.md - https://github.com/lamelza/CUBoulder-CSPB3308-Team-0-Project/blob/main/README.md
-6. Project presentation files from Milestone 5
+6. Project presentation files from Milestone 5 - https://github.com/lamelza/CUBoulder-CSPB3308-Team-0-Project/tree/main/ProjectSubmissionItems
 
 ## Deployment Link
 https://babytracker2.herokuapp.com/
