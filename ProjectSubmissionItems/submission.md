@@ -6,7 +6,7 @@ Steven Putt, Connor Tree, Michael Lamelza
 https://dev.azure.com/mlamelza
 
 ## Demo Video
-https://drive.google.com/drive/u/1/folders/1XWxJaAd6GaPef4EE0TuVqsiGrfKcIczu
+https://drive.google.com/file/d/1XgQKwu3uZFjtsvFwswOJ-7OkLwOJbYza/view?usp=sharing
 Also inlcuded as an mp4 file in the ProjectSubmissionItems folder.
 
 ## Version control repository link - Github
