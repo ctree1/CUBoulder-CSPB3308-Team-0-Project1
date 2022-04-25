@@ -7,6 +7,7 @@ https://dev.azure.com/mlamelza
 
 ## Demo Video
 https://drive.google.com/drive/u/1/folders/1XWxJaAd6GaPef4EE0TuVqsiGrfKcIczu
+Also inlcuded as an mp4 file in the ProjectSubmissionItems folder.
 
 ## Version control repository link - Github
 https://github.com/lamelza/CUBoulder-CSPB3308-Team-0-Project
